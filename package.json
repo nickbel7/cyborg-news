@@ -1,0 +1,14 @@
+{
+  "name": "cyborg-news",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A printable A4 newspaper for the lab, drawn from data/issue.json at render time.",
+  "scripts": {
+    "start": "node tools/serve.js",
+    "build": "node tools/build.js",
+    "pdf": "node tools/render.js pdf",
+    "proof": "node tools/render.js png",
+    "report": "node tools/render.js report",
+    "logo": "node tools/make-logo.js"
+  }
+}

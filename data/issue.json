@@ -1,0 +1,739 @@
+{
+  "issue": {
+    "name": "CYBORG NEWS",
+    "left_ear": "MIT · CAMBRIDGE, MASS.",
+    "right_ear": "INTERNAL EDITION · NOT FOR CIRCULATION",
+    "site": "CYBORGNEWS.MIT.EDU",
+    "price": "FREE TO THE LAB",
+    "dateline_long": "THURSDAY, SEPTEMBER 10, 2026",
+    "dateline_short": "Thu, Sept. 10, 2026",
+    "volume": "VOL. II",
+    "number": "NO. 9",
+    "pages": 3,
+    "sections": [
+      "",
+      "Models & Method",
+      "The Lab Page"
+    ]
+  },
+  "ticker": [
+    {
+      "k": "F'MATH · ASTRA",
+      "v": "97.6",
+      "d": "unchanged",
+      "dir": "flat"
+    },
+    {
+      "k": "F'MATH · FABLE",
+      "v": "87.8",
+      "d": "+9.8 revised",
+      "dir": "up"
+    },
+    {
+      "k": "EXPLOITBENCH",
+      "v": "11.5",
+      "d": "+6.0 revised",
+      "dir": "up"
+    },
+    {
+      "k": "HALLUC · ASTRA",
+      "v": "4.2%",
+      "d": "reverted",
+      "dir": "flat"
+    },
+    {
+      "k": "LEAN THMS · FLT",
+      "v": "29,500",
+      "d": "11 days",
+      "dir": "up"
+    },
+    {
+      "k": "CACHE READ/MTOK",
+      "v": "$0.25",
+      "d": "−50%",
+      "dir": "down"
+    },
+    {
+      "k": "INJECTION BOUNTY",
+      "v": "$130K",
+      "d": "per user",
+      "dir": "up"
+    }
+  ],
+  "rail": {
+    "title": "What's",
+    "title2": "News",
+    "groups": [
+      {
+        "label": "Research & Models",
+        "items": [
+          {
+            "lead": "A machine-written proof",
+            "text": "of Fermat's Last Theorem cleared the Lean kernel after eleven days of largely autonomous work, at 13 million lines and 29,500 lemmas."
+          },
+          {
+            "lead": "OpenAI edited several",
+            "text": "of the benchmark figures in its Astra announcement after publishing it, including a rival lab's math score, and reverted one of them."
+          },
+          {
+            "lead": "Meta says it designed",
+            "text": "its Muse agent on the assumption that the agent itself will be compromised, isolating each user in a dedicated Linux virtual machine."
+          },
+          {
+            "lead": "Data work, not model work,",
+            "text": "accounted for the larger share of compute-efficiency gains between 2019 and 2025, a 3.24x factor that reframes the scaling argument."
+          },
+          {
+            "lead": "World Labs released Atlas,",
+            "text": "an omni world model that treats text, image, video and 3D as one autoregressive diffusion sequence."
+          }
+        ]
+      },
+      {
+        "label": "Around the Institute",
+        "items": [
+          {
+            "lead": "A new method called CW-Net",
+            "text": "translates the internal state of a self-driving stack into concepts a person can argue with, rather than a saliency map."
+          },
+          {
+            "lead": "A protein-design framework",
+            "text": "from campus raises the success rate of computational design while deliberately steering away from sequences already found in nature."
+          },
+          {
+            "lead": "The QMIT fellows arrive",
+            "text": "this term; the lab hosts two of the cohort and will share the Building 34 cryostat through the spring."
+          },
+          {
+            "lead": "Reading group resumes",
+            "text": "Tuesdays at 4, with the formalization papers first on the list. Sign-up sheet is on the door."
+          }
+        ]
+      }
+    ]
+  },
+  "articles": [
+    {
+      "id": "flt",
+      "page": 1,
+      "priority": 10,
+      "kicker": "Formal Methods",
+      "headline": "The Proof That No Human Wrote",
+      "deck": "Claude closed Fermat's Last Theorem in Lean in eleven days — 13 million lines, 29,500 lemmas, and no human in the verification loop.",
+      "dateline": "Cambridge, Mass.",
+      "art": {
+        "type": "halftone",
+        "field": "tree",
+        "seed": 7,
+        "wmm": 140,
+        "hmm": 46,
+        "gain": 0.95,
+        "capLabel": "Dependency",
+        "caption": "The formalization proceeded as a branching dependency graph: every lemma had to be discharged before the statements above it could close.",
+        "credit": "Cyborg News illustration",
+        "px": 3.2
+      },
+      "body": [
+        "A language model has produced the first complete, machine-checked proof of Fermat's Last Theorem, finishing in eleven days a formalization that had occupied a well-organized human project for years.",
+        "The proof is written in Lean and runs to roughly 13 million lines, establishing some 29,500 intermediate theorems along the way — about five times the bulk of Mathlib, the library the Lean community has been assembling for the better part of a decade. Kevin Buzzard, the Imperial College London mathematician who has led the human effort to formalize the theorem, reviewed the output. It &ldquo;proves Fermat's Last Theorem with no assumptions other than the axioms of mathematics,&rdquo; he wrote.",
+        "Machines have been checking proofs since the 1970s. What is new is that a machine wrote the object being checked, at a scale no reading group could audit by hand, and a far simpler program then confirmed it without anyone having to trust the first. The Lean kernel that validated 13 million lines is a few thousand lines long and has been read by humans. That asymmetry is the whole argument for formalization, and it has just been demonstrated at a scale that makes it hard to wave away."
+      ]
+    },
+    {
+      "id": "astra-metrics",
+      "page": 1,
+      "priority": 9,
+      "kicker": "Benchmarks",
+      "headline": "The Scores Moved After the Post Went Up",
+      "deck": "OpenAI revised several figures in its Astra announcement — including a competitor's — then put one of them back.",
+      "body": [
+        "OpenAI's Sept. 3 announcement of GPT-6 Astra did not load properly, was pulled shortly after 2 p.m., and returned with several of its evaluation numbers changed.",
+        "The reported hallucination rate for Astra fell from 4.2 percent to 2 percent, and then went back to 4.2. The cybersecurity score for GPT-5.6 Sol on ExploitBench roughly doubled, from 5.5 to 11.5. The coding number moved from 57.7 to 57.9. The change that drew the most attention was not to OpenAI's own model: Anthropic's Fable 5.1 appeared on FrontierMath first at 78 percent and later at 87.8 — a rival's score, revised upward, on a chart built to compare it against Astra's 97.6.",
+        "&ldquo;We care deeply about getting evaluations right,&rdquo; a spokesperson said. &ldquo;Most evaluations have noise within a few percentage points.&rdquo; That is true, and it is also true that noise is usually symmetric. &ldquo;It's usually a function of final launch logistics,&rdquo; said Vincent Sunn Chen of Snorkel AI.",
+        "Nothing here requires bad faith. Harnesses are fragile, prompts get corrected, a seed gets fixed, and the number that comes out is genuinely better. The difficulty is that from outside, an honest correction and a flattering rerun look identical. The cheap fix has been available for years: publish the harness, the seeds, the date, and every run — including the ones that came out worse."
+      ]
+    },
+    {
+      "id": "fable-econ",
+      "page": 2,
+      "priority": 6,
+      "kicker": "Model Economics",
+      "headline": "Cache Reads Fall to a Quarter",
+      "deck": "Fable 5.1 landed Sept. 1 with a price change that matters more to long-running agents than the headline capability numbers do.",
+      "body": [
+        "Anthropic's Fable 5.1 arrived on Sept. 1 with a self-reported Terminal-Bench-Science score of 52.6, against 24.7 for its predecessor. The number the lab's infrastructure group circulated, though, was a price: cache reads at $0.25 per million tokens.",
+        "That figure changes the arithmetic of any agent that keeps a long context alive across many turns. Under the old rate, a re-read of a large working context was the dominant line item in a multi-hour run, which pushed everyone toward aggressive summarization and the quiet loss of detail that comes with it.",
+        "At a quarter per million, keeping the whole transcript resident stops being extravagant. Several groups here have already reverted their compaction logic to something closer to append-only."
+      ]
+    },
+    {
+      "id": "muse-security",
+      "page": 2,
+      "priority": 8,
+      "kicker": "Agent Safety",
+      "headline": "Meta Built Muse Expecting It to Be Attacked",
+      "deck": "Every user gets a Linux virtual machine, the agent runtime is treated as hostile, and a separate service holds the only key to the outside world.",
+      "dateline": "Menlo Park, Calif.",
+      "art": {
+        "type": "schematic",
+        "width": 560,
+        "height": 200,
+        "zones": [
+          {
+            "x": 8,
+            "y": 22,
+            "w": 544,
+            "h": 168,
+            "label": "Per-user cloud VM",
+            "dash": "5 4"
+          },
+          {
+            "x": 20,
+            "y": 42,
+            "w": 250,
+            "h": 140,
+            "label": "Runtime cell — untrusted",
+            "dash": "3 3"
+          }
+        ],
+        "boxes": [
+          {
+            "x": 34,
+            "y": 64,
+            "w": 222,
+            "h": 36,
+            "t": "Agent runtime|model, sub-agents, self-edits",
+            "fill": "hatch"
+          },
+          {
+            "x": 34,
+            "y": 110,
+            "w": 222,
+            "h": 32,
+            "t": "Tools it builds|written at run time"
+          },
+          {
+            "x": 34,
+            "y": 150,
+            "w": 222,
+            "h": 26,
+            "t": "Chromium|virtualized, real browser"
+          },
+          {
+            "x": 320,
+            "y": 80,
+            "w": 140,
+            "h": 44,
+            "t": "SENTINEL|sole permission authority",
+            "fill": "solid",
+            "strong": true
+          },
+          {
+            "x": 320,
+            "y": 30,
+            "w": 140,
+            "h": 32,
+            "t": "Connectors|credentials held outside"
+          },
+          {
+            "x": 320,
+            "y": 140,
+            "w": 140,
+            "h": 32,
+            "t": "Inbox · calendar|the user's actual data"
+          }
+        ],
+        "flows": [
+          {
+            "d": "M258,84 L316,96",
+            "t": "requests",
+            "at": [
+              287,
+              76
+            ]
+          },
+          {
+            "d": "M390,78 L390,64",
+            "t": "",
+            "at": [
+              0,
+              0
+            ]
+          },
+          {
+            "d": "M390,126 L390,138",
+            "t": "",
+            "at": [
+              0,
+              0
+            ]
+          },
+          {
+            "d": "M140,50 L140,60",
+            "t": "hostile input",
+            "at": [
+              140,
+              42
+            ],
+            "dash": "3 2",
+            "open": true
+          }
+        ],
+        "notes": [
+          {
+            "x": 474,
+            "y": 98,
+            "t": "every action",
+            "anchor": "start"
+          },
+          {
+            "x": 474,
+            "y": 108,
+            "t": "stops here",
+            "anchor": "start"
+          },
+          {
+            "x": 8,
+            "y": 14,
+            "t": "Isolation boundaries in Meta's Muse agent",
+            "anchor": "start"
+          }
+        ],
+        "capLabel": "How it is fenced",
+        "caption": "The agent runtime is given no credentials of its own. Anything that touches the outside world is a request to Sentinel, which runs outside the cell and can refuse.",
+        "credit": "Cyborg News · after Meta Superintelligence Labs"
+      },
+      "artAfter": 2,
+      "pullquote": {
+        "text": "We designed the system to assume the agent may be under attack, and to limit the potential damage.",
+        "attr": "Tarek Sheasha, Meta Superintelligence Labs"
+      },
+      "quoteAfter": 1,
+      "body": [
+        "Meta published the security architecture behind Muse, its personal agent, and the notable thing about the document is what it declines to promise.",
+        "Muse reads your inbox, holds your calendar, writes its own tools, runs a real browser and can edit itself. Meta's answer to the obvious objection is not that the agent will behave. It is that the agent is assumed not to.",
+        "Each user gets an isolated Linux virtual machine — a dedicated cloud computer rather than a tenant in a shared one. Inside it, Linux isolation separates the agent runtime from the security services, so the part of the system that reads untrusted text is not the part that holds credentials. A service called Sentinel is the sole permission authority for every external action: the runtime cannot reach a connector directly, only ask. A fully compromised agent has something to ask with and nothing to steal.",
+        "Meta is putting money against the claim — up to $300,000 for a valid report, and up to $130,000 for a prompt injection that affects a single user. A per-user injection bounty is a more precise instrument than a generic bug bounty, because it prices the failure mode the architecture exists to contain.",
+        "For anyone building agents in this building, the transferable part is cheap and needs no cloud platform: give the model no ambient authority, put a separate process in front of every side effect, and write down in advance what a compromised run is allowed to accomplish."
+      ]
+    },
+    {
+      "id": "data-efficiency",
+      "page": 2,
+      "priority": 7,
+      "kicker": "Scaling",
+      "headline": "The Gains Came From the Data",
+      "deck": "Between 2019 and 2025, improvements to training data delivered 3.24 times more compute-efficiency than improvements to models.",
+      "art": {
+        "type": "stats",
+        "items": [
+          {
+            "n": "3.24",
+            "unit": "×",
+            "l": "More compute-efficiency from data work than from model work"
+          },
+          {
+            "n": "2019",
+            "unit": "–25",
+            "l": "Period the decomposition covers"
+          },
+          {
+            "n": "1",
+            "unit": "line",
+            "l": "Where that work usually appears in a paper"
+          }
+        ]
+      },
+      "artAfter": 1,
+      "body": [
+        "A decomposition of where compute-efficiency gains actually came from between 2019 and 2025 puts 3.24 times more of the improvement on data work than on model work.",
+        "This is not the story the field tells about itself. The public account of the last six years is architectural: attention variants, normalization tricks, optimizer schedules, mixtures of experts. Data work is the part that appears in a footnote as &ldquo;we filtered the corpus.&rdquo;",
+        "The finding suggests the footnote was doing most of the lifting — deduplication, quality filtering, mixture weighting, synthetic augmentation and the unglamorous business of deciding what a model should not read.",
+        "Two consequences follow for a small lab. Data work is comparatively cheap and does not need a frontier cluster. It is also the least publishable and the hardest to reproduce, which is presumably why it accumulated in the dark for six years."
+      ]
+    },
+    {
+      "id": "atlas",
+      "page": 1,
+      "priority": 6,
+      "kicker": "World Models",
+      "headline": "One Sequence for Text, Video and 3D",
+      "body": [
+        "World Labs released Atlas on Sept. 1: an omni world model that handles text, images, video and 3D geometry inside one multimodal autoregressive diffusion transformer. The claim is that these are not four problems but four encodings of one state, and that a model keeping them in separate towers learns the correspondence twice."
+      ]
+    },
+    {
+      "id": "cw-net",
+      "page": 3,
+      "priority": 7,
+      "kicker": "Interpretability",
+      "headline": "Teaching a Driving Stack to Explain Itself",
+      "deck": "CW-Net converts the internal state of a driving policy into named concepts, so a disagreement about a decision can be an argument rather than a heat map.",
+      "dateline": "Cambridge, Mass.",
+      "art": {
+        "type": "schematic",
+        "width": 560,
+        "height": 175,
+        "zones": [
+          {
+            "x": 180,
+            "y": 20,
+            "w": 372,
+            "h": 62,
+            "label": "What a saliency map returns",
+            "dash": "3 3"
+          },
+          {
+            "x": 180,
+            "y": 96,
+            "w": 372,
+            "h": 68,
+            "label": "What a concept basis returns",
+            "dash": "3 3"
+          }
+        ],
+        "boxes": [
+          {
+            "x": 6,
+            "y": 62,
+            "w": 150,
+            "h": 44,
+            "t": "Policy activations|internal state",
+            "fill": "hatch"
+          },
+          {
+            "x": 196,
+            "y": 38,
+            "w": 140,
+            "h": 32,
+            "t": "Pixel heat map"
+          },
+          {
+            "x": 376,
+            "y": 38,
+            "w": 160,
+            "h": 32,
+            "t": "“It looked here”|not contestable"
+          },
+          {
+            "x": 196,
+            "y": 112,
+            "w": 140,
+            "h": 42,
+            "t": "Named concepts|occlusion at the curb,|oncoming vehicle yielding"
+          },
+          {
+            "x": 376,
+            "y": 112,
+            "w": 160,
+            "h": 42,
+            "t": "“It concluded this”|a claim you can check",
+            "strong": true
+          }
+        ],
+        "flows": [
+          {
+            "d": "M158,76 L192,54",
+            "t": "",
+            "at": [
+              0,
+              0
+            ]
+          },
+          {
+            "d": "M158,92 L192,130",
+            "t": "",
+            "at": [
+              0,
+              0
+            ]
+          },
+          {
+            "d": "M338,54 L372,54",
+            "t": "",
+            "at": [
+              0,
+              0
+            ]
+          },
+          {
+            "d": "M338,133 L372,133",
+            "t": "",
+            "at": [
+              0,
+              0
+            ]
+          }
+        ],
+        "notes": [
+          {
+            "x": 8,
+            "y": 12,
+            "t": "Two ways of answering “why did it brake?”",
+            "anchor": "start"
+          },
+          {
+            "x": 6,
+            "y": 124,
+            "t": "one basis, chosen",
+            "anchor": "start"
+          },
+          {
+            "x": 6,
+            "y": 134,
+            "t": "before the drive",
+            "anchor": "start"
+          }
+        ],
+        "capLabel": "Concept basis",
+        "caption": "A heat map reports where the network attended. A concept basis reports what it concluded, in terms fixed before the drive — which is the form a claim has to take to be checked.",
+        "credit": "Cyborg News"
+      },
+      "artAfter": 1,
+      "body": [
+        "A method developed on campus, CW-Net, translates the reasoning of an autonomous vehicle's perception-and-control stack into concepts a person can name, and therefore contest.",
+        "The prevailing tool for this has been the saliency map, which shades the pixels a network attended to. Saliency maps are popular because they are easy to produce and easy to look at, and they are close to useless in a review meeting: a bright patch on a pedestrian answers a question nobody asked. It tells you where the network looked, not what it concluded.",
+        "CW-Net instead projects internal activations onto a basis of concepts with names — occlusion at the curb, oncoming vehicle yielding, lane boundary ambiguous — and reports which of them carried a given decision, and with what weight.",
+        "The practical difference shows up in failure analysis. An engineer can state a hypothesis about why the car braked, check it against the concept weights, and be wrong in a way that is visible to everyone in the room.",
+        "The cost is that somebody has to choose the concept basis, and a basis is a theory of the domain. Concepts that are not in it cannot be reported, which means the method cannot surface the failure nobody anticipated — precisely the failure that matters most."
+      ]
+    },
+    {
+      "id": "protein",
+      "page": 3,
+      "priority": 6,
+      "kicker": "Machine Learning for Design",
+      "headline": "Designing Proteins Nature Never Wrote",
+      "deck": "The success rate goes up, and the sequences deliberately move away from anything already in the database.",
+      "body": [
+        "A machine-learning framework for computational protein design, developed at the Institute, improves the rate at which designed sequences fold as intended while explicitly penalizing similarity to natural sequences.",
+        "The second half is the interesting half. A generative model trained on the protein data bank has an easy way to score well: return something close to a sequence it has already seen. The design is plausible, the metrics look excellent, and nothing has been discovered.",
+        "By pushing away from the training distribution while holding the structural objective, the framework is forced to find genuinely novel solutions to the same folding problem — which is what design, as opposed to retrieval, means.",
+        "The same failure mode is worth naming outside biology. Any generative system evaluated on its resemblance to a reference corpus will be rewarded for memorizing it, and most benchmarks in this building are still scored that way."
+      ]
+    },
+    {
+      "id": "muse-voice",
+      "page": 2,
+      "priority": 5,
+      "kicker": "Perception",
+      "headline": "Real-Time Audio, Shipped as an Endpoint",
+      "body": [
+        "Meta Superintelligence Labs released Muse Voice Transcribe on Sept. 1, its first real-time audio perception model, available through the Meta Model API, Meta AI for Mac and Muse Code.",
+        "The significance for most groups here is the interface rather than the model: real-time transcription as a metered endpoint removes the last reason to run a local speech stack for prototyping. The reason to keep one anyway is unchanged — audio from a subject session should not leave the building."
+      ]
+    },
+    {
+      "id": "robotics",
+      "page": 3,
+      "priority": 6,
+      "kicker": "Embodiment",
+      "headline": "Whole-Body Reasoning Leaves the Lab",
+      "body": [
+        "Robotic systems are converging on whole-body reasoning — planning that treats locomotion, manipulation and perception as one problem rather than three pipelines with a message bus between them.",
+        "The application list is unchanged from a decade ago: warehouses, laboratories, farms, care settings, factory floors. What has changed is that the demonstrations are now happening in rooms the researchers did not build.",
+        "That shift is easy to undersell. A policy that works in a room it has seen is a controller; a policy that works in a room it has not is the beginning of a product. The gap between them has been the whole field for twenty years, and it is finally being crossed in public, on video, by more than one group.",
+        "The lab's own position is that the bottleneck has moved from control to specification. We can make the arm do the thing. Writing down what the thing is, in a form that survives contact with an unfamiliar kitchen, remains open — and it is a language problem at least as much as a dynamics one.",
+        "Which is why the world-model work and the manipulation work keep converging on the same question. A planner needs to predict the next state of a scene in geometry, not in pixels, and it needs to be told what counts as success in terms a person would recognize."
+      ]
+    },
+    {
+      "id": "gemini-science",
+      "page": 1,
+      "priority": 4,
+      "kicker": "Tooling",
+      "headline": "An Assistant for the Literature Review",
+      "body": [
+        "Google is pushing Gemini for Science and its Co-Scientist work at the part of research that is neither the idea nor the experiment: forming hypotheses, weighing evidence, planning what to run next. Nobody here needs help generating hypotheses."
+      ]
+    },
+    {
+      "id": "qmit",
+      "page": 3,
+      "priority": 4,
+      "kicker": "Around the Institute",
+      "headline": "QMIT Fellows Arrive",
+      "body": [
+        "The first cohort of QMIT Fellows joins this term. We host two of them, and the Building 34 cryostat is shared through the spring — book it early, and read the handling note before you touch the transfer line."
+      ]
+    }
+  ],
+  "boxes": [
+    {
+      "id": "flt-numbers",
+      "slot": "rail-a",
+      "kind": "stats",
+      "title": "Fermat, by the numbers",
+      "stack": true,
+      "items": [
+        {
+          "n": "11",
+          "unit": "days",
+          "l": "Wall-clock time, largely autonomous"
+        },
+        {
+          "n": "13",
+          "unit": "million",
+          "l": "Lines of Lean produced"
+        },
+        {
+          "n": "29,500",
+          "l": "Intermediate theorems discharged"
+        },
+        {
+          "n": "6",
+          "unit": "billion",
+          "l": "Output tokens consumed"
+        }
+      ],
+      "note": "Anthropic, Sept. 4, 2026."
+    },
+    {
+      "id": "revisions",
+      "slot": "rail-b",
+      "kind": "table",
+      "title": "Edited after publication",
+      "caption": "Astra announcement, Sept. 3",
+      "head": [
+        "Benchmark",
+        "First",
+        "Then",
+        "Δ"
+      ],
+      "rows": [
+        [
+          "ExploitBench · Sol",
+          "5.5",
+          "11.5",
+          {
+            "v": "+6.0",
+            "dir": "up"
+          }
+        ],
+        [
+          "FrontierMath · Fable 5.1",
+          "78.0",
+          "87.8",
+          {
+            "v": "+9.8",
+            "dir": "up"
+          }
+        ],
+        [
+          "Coding · Astra",
+          "57.7",
+          "57.9",
+          {
+            "v": "+0.2",
+            "dir": "up"
+          }
+        ],
+        [
+          "Hallucination · Astra",
+          "4.2",
+          "2.0",
+          {
+            "v": "−2.2",
+            "dir": "down"
+          }
+        ],
+        [
+          "Hallucination · reverted",
+          "2.0",
+          "4.2",
+          {
+            "v": "+2.2",
+            "dir": "up"
+          }
+        ]
+      ],
+      "note": "Fortune, Sept. 4. Lower is better for hallucination rate."
+    },
+    {
+      "id": "agenda",
+      "slot": "side-a",
+      "kind": "listing",
+      "title": "The week ahead",
+      "rows": [
+        {
+          "when": "Tue 16:00",
+          "what": "Reading group: FLT in Lean",
+          "who": "34-401 · bring the blueprint"
+        },
+        {
+          "when": "Wed 11:00",
+          "what": "Agent sandboxing review",
+          "who": "Safety working group"
+        },
+        {
+          "when": "Wed 15:30",
+          "what": "Cluster maintenance",
+          "who": "No jobs after 15:00"
+        },
+        {
+          "when": "Thu 12:00",
+          "what": "Visitor: World Labs",
+          "who": "Atlas walkthrough"
+        },
+        {
+          "when": "Fri 10:00",
+          "what": "Eval harness freeze",
+          "who": "Seeds and configs to the repo"
+        },
+        {
+          "when": "Fri 16:00",
+          "what": "Demos and beer",
+          "who": "Anything that runs"
+        }
+      ]
+    },
+    {
+      "id": "standards",
+      "kind": "text",
+      "title": "House rule of the week",
+      "tint": true,
+      "paras": [
+        "<b>Publish the run you did first.</b> If a number moves between draft and talk, the new one goes on the slide and the old one in the appendix, with date and seed."
+      ],
+      "slot": "rail-c"
+    }
+  ],
+  "fillers": [
+    {
+      "hed": "Reminder",
+      "text": "Reading group is Tuesday at four. 34-401."
+    },
+    {
+      "hed": "Errata",
+      "text": "Mathlib dates from 2017, not 2019."
+    },
+    {
+      "hed": "Overheard",
+      "text": "&ldquo;It is not autonomous if you are the one restarting it.&rdquo;"
+    },
+    {
+      "hed": "Correction",
+      "text": "August gave Mathlib's founding year as 2019. It was 2017."
+    },
+    {
+      "hed": "Cluster note",
+      "text": "The A100 partition drains Wednesday at 15:00. Checkpoint first."
+    },
+    {
+      "hed": "Seeds, please",
+      "text": "The harness now refuses to start without one. Three of last month's figures cannot be reproduced."
+    },
+    {
+      "hed": "Wanted",
+      "text": "A second reader for the formalization blueprint. No Lean required; stubbornness helps."
+    },
+    {
+      "hed": "By the way",
+      "text": "The espresso machine is fixed. The person who descaled it declined to be named."
+    },
+    {
+      "hed": "Quotable",
+      "text": "&ldquo;Most evaluations have noise within a few percentage points.&rdquo; The noise has been going one way."
+    }
+  ]
+}

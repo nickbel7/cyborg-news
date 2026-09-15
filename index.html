@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cyborg News</title>
+<link rel="stylesheet" href="css/newspaper.css">
+</head>
+<body class="has-toolbar">
+
+<div class="toolbar" id="toolbar">
+  <strong>CYBORG NEWS</strong>
+  <button id="btn-print">Print / PDF</button>
+  <button id="btn-reflow">Reflow</button>
+  <span class="sp"></span>
+  <span class="warn" id="status">rendering…</span>
+</div>
+
+<main id="paper"></main>
+
+<script src="js/art.js"></script>
+<script src="js/templates.js"></script>
+<script src="js/engine.js"></script>
+<script>
+(async function () {
+  const status = document.getElementById('status');
+  const paper = document.getElementById('paper');
+
+  async function loadIssue() {
+    if (window.ISSUE) return window.ISSUE;                 // inlined by tools/build.js
+    const url = new URLSearchParams(location.search).get('data') || 'data/issue.json';
+    try {
+      const r = await fetch(url, { cache: 'no-store' });
+      if (!r.ok) throw new Error(r.status);
+      return await r.json();
+    } catch (e) {
+      paper.innerHTML = `<section class="sheet"><div style="padding:20mm;font:12pt/1.6 Georgia,serif">
+        <h1 style="font-size:22pt">Serve this folder</h1>
+        <p>The browser will not read <code>${url}</code> straight off the disk. From this
+        folder run:</p>
+        <pre style="font:10pt/1.5 monospace;background:#eee;padding:4mm">npm start</pre>
+        <p>…and open the address it prints. To get a file you can double-click instead, run
+        <code>npm run build</code>.</p></div></section>`;
+      status.textContent = 'could not load ' + url;
+      throw e;
+    }
+  }
+
+  const q = new URLSearchParams(location.search);
+  if (q.get('bare')) {                       // proof-sheet chrome, applied before layout
+    document.getElementById('toolbar').remove();
+    document.body.classList.remove('has-toolbar');
+    document.documentElement.style.background = '#fff';
+    document.body.style.background = '#fff';
+  }
+
+  const data = await loadIssue();
+  document.title = data.issue.name + ' — ' + data.issue.dateline_long;
+
+  const settle = () => new Promise(r => {
+    Promise.race([document.fonts.ready, new Promise(x => setTimeout(x, 3000))])
+      .then(() => requestAnimationFrame(() => requestAnimationFrame(r)));
+  });
+
+  async function draw() {
+    status.textContent = 'setting type…';
+    // Force every declared face to load. document.fonts.ready only waits for
+    // faces already requested, and a face that swaps in after the fit reflows
+    // the copy underneath it — which is how a fitted leg loses its last line.
+    await settle();
+    let report;
+    try {
+      report = window.Engine.run(data, paper, {});
+      // A face that finishes loading after the fit reflows the copy under it.
+      // Measure again once the browser has settled, and re-pour if it moved.
+      await settle();
+      const late = window.Engine.audit(paper);
+      if (late.length && !draw._retried) {
+        draw._retried = true;
+        report = window.Engine.run(data, paper, {});
+        await settle();
+        report.clipped = window.Engine.audit(paper);
+      } else {
+        report.clipped = late;
+      }
+    } catch (err) {
+      status.textContent = 'LAYOUT ERROR: ' + (err && err.stack || err);
+      document.body.dataset.error = String(err && err.message || err);
+      throw err;
+    }
+    const bits = [`${report.pages} pages`];
+    if (report.jumps.length) bits.push(`jumps: ${report.jumps.join(', ')}`);
+    if (report.trimmed.length) bits.push(`trimmed: ${report.trimmed.join(', ')}`);
+    if (report.white.length) bits.push(`white space: ${report.white.join(', ')}`);
+    if (report.fillers.length) bits.push(`fillers: ${report.fillers.length}`);
+    if (report.plates.length) bits.push(`plate too small, dropped: ${report.plates.join(', ')}`);
+    if (report.dropped.length) bits.push(`NO ROOM FOR: ${report.dropped.join(', ')}`);
+    if (report.clipped.length) bits.push(`CLIPPED: ${report.clipped.join(', ')}`);
+    const line = bits.join('  ·  ');
+    status.textContent = line;                 // detached in bare mode; harmless
+    document.body.dataset.report = line;
+    document.body.dataset.ready = '1';
+
+
+
+    // ?only=2 keeps a single sheet for proofing
+    const only = parseInt(q.get('only'), 10);
+    if (only) {
+      [...paper.querySelectorAll('.sheet')].forEach((s, i) => { if (i !== only - 1) s.remove(); });
+      const keep = paper.querySelector('.sheet');
+      if (keep) { keep.style.margin = '0'; keep.style.boxShadow = 'none'; keep.style.background = '#fff'; }
+    }
+  }
+
+  const on = (id, fn) => { const n = document.getElementById(id); if (n) n.onclick = fn; };
+  on('btn-print', () => window.print());
+  on('btn-reflow', draw);
+  try { await draw(); }
+  catch (err) {
+    document.body.dataset.error = String((err && err.stack) || err);
+    if (status) status.textContent = 'ERROR: ' + document.body.dataset.error;
+  }
+})();
+</script>
+</body>
+</html>

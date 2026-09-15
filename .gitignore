@@ -1,0 +1,8 @@
+# generated: reproducible from data/ with `npm run pdf` / `npm run proof`
+build/
+cyborg-news-*.html
+cyborg-news-*.pdf
+
+node_modules/
+.DS_Store
+*.log

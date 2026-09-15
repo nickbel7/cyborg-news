@@ -1,0 +1,423 @@
+@import url('fonts.css');
+
+/* =========================================================================
+   CYBORG NEWS — print design system
+   Broadsheet conventions on an A4 sheet. Monochrome by design: the paper is
+   1-bit, like the nameplate, so it prints on any lab printer.
+   ========================================================================= */
+
+:root{
+  /* --- sheet geometry ------------------------------------------------- */
+  --sheet-w: 210mm;
+  --sheet-h: 297mm;
+  --margin-x: 12mm;
+  --margin-t: 10mm;
+  --margin-b: 10mm;
+  --well-w: 186mm;                 /* sheet - 2*margin-x */
+  --gutter: 4mm;                   /* space between text columns */
+  --cols: 12;                      /* layout units; 1 text column = 3 units */
+
+  /* --- ink -------------------------------------------------------------- */
+  --ink: #000;
+  --ink-2: #23211e;                /* captions, secondary text */
+  --ink-3: #5a544c;                /* credits, folios */
+  --paper: #fff;
+  --paper-tint: #faf7f1;           /* screen only: newsprint cast */
+  --rule: #000;
+
+  /* --- rule weights ----------------------------------------------------- */
+  --hair: 0.3pt;
+  --thin: 0.6pt;
+  --med: 1.2pt;
+  --heavy: 2.6pt;
+
+  /* --- type ------------------------------------------------------------- */
+  --display: 'Playfair Display', 'Times New Roman', serif;
+  --text: 'Source Serif 4', Georgia, serif;
+  --sans: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+  --pixel: 'Silkscreen', var(--mono);
+
+  --body-size: 8.5pt;
+  --body-lead: 10.6pt;
+}
+
+/* =========================== reset / shell ================================ */
+*{box-sizing:border-box}
+html{background:#8e8b86}
+body{
+  margin:0; padding:0;
+  background:#8e8b86;
+  color:var(--ink);
+  font-family:var(--text);
+  font-variant-numeric:oldstyle-nums proportional-nums;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg,canvas{max-width:100%; display:block}
+
+/* =========================== the sheet ==================================== */
+.sheet{
+  position:relative;
+  width:var(--sheet-w);
+  height:var(--sheet-h);
+  padding:var(--margin-t) var(--margin-x) var(--margin-b);
+  background:var(--paper-tint);
+  margin:14mm auto;
+  box-shadow:0 2mm 9mm rgba(0,0,0,.45);
+  overflow:hidden;
+  break-after:page;
+}
+.sheet:last-child{break-after:auto}
+
+/* the 12-unit paste-up grid; rows are 1mm tall so slots are placed in mm */
+.well{
+  display:grid;
+  grid-template-columns:repeat(var(--cols),1fr);
+  grid-auto-rows:1mm;
+  column-gap:var(--gutter);
+  height:100%;
+}
+.slot{ min-width:0; overflow:hidden; position:relative }
+
+/* =========================== nameplate ==================================== */
+.nameplate{ text-align:center }
+.nameplate .ears{
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-family:var(--mono); font-size:5.6pt; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-2);
+  padding-bottom:1.4mm;
+}
+.nameplate .logo{
+  width:100%; margin:0 auto; color:var(--ink);
+  padding:0 0 1.6mm;
+}
+.nameplate .logo svg{width:100%;height:auto;display:block}
+.nameplate .folio-line{
+  border-top:var(--med) solid var(--rule);
+  border-bottom:var(--hair) solid var(--rule);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--sans); font-size:6pt; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:.9mm 0 .7mm;
+}
+.nameplate .folio-line b{font-weight:700; letter-spacing:.12em}
+.nameplate .folio-line .center{font-family:var(--text); font-weight:600; letter-spacing:.06em; font-size:6.4pt}
+
+/* ticker — the "market index" strip, here an index of models */
+.ticker{
+  display:flex; align-items:stretch; gap:0;
+  border-bottom:var(--thin) solid var(--rule);
+  font-family:var(--mono); font-size:5.5pt; line-height:1;
+  padding:1.1mm 0 1.2mm; overflow:hidden;
+}
+.ticker .tick{
+  flex:1 1 0; min-width:0; padding:0 1.6mm;
+  border-left:var(--hair) solid var(--ink-3);
+  display:flex; flex-direction:column; gap:.7mm;
+}
+.ticker .tick:first-child{border-left:0; padding-left:0}
+.ticker .tick .k{ font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.ticker .tick .v{ display:flex; gap:.9mm; align-items:baseline; color:var(--ink-2) }
+.ticker .tick .v b{font-weight:600;color:var(--ink)}
+.ticker .up::before{content:"\25B2"; font-size:4pt}
+.ticker .down::before{content:"\25BC"; font-size:4pt}
+.ticker .flat::before{content:"\2013"}
+
+/* =========================== running folios =============================== */
+.folio{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  border-bottom:var(--med) solid var(--rule);
+  padding-bottom:1mm; font-family:var(--sans);
+  font-size:6.2pt; letter-spacing:.12em; text-transform:uppercase; font-weight:700;
+}
+.folio .mark{display:flex;align-items:center;gap:2mm}
+.folio .mark svg{height:5.2mm;width:auto;color:var(--ink)}
+.folio .section{font-family:var(--display); font-weight:700; font-size:11pt;
+  letter-spacing:.02em; text-transform:none}
+
+/* =========================== article furniture ============================ */
+.art-block{
+  display:flex; flex-direction:column; height:100%;
+  /* the sheet is measured in millimetres and rasterised in device pixels; a
+     leg fitted to the last pixel loses its bottom line to rounding, so every
+     story keeps a hair of air under it */
+  padding-bottom:.9mm;
+}
+
+.kicker{
+  font-family:var(--mono); font-size:5.8pt; font-weight:600;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink);
+  padding-bottom:1.1mm; display:flex; align-items:center; gap:1.6mm;
+}
+.kicker::after{content:""; flex:1; height:0; border-top:var(--hair) solid var(--ink-3)}
+
+h1,h2,h3,h4{margin:0; font-family:var(--display); font-weight:700; color:var(--ink);
+  letter-spacing:-.005em; text-wrap:balance}
+.hed-1{font-size:34pt; line-height:.93; font-weight:900; letter-spacing:-.02em}
+.hed-2{font-size:21pt; line-height:.97; font-weight:800; letter-spacing:-.015em}
+.hed-3{font-size:15pt; line-height:1.02; font-weight:700}
+.hed-4{font-size:11.5pt; line-height:1.06; font-weight:700}
+.hed-5{font-size:9.4pt; line-height:1.1; font-weight:700}
+
+.deck{
+  font-family:var(--text); font-size:9.2pt; line-height:1.24; font-weight:400;
+  color:var(--ink-2); margin-top:1.8mm; text-wrap:pretty;
+}
+.deck.sans{font-family:var(--sans); font-size:7.6pt; line-height:1.3}
+
+.byline{
+  font-family:var(--sans); font-size:6.2pt; font-weight:700;
+  letter-spacing:.11em; text-transform:uppercase; margin-top:1.6mm;
+}
+.byline .role{display:block; font-weight:400; letter-spacing:.09em; color:var(--ink-3); margin-top:.5mm}
+
+/* body copy ------------------------------------------------------------- */
+.body{
+  font-size:var(--body-size); line-height:var(--body-lead);
+  text-align:justify; hyphens:auto; -webkit-hyphens:auto;
+  hyphenate-limit-chars:6 3 3;
+  margin-top:2mm;
+}
+.body p{margin:0; text-indent:3.2mm}
+.body p:first-child{text-indent:0}
+.body p + p{margin-top:0}
+.body .dateline{
+  font-family:var(--sans); font-weight:700; font-size:7.4pt;
+  letter-spacing:.07em; text-transform:uppercase;
+}
+.body .dateline::after{content:" \2014 "; font-family:var(--text); font-weight:400; letter-spacing:0}
+.body.cols-2{column-count:2; column-gap:var(--gutter)}
+.body.cols-3{column-count:3; column-gap:var(--gutter)}
+.body.cols-4{column-count:4; column-gap:var(--gutter)}
+.body.rules{column-rule:var(--hair) solid var(--ink-3)}
+
+/* drop cap for the page lead */
+.body.dropcap > p:first-child::first-letter{
+  font-family:var(--display); font-weight:900; float:left;
+  font-size:26pt; line-height:.76; padding:.6mm 1.2mm 0 0;
+}
+
+/* subheads inside a story */
+.subhead{
+  font-family:var(--sans); font-weight:800; font-size:7pt;
+  letter-spacing:.09em; text-transform:uppercase;
+  margin:2mm 0 .8mm; break-after:avoid;
+}
+
+/* jump line ------------------------------------------------------------- */
+.jump{
+  font-family:var(--text); font-style:italic; font-size:7.4pt;
+  text-align:right; margin-top:1.2mm; color:var(--ink);
+}
+.jump-from{
+  font-family:var(--sans); font-size:6pt; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3);
+  border-bottom:var(--hair) solid var(--ink-3); padding-bottom:.8mm; margin-bottom:1.4mm;
+}
+
+/* pull quote ------------------------------------------------------------ */
+.pullquote{
+  border-top:var(--med) solid var(--rule); border-bottom:var(--med) solid var(--rule);
+  padding:1.8mm 0; margin:2mm 0; break-inside:avoid;
+}
+.pullquote q{
+  quotes:"\201C" "\201D"; display:block;
+  font-family:var(--display); font-weight:700; font-size:12.5pt; line-height:1.08;
+  text-align:center; letter-spacing:-.01em;
+}
+.pullquote .attr{
+  display:block; text-align:center; margin-top:1.4mm;
+  font-family:var(--sans); font-size:5.8pt; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2);
+}
+
+/* figures --------------------------------------------------------------- */
+figure{margin:0; break-inside:avoid}
+figure .plate{border:0; background:transparent}
+figure figcaption{
+  font-size:7pt; line-height:1.2; color:var(--ink-2); margin-top:1.3mm;
+  padding-top:1.2mm; border-top:var(--hair) solid var(--ink-3);
+}
+figure figcaption b{
+  font-family:var(--sans); font-size:6.2pt; font-weight:800;
+  letter-spacing:.08em; text-transform:uppercase;
+}
+figure .credit{
+  display:block; margin-top:.9mm;
+  font-family:var(--mono); font-size:5pt; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3);
+}
+.halftone{image-rendering:pixelated; width:100%; height:auto; display:block}
+
+/* =========================== what's news rail ============================= */
+.rail{
+  overflow:hidden;
+  border-right:var(--hair) solid var(--ink);
+  padding-right:var(--gutter);
+  height:100%; display:flex; flex-direction:column;
+}
+.rail-head{
+  font-family:var(--display); font-weight:900; font-size:19pt; line-height:.9;
+  letter-spacing:-.02em; padding-bottom:1.6mm;
+  border-bottom:var(--heavy) solid var(--rule);
+}
+.rail-head i{font-family:var(--display); font-style:italic; font-weight:700}
+.rail-sect{
+  font-family:var(--display); font-style:italic; font-weight:700; font-size:8.4pt;
+  border-bottom:var(--hair) solid var(--ink); padding:1.4mm 0 1mm; margin-bottom:1.6mm;
+}
+.briefs{
+  margin:0; padding:0; list-style:none;          /* a bare ul carries 40px of
+                                                    indent by default */
+  font-size:7.4pt; line-height:9.4pt; text-align:left; hyphens:auto;
+}
+.briefs li{ margin:0 0 2.2mm; padding-left:4.2mm; position:relative }
+.briefs li .ml{                                   /* the Media Lab mark, as bullet */
+  position:absolute; left:0; top:1.05mm;
+  width:2.5mm; height:auto; display:block;
+}
+.briefs li b{font-weight:700}
+.briefs li .ref{
+  font-family:var(--sans); font-weight:700; font-size:6pt; letter-spacing:.06em;
+}
+
+/* =========================== boxed features =============================== */
+.boxed{
+  border:var(--thin) solid var(--ink); padding:2.4mm; height:100%;
+  display:flex; flex-direction:column;
+}
+.boxed.tint{background:rgba(0,0,0,.045)}
+.box-head{
+  font-family:var(--mono); font-size:5.8pt; font-weight:600; letter-spacing:.16em;
+  text-transform:uppercase; padding-bottom:1.4mm; margin-bottom:1.6mm;
+  border-bottom:var(--thin) solid var(--ink);
+}
+
+/* data table ------------------------------------------------------------- */
+table.data{
+  width:100%; border-collapse:collapse;
+  font-family:var(--mono); font-size:6.2pt; font-variant-numeric:tabular-nums;
+}
+table.data caption{
+  caption-side:top; text-align:left;
+  font-family:var(--sans); font-weight:800; font-size:6.4pt;
+  letter-spacing:.1em; text-transform:uppercase; padding-bottom:1.2mm;
+}
+table.data th{
+  text-align:right; font-weight:600; text-transform:uppercase; letter-spacing:.06em;
+  border-bottom:var(--thin) solid var(--ink); padding:.8mm .8mm .9mm; font-size:5.4pt;
+}
+table.data th:first-child,table.data td:first-child{text-align:left; padding-left:0}
+table.data th:last-child,table.data td:last-child{padding-right:0}
+table.data td{
+  text-align:right; padding:.85mm .8mm;
+  border-bottom:var(--hair) solid var(--ink-3);
+}
+table.data tr:last-child td{border-bottom:var(--thin) solid var(--ink)}
+table.data td.name{font-family:var(--text); font-size:7pt}
+table.data .up::after{content:" \25B2"; font-size:4.2pt}
+table.data .down::after{content:" \25BC"; font-size:4.2pt}
+
+/* stat strip (hero numbers) --------------------------------------------- */
+.stats{display:flex; gap:0; border-top:var(--med) solid var(--ink); border-bottom:var(--med) solid var(--ink)}
+.stats.stack{flex-direction:column}
+.stats .stat{flex:1 1 0; padding:1.8mm 2mm; border-left:var(--hair) solid var(--ink-3); min-width:0}
+.stats.stack .stat{border-left:0; border-top:var(--hair) solid var(--ink-3); padding:1.5mm 0}
+.stats.stack .stat:first-child{border-top:0}
+.stats .stat:first-child{border-left:0; padding-left:0}
+.stats .stat:last-child{padding-right:0}
+.stats .n{
+  font-family:var(--display); font-weight:900; font-size:17pt; line-height:.9;
+  letter-spacing:-.02em; font-variant-numeric:lining-nums tabular-nums;
+}
+.stats .n small{font-size:9pt; font-weight:700}
+.stats .l{
+  font-family:var(--sans); font-size:5.6pt; font-weight:700; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink-2); margin-top:1.1mm; line-height:1.2;
+}
+
+/* agenda / listings ------------------------------------------------------ */
+.listing{font-size:7.1pt; line-height:8.4pt}
+.listing .row{
+  display:grid; grid-template-columns:12.5mm 1fr; gap:1.6mm;
+  padding:1.05mm 0; border-bottom:var(--hair) solid var(--ink-3);
+}
+.listing .row:last-child{border-bottom:0}
+.listing .when{font-family:var(--mono); font-size:5.8pt; letter-spacing:.04em;
+  text-transform:uppercase; padding-top:.4mm}
+.listing .what b{display:block; font-family:var(--sans); font-weight:700; font-size:7pt}
+.listing .what span{color:var(--ink-2)}
+
+/* dividers --------------------------------------------------------------- */
+.hr{border:0; border-top:var(--med) solid var(--rule); margin:0; height:0}
+.hr.thin{border-top-width:var(--thin)}
+.hr.hair{border-top-width:var(--hair)}
+.hr.double{border-top:var(--thin) solid var(--ink); box-shadow:0 .6mm 0 0 var(--ink)}
+
+/* colophon --------------------------------------------------------------- */
+.colophon{
+  font-family:var(--mono); font-size:5.2pt; line-height:1.5; color:var(--ink-3);
+  letter-spacing:.04em;
+}
+
+/* =========================== screen-only chrome =========================== */
+.toolbar{
+  position:fixed; z-index:50; left:0; right:0; top:0;
+  display:flex; gap:10px; align-items:center; justify-content:center;
+  padding:8px 12px; background:#1b1a18; color:#e8e4dc;
+  font:600 11px/1 ui-sans-serif,system-ui,sans-serif; letter-spacing:.08em;
+  text-transform:uppercase; box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+.toolbar button{
+  font:inherit; color:inherit; background:#33302c; border:1px solid #4b4741;
+  padding:6px 11px; border-radius:3px; cursor:pointer;
+}
+.toolbar button:hover{background:#454039}
+.toolbar .sp{flex:1}
+.toolbar .warn{color:#ffb86b; text-transform:none; letter-spacing:0; font-weight:400}
+body.has-toolbar{padding-top:34px}
+.overflow-flag{outline:1.5px dashed #c0392b; outline-offset:-1px}
+
+/* =========================== print ======================================== */
+@page{ size:A4 portrait; margin:0 }
+
+@media print{
+  html,body{background:#fff}
+  body.has-toolbar{padding-top:0}
+  .toolbar{display:none !important}
+  .sheet{
+    margin:0; box-shadow:none; background:#fff;
+    width:210mm; height:297mm;
+    break-after:page; page-break-after:always;
+  }
+  .sheet:last-child{break-after:auto; page-break-after:auto}
+  .overflow-flag{outline:0}
+  *{ -webkit-print-color-adjust:exact; print-color-adjust:exact }
+}
+
+/* ---- engine-driven bits (kept at the end so they win) ------------------- */
+.body{ column-fill:auto; min-height:0; flex:1 1 auto; overflow:hidden }
+.art-block > .head{ flex:0 0 auto }
+figure.in-column{ margin:1.8mm 0 2.4mm; break-inside:avoid }
+figure.top{ margin-bottom:2.4mm }
+.pullquote.span-all{ column-span:all }
+.slot.rule-slot{ display:flex; align-items:center }
+.slot.rule-slot hr{ width:100% }
+
+/* column fillers — the short items that stop a leg running out ------------ */
+.filler{
+  break-inside:avoid; margin-top:2.6mm; padding-top:1.7mm;
+  border-top:var(--thin) solid var(--ink);
+  font-size:7.2pt; line-height:8.9pt; text-align:left; hyphens:auto;
+}
+.body .filler{ text-indent:0 }
+.filler b{
+  display:block; margin-bottom:.9mm;
+  font-family:var(--sans); font-weight:800; font-size:6.2pt;
+  letter-spacing:.1em; text-transform:uppercase;
+}
+
+.boxed.plain{ border:0; padding:0 }
+.colophon.cols{ column-count:3; column-gap:var(--gutter) }
+.colophon.cols > *{ break-inside:avoid }
