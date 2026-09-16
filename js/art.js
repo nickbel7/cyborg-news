@@ -251,6 +251,46 @@
     }
   };
 
+
+  /* ======================================================================
+     Ink feather — what a press does to an edge on absorbent newsprint.
+     Ink wicks along the paper fibres, so a boundary is never the clean
+     line the plate describes: it wanders, and it throws stray dots into
+     the white. Two mechanisms, both cheap:
+       1. domain warp  — the sampling coordinate is nudged by low-frequency
+                         noise before thresholding, so edges wander
+       2. spatter      — pixels next to a boundary sometimes take ink
+     Applied to the plates rather than the whole page: filtering the sheet
+     rasterises the PDF (6x the file, and the text stops being selectable).
+     ====================================================================== */
+  function feather(img, w, h, amount) {
+    if (!amount) return;
+    const a = amount, src = new Uint8ClampedArray(img.data);
+    const at = (x, y) => src[((Math.min(h - 1, Math.max(0, y)) * w) +
+                              Math.min(w - 1, Math.max(0, x))) * 4];
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const i = (y * w + x) * 4;
+        // is this pixel on a boundary?
+        const c = at(x, y);
+        let mixed = false;
+        for (let dy = -1; dy <= 1 && !mixed; dy++)
+          for (let dx = -1; dx <= 1; dx++)
+            if (at(x + dx, y + dy) !== c) { mixed = true; break; }
+        if (!mixed) continue;
+        // domain warp: pull the value from a nudged neighbour
+        const nx = Math.round((vnoise(x * 0.09, y * 0.09, 3) - 0.5) * 2.4 * a);
+        const ny = Math.round((vnoise(x * 0.09, y * 0.09, 8) - 0.5) * 2.4 * a);
+        let v = at(x + nx, y + ny);
+        // spatter both ways. Adding ink only was fine for line art, where
+        // edges are sparse; on a photograph every pixel is an edge, so a
+        // one-directional flip silently darkens the whole plate.
+        if (hash(x, y, 21) < 0.09 * a) v = v === 255 ? 0 : 255;
+        img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+      }
+    }
+  }
+
   function halftone(spec) {
     const wmm = spec.wmm || 90, hmm = spec.hmm || 58;
     const px = spec.px || 3.2;                  // sample cells per mm -> print resolution
@@ -273,6 +313,91 @@
         img.data[i + 3] = 255;
       }
     }
+    feather(img, w, h, spec.feather == null ? 1 : spec.feather);
+    ctx.putImageData(img, 0, 0);
+    cv.style.width = '100%';
+    return cv;
+  }
+
+
+  /* A sourced photograph, put through the same 1-bit screen as everything
+     else so it sits on the page as newsprint rather than as a pasted JPEG.
+     The file is vendored under assets/img and preloaded before layout, so
+     rendering stays deterministic and works offline. */
+  const IMAGES = Object.create(null);
+
+  function preload(srcs) {
+    return Promise.all([...new Set(srcs)].filter(Boolean).map(src =>
+      new Promise(res => {
+        const im = new Image();
+        im.onload = () => { IMAGES[src] = im; res(); };
+        im.onerror = () => { console.warn('plate missing:', src); res(); };
+        im.src = src;
+      })));
+  }
+
+  function photo(spec) {
+    const im = IMAGES[spec.src];
+    const wmm = spec.wmm || 90, hmm = spec.hmm || 60, px = spec.px || 10;
+    const w = Math.round(wmm * px), h = Math.round(hmm * px);
+    const cv = document.createElement('canvas');
+    cv.width = w; cv.height = h; cv.className = 'halftone';
+    const ctx = cv.getContext('2d');
+    if (!im) { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h); return cv; }
+
+    // cover-fit, honouring an optional focal point (0..1)
+    const scale = Math.max(w / im.width, h / im.height);
+    const dw = im.width * scale, dh = im.height * scale;
+    const fx = spec.focusX == null ? 0.5 : spec.focusX;
+    const fy = spec.focusY == null ? 0.4 : spec.focusY;
+    ctx.drawImage(im, (w - dw) * fx, (h - dh) * fy, dw, dh);
+
+    let img;
+    try {
+      img = ctx.getImageData(0, 0, w, h);
+    } catch (e) {                    // tainted canvas: show it, just unscreened
+      console.warn('plate not screened:', spec.src, e.name);
+      cv.style.width = '100%';
+      return cv;
+    }
+    const d = img.data;
+    // A photograph has to be lifted hard before an ordered dither. A midtone
+    // thresholded against Bayer lands at ~50% ink coverage, which reads far
+    // darker than the midtone it came from — the same reason press work is
+    // screened light to survive dot gain. gamma < 1 opens the shadows; the
+    // floor keeps a little paper showing in the darkest areas.
+    const gamma = spec.gain == null ? 0.62 : spec.gain;
+    const contrast = spec.contrast == null ? 1.06 : spec.contrast;
+    const lo = spec.floor == null ? 0.10 : spec.floor;
+
+    /* A clustered-dot screen, rotated 45 degrees. Bayer spreads its threshold
+       evenly and so lays down a regular cross-hatch — the look of a dithered
+       GIF. A press instead grows a round dot inside each cell of a ruled
+       screen, which is why newsprint reads as tone rather than as texture.
+       cell is in device pixels; at px = 10 samples/mm a 3.5px cell is about
+       72 lines per inch, in the range real newsprint is screened at.        */
+    const cell = spec.screen == null ? 3.5 : spec.screen;
+    const ang = (spec.angle == null ? 45 : spec.angle) * Math.PI / 180;
+    const ca = Math.cos(ang), sa = Math.sin(ang);
+
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const i = (y * w + x) * 4;
+        let l = (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) / 255;
+        l = Math.min(1, Math.max(0, (l - 0.5) * contrast + 0.5));
+        l = Math.pow(l, gamma);
+        l = lo + l * (1 - lo);
+
+        const xr = (x * ca + y * sa) / cell;
+        const yr = (-x * sa + y * ca) / cell;
+        const fx = xr - Math.floor(xr) - 0.5;
+        const fy = yr - Math.floor(yr) - 0.5;
+        const r2 = (fx * fx + fy * fy) / 0.5;   // 0 at cell centre, 1 at corner
+        const on = r2 < (1 - l) ? 0 : 255;      // ink coverage grows as l falls
+        d[i] = d[i + 1] = d[i + 2] = on; d[i + 3] = 255;
+      }
+    }
+    feather(img, w, h, spec.feather == null ? 1 : spec.feather);
     ctx.putImageData(img, 0, 0);
     cv.style.width = '100%';
     return cv;
@@ -308,7 +433,7 @@
 
   const PLATES = {
     bars: divergingBars, schematic, line: lineChart,
-    halftone, stats: statStrip, table: dataTable
+    halftone, photo, stats: statStrip, table: dataTable
   };
 
   /* returns a <figure> for an article's `art` spec */
@@ -331,5 +456,5 @@
     return fig;
   }
 
-  global.Art = { buildFigure, el, esc, PLATES };
+  global.Art = { buildFigure, el, esc, PLATES, preload };
 })(window);

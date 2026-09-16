@@ -67,6 +67,10 @@
     // Force every declared face to load. document.fonts.ready only waits for
     // faces already requested, and a face that swaps in after the fit reflows
     // the copy underneath it — which is how a fitted leg loses its last line.
+    // plates must be decoded before the fit pass measures anything
+    const plates = (data.articles || []).map(a => a.art && a.art.src)
+      .concat((data.boxes || []).map(b => b.art && b.art.src));
+    try { await window.Art.preload(plates); } catch (e) {}
     await settle();
     let report;
     try {

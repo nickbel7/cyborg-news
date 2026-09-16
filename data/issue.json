@@ -134,110 +134,18 @@
       },
       "quoteAfter": 2,
       "art": {
-        "type": "schematic",
-        "width": 560,
-        "height": 190,
-        "zones": [
-          {
-            "x": 8,
-            "y": 30,
-            "w": 544,
-            "h": 62,
-            "label": "Today — each lab ships on its own clock",
-            "dash": "3 3"
-          },
-          {
-            "x": 8,
-            "y": 108,
-            "w": 544,
-            "h": 74,
-            "label": "Proposed — a checkpoint nobody clears alone",
-            "dash": "3 3"
-          }
-        ],
-        "boxes": [
-          {
-            "x": 26,
-            "y": 52,
-            "w": 132,
-            "h": 30,
-            "t": "Frontier lab"
-          },
-          {
-            "x": 300,
-            "y": 52,
-            "w": 132,
-            "h": 30,
-            "t": "Release",
-            "fill": "hatch"
-          },
-          {
-            "x": 26,
-            "y": 132,
-            "w": 120,
-            "h": 38,
-            "t": "Frontier lab|US labs coordinate"
-          },
-          {
-            "x": 200,
-            "y": 132,
-            "w": 120,
-            "h": 38,
-            "t": "Capability|checkpoint",
-            "strong": true
-          },
-          {
-            "x": 374,
-            "y": 132,
-            "w": 120,
-            "h": 38,
-            "t": "Embedded|evaluator",
-            "fill": "solid"
-          }
-        ],
-        "flows": [
-          {
-            "d": "M160,67 L296,67",
-            "t": "no gate",
-            "at": [
-              228,
-              60
-            ]
-          },
-          {
-            "d": "M148,151 L196,151",
-            "t": "",
-            "at": [
-              0,
-              0
-            ]
-          },
-          {
-            "d": "M322,151 L370,151",
-            "t": "",
-            "at": [
-              0,
-              0
-            ]
-          }
-        ],
-        "notes": [
-          {
-            "x": 8,
-            "y": 20,
-            "t": "What the proposal changes",
-            "anchor": "start"
-          },
-          {
-            "x": 500,
-            "y": 156,
-            "t": "then China",
-            "anchor": "start"
-          }
-        ],
-        "capLabel": "The mechanism",
-        "caption": "The proposal puts third-party evaluators inside the labs with deep access and holds releases at agreed capability checkpoints — first among American companies, eventually with Beijing.",
-        "credit": "Cyborg News · after the published proposal"
+        "type": "photo",
+        "src": "assets/img/trump-portrait.jpg",
+        "wmm": 170,
+        "hmm": 86,
+        "focusY": 0.16,
+        "contrast": 1.05,
+        "gain": 0.6,
+        "feather": 0.6,
+        "capLabel": "Rejected",
+        "caption": "The President dismissed the industry's own call for a slowdown as a conspiracy that would benefit China, and phoned in to a technology summit to repeat it.",
+        "credit": "Shealeah Craighead · public domain",
+        "floor": 0.1
       },
       "body": [
         "Dario Amodei published an essay on Monday arguing that frontier laboratories should deliberately slow the rate at which their models improve. Within days Sam Altman, Elon Musk and Satya Nadella had said versions of the same thing. By Monday evening the President had called the effort a conspiracy and the market had sold off.",
@@ -329,27 +237,18 @@
       "headline": "The Offloading Problem Starts Early",
       "deck": "Evidence is accumulating that children who hand work to a model before they can do it themselves do not simply save time.",
       "art": {
-        "type": "stats",
-        "items": [
-          {
-            "n": "−17",
-            "unit": "%",
-            "l": "Offline performance after practising with the tool"
-          },
-          {
-            "n": "6–7",
-            "unit": "yrs",
-            "l": "Age at which weaker network synchronisation was measured"
-          },
-          {
-            "n": "2026",
-            "unit": "-27",
-            "l": "School year Los Angeles Unified bars the tools on its devices"
-          }
-        ],
-        "capLabel": "What the studies found",
-        "caption": "The Turkish result is the one that resists the usual reply: the assistance helped exactly as long as it was present.",
-        "credit": "Cyborg News · after the cited preprints"
+        "type": "photo",
+        "src": "assets/img/kids-tablets.jpg",
+        "wmm": 170,
+        "hmm": 72,
+        "focusY": 0.42,
+        "contrast": 1.38,
+        "gain": 0.58,
+        "feather": 0.6,
+        "capLabel": "Before the skill",
+        "caption": "Practising with the tool improved assisted work and reduced offline performance by 17%. The assistance helped exactly as long as it was present.",
+        "credit": "Intel Free Press · CC BY-SA 2.0",
+        "floor": 0.14
       },
       "body": [
         "Rebecca Winthrop of Brookings has been arguing that premature offloading to AI prevents children from building the very skills the offloading assumes. She calls the risk &ldquo;cognitive stunting,&rdquo; and the phrase is starting to acquire evidence.",
