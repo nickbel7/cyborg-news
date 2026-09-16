@@ -1,0 +1,84 @@
+name: Build the newspaper
+
+# The smoke test: does a Linux runner render the paper the same way a laptop
+# does? The fitter measures text, so if line breaking differs the trims differ
+# and the pages differ. Everything downstream assumes this holds.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/**'
+      - 'js/**'
+      - 'css/**'
+      - 'assets/**'
+      - 'tools/**'
+      - '.github/workflows/build.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Locate Chrome
+        run: |
+          for c in google-chrome google-chrome-stable chromium-browser chromium; do
+            if command -v "$c" >/dev/null 2>&1; then
+              echo "CHROME=$(command -v "$c")" >> "$GITHUB_ENV"
+              echo "found: $(command -v "$c")"
+              "$c" --version
+              exit 0
+            fi
+          done
+          echo "::error::No Chrome on the runner. render.js drives it over the DevTools protocol."
+          exit 1
+
+      - name: Fit report
+        # The real assertion. Compare this against the local report: if the
+        # vendored fonts shaped and broke identically, it matches word for word.
+        run: node tools/render.js report | tee fit-report.txt
+
+      - name: Render PDF
+        run: node tools/render.js pdf
+
+      - name: Render proof sheets
+        run: node tools/render.js png
+
+      - name: Check the PDF is A4 and the expected length
+        run: |
+          node -e '
+            const fs = require("fs");
+            const file = fs.readdirSync(".").find(f => /^cyborg-news-.*\.pdf$/.test(f));
+            if (!file) { console.error("no PDF produced"); process.exit(1); }
+            const buf = fs.readFileSync(file);
+            const pages = (buf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
+            const mb = buf.toString("latin1").match(/\/MediaBox\s*\[([^\]]*)\]/);
+            const [, , w, h] = (mb ? mb[1] : "").trim().split(/\s+/).map(Number);
+            const A4 = Math.abs(w - 595) < 2 && Math.abs(h - 842) < 2;
+            console.log(`${file}  ${pages} pages  ${w?.toFixed(1)} x ${h?.toFixed(1)} pt  A4=${A4}`);
+            const want = Number(process.env.EXPECT_PAGES || 0);
+            if (!A4) { console.error("::error::not A4"); process.exit(1); }
+            if (want && pages !== want) {
+              console.error(`::error::expected ${want} pages, got ${pages}`); process.exit(1);
+            }
+          '
+        env:
+          EXPECT_PAGES: '2'
+
+      - name: Upload the issue
+        uses: actions/upload-artifact@v4
+        with:
+          name: newspaper
+          path: |
+            cyborg-news-*.pdf
+            build/page-*.png
+            fit-report.txt
+          if-no-files-found: error
+          retention-days: 90

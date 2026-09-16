@@ -13,6 +13,19 @@
 
   const COVER_TEMPLATES = [
     {
+      id: 'cover/pair',
+      kind: 'cover',
+      // few-and-long: one dominant story with a plate, one beneath it, rail intact
+      wants: { art: true, articles: 2 },
+      slots: [
+        { n: 'nameplate', accepts: 'nameplate', c: 0, s: 12, r: 0, h: NAMEPLATE_H },
+        { n: 'rail', accepts: 'rail', c: 0, s: 3, r: NAMEPLATE_H + 2, h: 237 },
+        { n: 'lead', accepts: 'article', c: 3, s: 9, r: NAMEPLATE_H + 2, h: 150, artPos: 'top', drop: true, plateShare: 0.46 },
+        { n: 'rule-a', accepts: 'rule', c: 3, s: 9, r: NAMEPLATE_H + 156, h: 1, weight: 'med' },
+        { n: 'second', accepts: 'article', c: 3, s: 9, r: NAMEPLATE_H + 159, h: 80 }
+      ]
+    },
+    {
       id: 'cover/lead-plate',
       kind: 'cover',
       // one dominant story across three columns, a second beneath it, two
@@ -47,6 +60,21 @@
   ];
 
   const INSIDE_TEMPLATES = [
+    {
+      id: 'inside/pair',
+      kind: 'inside',
+      // two features at length, standing boxes down the right
+      wants: { articles: 2, boxes: 3 },
+      slots: [
+        { n: 'folio', accepts: 'folio', c: 0, s: 12, r: 0, h: FOLIO_H },
+        { n: 'lead', accepts: 'article', c: 0, s: 9, r: FOLIO_H + 2, h: 150, artPos: 'top', drop: true, plateShare: 0.46 },
+        { n: 'side-a', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 2, h: 74 },
+        { n: 'side-b', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 80, h: 72 },
+        { n: 'rule-a', accepts: 'rule', c: 0, s: 12, r: FOLIO_H + 156, h: 1, weight: 'med' },
+        { n: 'mid', accepts: 'article', c: 0, s: 9, r: FOLIO_H + 159, h: 108 },
+        { n: 'side-c', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 159, h: 108 }
+      ]
+    },
     {
       id: 'inside/broadsheet',
       kind: 'inside',

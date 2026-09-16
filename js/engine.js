@@ -62,7 +62,12 @@
       const list = isCover ? COVER_TEMPLATES : INSIDE_TEMPLATES;
       // page 2 is where front-page stories are expected to land
       const needJumps = !isCover && p === 1;
-      const tpl = pickTemplate(list, pool, boxPool, needJumps, used);
+      // An issue may pin its page plan — "plan": ["cover/pair", "inside/pair"].
+      // Pinning makes the word budget knowable before a word is written, which
+      // is the whole reason the planner picks the plan rather than inferring it.
+      const pinned = (data.issue.plan || [])[p];
+      const tpl = (pinned && [...COVER_TEMPLATES, ...INSIDE_TEMPLATES]
+        .find(t => t.id === pinned)) || pickTemplate(list, pool, boxPool, needJumps, used);
       used.add(tpl.id);
 
       const artSlots = tpl.slots.filter(s => s.accepts === 'article')

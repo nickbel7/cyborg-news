@@ -1,7 +1,9 @@
 # generated: reproducible from data/ with `npm run pdf` / `npm run proof`
 build/
 cyborg-news-*.html
-cyborg-news-*.pdf
+
+# built issues are kept: the reader will serve past papers from here
+!cyborg-news-*.pdf
 
 node_modules/
 .DS_Store
