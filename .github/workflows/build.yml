@@ -55,7 +55,9 @@ jobs:
         run: |
           node -e '
             const fs = require("fs");
-            const file = fs.readdirSync(".").find(f => /^cyborg-news-.*\.pdf$/.test(f));
+            const file = fs.readdirSync(".").filter(f => /^cyborg-news-.*\.pdf$/.test(f))
+              .map(f => ({ f, t: fs.statSync(f).mtimeMs }))
+              .sort((a, b) => b.t - a.t).map(x => x.f)[0];
             if (!file) { console.error("no PDF produced"); process.exit(1); }
             const buf = fs.readFileSync(file);
             const pages = (buf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
