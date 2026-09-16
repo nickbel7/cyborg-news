@@ -23,7 +23,7 @@
       slots: [
         { n: 'nameplate', accepts: 'nameplate', c: 0, s: 18, r: 0, h: NAMEPLATE_H },
         { n: 'rail', accepts: 'rail', c: 0, s: 3, r: NAMEPLATE_H + 2, h: 346 },
-        { n: 'lead', accepts: 'article', c: 3, s: 12, r: NAMEPLATE_H + 2, h: 200, artPos: 'top', drop: true, plateShare: 0.44 },
+        { n: 'lead', accepts: 'article', c: 3, s: 12, r: NAMEPLATE_H + 2, h: 200, artPos: 'top', drop: true, plateShare: 0.54 },
         { n: 'second', accepts: 'article', c: 15, s: 3, r: NAMEPLATE_H + 2, h: 200 },
         { n: 'rule-a', accepts: 'rule', c: 3, s: 15, r: NAMEPLATE_H + 206, h: 1, weight: 'med' },
         { n: 'third', accepts: 'article', c: 3, s: 9, r: NAMEPLATE_H + 209, h: 139 },
