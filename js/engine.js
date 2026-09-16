@@ -360,12 +360,12 @@
       ratio = node.height / node.width;
     }
     const full = plate.clientWidth || fig.clientWidth;
-    if (full * ratio <= avail) return true;                       // already fits
+    if (full * ratio <= avail) return 1;                          // fills the measure
     const w = avail / ratio;
-    if (w < MIN_PLATE_MM * MM) { fig.remove(); return false; }    // too small to read
+    if (w < MIN_PLATE_MM * MM) { fig.remove(); return 0; }        // too small to read
     node.style.width = w + 'px';
     node.style.margin = '0 auto';
-    return true;
+    return w / full;                                              // shrunk: leaves padding
   }
   const MIN_PLATE_MM = 58;
 
@@ -525,7 +525,7 @@
     root.innerHTML = '';
     plan.pages.forEach(p => buildPage(p, data, root));
 
-    const report = { pages: plan.pages.length, jumps: [], trimmed: [], white: [], dropped: [], fillers: [], plates: [], clipped: [] };
+    const report = { pages: plan.pages.length, jumps: [], trimmed: [], white: [], dropped: [], fillers: [], plates: [], plateFit: [], clipped: [] };
     const report0 = report;
     const fillers = (data.fillers || []).slice();
 
@@ -553,7 +553,9 @@
       if (fig) {
         const head = slotEl.querySelector('.head');
         const left = slotEl.clientHeight - head.offsetHeight;
-        if (!fitFigure(fig, left * (slot.plateShare || 0.45))) report0.plates.push(article.id);
+        const kept = fitFigure(fig, left * (slot.plateShare || 0.45));
+        if (kept === 0) report0.plates.push(article.id);
+        else if (kept < 0.99) report0.plateFit.push(`${article.id} ${Math.round(kept * 100)}% of measure`);
       }
     }));
 

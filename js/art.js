@@ -279,13 +279,13 @@
             if (at(x + dx, y + dy) !== c) { mixed = true; break; }
         if (!mixed) continue;
         // domain warp: pull the value from a nudged neighbour
-        const nx = Math.round((vnoise(x * 0.09, y * 0.09, 3) - 0.5) * 2.4 * a);
-        const ny = Math.round((vnoise(x * 0.09, y * 0.09, 8) - 0.5) * 2.4 * a);
+        const nx = Math.round((vnoise(x * 0.09, y * 0.09, 3) - 0.5) * 1.3 * a);
+        const ny = Math.round((vnoise(x * 0.09, y * 0.09, 8) - 0.5) * 1.3 * a);
         let v = at(x + nx, y + ny);
         // spatter both ways. Adding ink only was fine for line art, where
         // edges are sparse; on a photograph every pixel is an edge, so a
         // one-directional flip silently darkens the whole plate.
-        if (hash(x, y, 21) < 0.09 * a) v = v === 255 ? 0 : 255;
+        if (hash(x, y, 21) < 0.030 * a) v = v === 255 ? 0 : 255;
         img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
       }
     }
@@ -338,7 +338,7 @@
 
   function photo(spec) {
     const im = IMAGES[spec.src];
-    const wmm = spec.wmm || 90, hmm = spec.hmm || 60, px = spec.px || 10;
+    const wmm = spec.wmm || 90, hmm = spec.hmm || 60, px = spec.px || 12;
     const w = Math.round(wmm * px), h = Math.round(hmm * px);
     const cv = document.createElement('canvas');
     cv.width = w; cv.height = h; cv.className = 'halftone';
@@ -376,7 +376,7 @@
        screen, which is why newsprint reads as tone rather than as texture.
        cell is in device pixels; at px = 10 samples/mm a 3.5px cell is about
        72 lines per inch, in the range real newsprint is screened at.        */
-    const cell = spec.screen == null ? 3.5 : spec.screen;
+    const cell = spec.screen == null ? 3.4 : spec.screen;
     const ang = (spec.angle == null ? 45 : spec.angle) * Math.PI / 180;
     const ca = Math.cos(ang), sa = Math.sin(ang);
 

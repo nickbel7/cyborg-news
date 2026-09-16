@@ -98,6 +98,7 @@
     if (report.white.length) bits.push(`white space: ${report.white.join(', ')}`);
     if (report.fillers.length) bits.push(`fillers: ${report.fillers.length}`);
     if (report.plates.length) bits.push(`plate too small, dropped: ${report.plates.join(', ')}`);
+    if (report.plateFit.length) bits.push(`plate shrunk: ${report.plateFit.join(', ')}`);
     if (report.dropped.length) bits.push(`NO ROOM FOR: ${report.dropped.join(', ')}`);
     if (report.clipped.length) bits.push(`CLIPPED: ${report.clipped.join(', ')}`);
     const line = bits.join('  ·  ');

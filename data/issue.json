@@ -137,15 +137,15 @@
         "type": "photo",
         "src": "assets/img/trump-portrait.jpg",
         "wmm": 170,
-        "hmm": 86,
-        "focusY": 0.16,
-        "contrast": 1.05,
-        "gain": 0.6,
-        "feather": 0.6,
+        "hmm": 49,
+        "focusY": 0.14,
+        "contrast": 1.04,
+        "gain": 0.66,
+        "feather": 0.35,
         "capLabel": "Rejected",
         "caption": "The President dismissed the industry's own call for a slowdown as a conspiracy that would benefit China, and phoned in to a technology summit to repeat it.",
         "credit": "Shealeah Craighead · public domain",
-        "floor": 0.1
+        "floor": 0.08
       },
       "body": [
         "Dario Amodei published an essay on Monday arguing that frontier laboratories should deliberately slow the rate at which their models improve. Within days Sam Altman, Elon Musk and Satya Nadella had said versions of the same thing. By Monday evening the President had called the effort a conspiracy and the market had sold off.",
@@ -240,15 +240,15 @@
         "type": "photo",
         "src": "assets/img/kids-tablets.jpg",
         "wmm": 170,
-        "hmm": 72,
+        "hmm": 45,
         "focusY": 0.42,
-        "contrast": 1.38,
-        "gain": 0.58,
-        "feather": 0.6,
+        "contrast": 1.1,
+        "gain": 0.62,
+        "feather": 0.35,
         "capLabel": "Before the skill",
         "caption": "Practising with the tool improved assisted work and reduced offline performance by 17%. The assistance helped exactly as long as it was present.",
         "credit": "Intel Free Press · CC BY-SA 2.0",
-        "floor": 0.14
+        "floor": 0.08
       },
       "body": [
         "Rebecca Winthrop of Brookings has been arguing that premature offloading to AI prevents children from building the very skills the offloading assumes. She calls the risk &ldquo;cognitive stunting,&rdquo; and the phrase is starting to acquire evidence.",
