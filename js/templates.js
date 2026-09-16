@@ -1,110 +1,88 @@
 /* =========================================================================
    templates.js — page furniture as data.
-   A slot is a rectangle on the 12-unit x 1mm paste-up grid:
-     c = start unit (0-11), s = unit span, r = start row (mm), h = height (mm)
-   The engine picks a template per page, then pours stories into the slots.
-   Add a template here and the engine will start choosing it.
+   A slot is a rectangle on the 18-unit x 1mm paste-up grid:
+     c = start unit (0-17), s = unit span, r = start row (mm), h = height (mm)
+   Three units make one text column, so the 269mm A3 well carries six columns.
+   The well is 396mm tall: a 420mm sheet less 12mm top and bottom margin.
+
+   The paper is always two A3 pages — one sheet, printed both sides.
    ========================================================================= */
 (function (g) {
   'use strict';
 
-  const NAMEPLATE_H = 38;
-  const FOLIO_H = 10;
+  const NAMEPLATE_H = 48;
+  const FOLIO_H = 12;
 
   const COVER_TEMPLATES = [
     {
-      id: 'cover/pair',
+      id: 'cover/a3-lead',
       kind: 'cover',
-      // few-and-long: one dominant story with a plate, one beneath it, rail intact
-      wants: { art: true, articles: 2 },
-      slots: [
-        { n: 'nameplate', accepts: 'nameplate', c: 0, s: 12, r: 0, h: NAMEPLATE_H },
-        { n: 'rail', accepts: 'rail', c: 0, s: 3, r: NAMEPLATE_H + 2, h: 237 },
-        { n: 'lead', accepts: 'article', c: 3, s: 9, r: NAMEPLATE_H + 2, h: 150, artPos: 'top', drop: true, plateShare: 0.46 },
-        { n: 'rule-a', accepts: 'rule', c: 3, s: 9, r: NAMEPLATE_H + 156, h: 1, weight: 'med' },
-        { n: 'second', accepts: 'article', c: 3, s: 9, r: NAMEPLATE_H + 159, h: 80 }
-      ]
-    },
-    {
-      id: 'cover/lead-plate',
-      kind: 'cover',
-      // one dominant story across three columns, a second beneath it, two
-      // front-page briefs down the right
+      // one dominant story across four columns with a plate, a narrative
+      // single-column piece beside it, two more across the foot
       wants: { art: true, articles: 4 },
       slots: [
-        { n: 'nameplate', accepts: 'nameplate', c: 0, s: 12, r: 0, h: NAMEPLATE_H },
-        { n: 'rail', accepts: 'rail', c: 0, s: 3, r: NAMEPLATE_H + 2, h: 237 },
-        { n: 'lead', accepts: 'article', c: 3, s: 9, r: NAMEPLATE_H + 2, h: 136, artPos: 'top', drop: true, plateShare: 0.52 },
-        { n: 'rule-a', accepts: 'rule', c: 3, s: 9, r: NAMEPLATE_H + 140, h: 1, weight: 'med' },
-        { n: 'second', accepts: 'article', c: 3, s: 6, r: NAMEPLATE_H + 143, h: 96 },
-        { n: 'brief-a', accepts: 'article', c: 9, s: 3, r: NAMEPLATE_H + 143, h: 46 },
-        { n: 'rule-r', accepts: 'rule', c: 9, s: 3, r: NAMEPLATE_H + 191, h: 1 },
-        { n: 'brief-b', accepts: 'article', c: 9, s: 3, r: NAMEPLATE_H + 194, h: 45 }
+        { n: 'nameplate', accepts: 'nameplate', c: 0, s: 18, r: 0, h: NAMEPLATE_H },
+        { n: 'rail', accepts: 'rail', c: 0, s: 3, r: NAMEPLATE_H + 2, h: 346 },
+        { n: 'lead', accepts: 'article', c: 3, s: 12, r: NAMEPLATE_H + 2, h: 200, artPos: 'top', drop: true, plateShare: 0.44 },
+        { n: 'second', accepts: 'article', c: 15, s: 3, r: NAMEPLATE_H + 2, h: 200 },
+        { n: 'rule-a', accepts: 'rule', c: 3, s: 15, r: NAMEPLATE_H + 206, h: 1, weight: 'med' },
+        { n: 'third', accepts: 'article', c: 3, s: 9, r: NAMEPLATE_H + 209, h: 139 },
+        { n: 'fourth', accepts: 'article', c: 12, s: 6, r: NAMEPLATE_H + 209, h: 139 }
       ]
     },
     {
-      id: 'cover/twin',
+      id: 'cover/a3-twin',
       kind: 'cover',
-      // no dominant plate: two stories share the well, two briefs at the foot
-      wants: { art: false, articles: 4 },
+      // no dominant plate: two leads share the well, three across the foot
+      wants: { art: false, articles: 5 },
       slots: [
-        { n: 'nameplate', accepts: 'nameplate', c: 0, s: 12, r: 0, h: NAMEPLATE_H },
-        { n: 'rail', accepts: 'rail', c: 0, s: 3, r: NAMEPLATE_H + 2, h: 237 },
-        { n: 'lead', accepts: 'article', c: 3, s: 6, r: NAMEPLATE_H + 2, h: 168, drop: true },
-        { n: 'lead-b', accepts: 'article', c: 9, s: 3, r: NAMEPLATE_H + 2, h: 168 },
-        { n: 'rule-a', accepts: 'rule', c: 3, s: 9, r: NAMEPLATE_H + 172, h: 1, weight: 'med' },
-        { n: 'foot-a', accepts: 'article', c: 3, s: 6, r: NAMEPLATE_H + 175, h: 64 },
-        { n: 'foot-b', accepts: 'article', c: 9, s: 3, r: NAMEPLATE_H + 175, h: 64 }
+        { n: 'nameplate', accepts: 'nameplate', c: 0, s: 18, r: 0, h: NAMEPLATE_H },
+        { n: 'rail', accepts: 'rail', c: 0, s: 3, r: NAMEPLATE_H + 2, h: 346 },
+        { n: 'lead', accepts: 'article', c: 3, s: 9, r: NAMEPLATE_H + 2, h: 196, drop: true },
+        { n: 'lead-b', accepts: 'article', c: 12, s: 6, r: NAMEPLATE_H + 2, h: 196 },
+        { n: 'rule-a', accepts: 'rule', c: 3, s: 15, r: NAMEPLATE_H + 202, h: 1, weight: 'med' },
+        { n: 'foot-a', accepts: 'article', c: 3, s: 6, r: NAMEPLATE_H + 205, h: 143 },
+        { n: 'foot-b', accepts: 'article', c: 9, s: 6, r: NAMEPLATE_H + 205, h: 143 },
+        { n: 'foot-c', accepts: 'article', c: 15, s: 3, r: NAMEPLATE_H + 205, h: 143 }
       ]
     }
   ];
 
   const INSIDE_TEMPLATES = [
     {
-      id: 'inside/pair',
+      id: 'inside/a3-lead',
       kind: 'inside',
-      // two features at length, standing boxes down the right
-      wants: { articles: 2, boxes: 3 },
+      // a lead with a plate, a second beside it, then a tier of three shorts
+      // and a tier of three standing boxes across the foot
+      wants: { articles: 5, boxes: 3 },
       slots: [
-        { n: 'folio', accepts: 'folio', c: 0, s: 12, r: 0, h: FOLIO_H },
-        { n: 'lead', accepts: 'article', c: 0, s: 9, r: FOLIO_H + 2, h: 150, artPos: 'top', drop: true, plateShare: 0.46 },
-        { n: 'side-a', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 2, h: 74 },
-        { n: 'side-b', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 80, h: 72 },
-        { n: 'rule-a', accepts: 'rule', c: 0, s: 12, r: FOLIO_H + 156, h: 1, weight: 'med' },
-        { n: 'mid', accepts: 'article', c: 0, s: 9, r: FOLIO_H + 159, h: 108 },
-        { n: 'side-c', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 159, h: 108 }
+        { n: 'folio', accepts: 'folio', c: 0, s: 18, r: 0, h: FOLIO_H },
+        { n: 'lead', accepts: 'article', c: 0, s: 12, r: FOLIO_H + 2, h: 190, artPos: 'top', drop: true, plateShare: 0.40 },
+        { n: 'second', accepts: 'article', c: 12, s: 6, r: FOLIO_H + 2, h: 190 },
+        { n: 'rule-a', accepts: 'rule', c: 0, s: 18, r: FOLIO_H + 196, h: 1, weight: 'med' },
+        { n: 'mid-a', accepts: 'article', c: 0, s: 6, r: FOLIO_H + 199, h: 124 },
+        { n: 'mid-b', accepts: 'article', c: 6, s: 6, r: FOLIO_H + 199, h: 124 },
+        { n: 'mid-c', accepts: 'article', c: 12, s: 6, r: FOLIO_H + 199, h: 124 },
+        { n: 'rule-b', accepts: 'rule', c: 0, s: 18, r: FOLIO_H + 325, h: 1 },
+        { n: 'box-a', accepts: 'box', c: 0, s: 6, r: FOLIO_H + 328, h: 56 },
+        { n: 'box-b', accepts: 'box', c: 6, s: 6, r: FOLIO_H + 328, h: 56 },
+        { n: 'box-c', accepts: 'box', c: 12, s: 6, r: FOLIO_H + 328, h: 56 }
       ]
     },
     {
-      id: 'inside/broadsheet',
+      id: 'inside/a3-grid',
       kind: 'inside',
-      // page lead with a plate, a standing rail of boxes, two stories beneath
-      wants: { articles: 4, boxes: 3 },
+      // no single dominant story: four of comparable weight, boxes down one side
+      wants: { articles: 4, boxes: 2 },
       slots: [
-        { n: 'folio', accepts: 'folio', c: 0, s: 12, r: 0, h: FOLIO_H },
-        { n: 'lead', accepts: 'article', c: 0, s: 9, r: FOLIO_H + 2, h: 150, artPos: 'top', drop: true, plateShare: 0.5 },
-        { n: 'rail-a', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 2, h: 70 },
-        { n: 'rail-b', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 76, h: 74 },
-        { n: 'rail-c', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 154, h: 38 },
-        { n: 'rail-d', accepts: 'article', c: 9, s: 3, r: FOLIO_H + 196, h: 71 },
-        { n: 'rule-a', accepts: 'rule', c: 0, s: 9, r: FOLIO_H + 156, h: 1, weight: 'med' },
-        { n: 'mid-a', accepts: 'article', c: 0, s: 6, r: FOLIO_H + 159, h: 108 },
-        { n: 'mid-b', accepts: 'article', c: 6, s: 3, r: FOLIO_H + 159, h: 108 }
-      ]
-    },
-    {
-      id: 'inside/feature',
-      kind: 'inside',
-      // a long read with a banner plate, a standing box, a tier of two beneath
-      wants: { articles: 4, boxes: 1 },
-      slots: [
-        { n: 'folio', accepts: 'folio', c: 0, s: 12, r: 0, h: FOLIO_H },
-        { n: 'feature', accepts: 'article', c: 0, s: 9, r: FOLIO_H + 2, h: 146, artPos: 'top', drop: true },
-        { n: 'side-a', accepts: 'box', c: 9, s: 3, r: FOLIO_H + 2, h: 80 },
-        { n: 'side-b', accepts: 'article', c: 9, s: 3, r: FOLIO_H + 86, h: 62 },
-        { n: 'rule-a', accepts: 'rule', c: 0, s: 12, r: FOLIO_H + 152, h: 1, weight: 'med' },
-        { n: 'mid-a', accepts: 'article', c: 0, s: 6, r: FOLIO_H + 155, h: 112 },
-        { n: 'mid-b', accepts: 'article', c: 6, s: 6, r: FOLIO_H + 155, h: 112 }
+        { n: 'folio', accepts: 'folio', c: 0, s: 18, r: 0, h: FOLIO_H },
+        { n: 'top-a', accepts: 'article', c: 0, s: 9, r: FOLIO_H + 2, h: 188, artPos: 'top', drop: true, plateShare: 0.42 },
+        { n: 'top-b', accepts: 'article', c: 9, s: 6, r: FOLIO_H + 2, h: 188 },
+        { n: 'side-a', accepts: 'box', c: 15, s: 3, r: FOLIO_H + 2, h: 188 },
+        { n: 'rule-a', accepts: 'rule', c: 0, s: 18, r: FOLIO_H + 194, h: 1, weight: 'med' },
+        { n: 'foot-a', accepts: 'article', c: 0, s: 6, r: FOLIO_H + 197, h: 187 },
+        { n: 'foot-b', accepts: 'article', c: 6, s: 6, r: FOLIO_H + 197, h: 187 },
+        { n: 'side-b', accepts: 'box', c: 12, s: 6, r: FOLIO_H + 197, h: 187 }
       ]
     }
   ];

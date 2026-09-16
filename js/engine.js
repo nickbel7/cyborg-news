@@ -101,9 +101,10 @@
   /* -------------------------------------------------------------- render  */
   function hedClassFor(slot) {
     const A = area(slot);
-    if (A >= 850) return { cls: 'hed-1', scale: slot.s >= 9 ? 1.2 : 1 };
-    if (A >= 520) return { cls: 'hed-2', scale: slot.s >= 9 ? 1.18 : 1 };
-    if (A >= 300) return { cls: 'hed-3', scale: 1 };
+    // thresholds are in slot-area units (span x mm) and were retuned for A3
+    if (A >= 2000) return { cls: 'hed-1', scale: slot.s >= 9 ? 1.2 : 1 };
+    if (A >= 1000) return { cls: 'hed-2', scale: slot.s >= 9 ? 1.18 : 1 };
+    if (A >= 550) return { cls: 'hed-3', scale: 1 };
     return { cls: 'hed-4', scale: 1 };
   }
 
@@ -117,7 +118,8 @@
       <div class="logo"><img src="assets/logo-inline.svg" alt="${esc(issue.name)}"></div>
       <div class="folio-line">
         <b>${esc(issue.site || '')}</b>
-        <span class="center">${esc(issue.dateline_long)} &nbsp;·&nbsp; ${esc(issue.volume)} &nbsp;·&nbsp; ${esc(issue.number)}</span>
+        <span class="center">${[issue.dateline_long, issue.volume, issue.number]
+          .filter(Boolean).map(esc).join(' &nbsp;·&nbsp; ')}</span>
         <b>${esc(issue.price || '')}</b>
       </div>`;
     return n;

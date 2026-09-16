@@ -8,14 +8,14 @@
 
 :root{
   /* --- sheet geometry ------------------------------------------------- */
-  --sheet-w: 210mm;
-  --sheet-h: 297mm;
-  --margin-x: 12mm;
-  --margin-t: 10mm;
-  --margin-b: 10mm;
-  --well-w: 186mm;                 /* sheet - 2*margin-x */
+  --sheet-w: 297mm;
+  --sheet-h: 420mm;
+  --margin-x: 14mm;
+  --margin-t: 12mm;
+  --margin-b: 12mm;
+  --well-w: 269mm;                 /* sheet - 2*margin-x */
   --gutter: 4mm;                   /* space between text columns */
-  --cols: 12;                      /* layout units; 1 text column = 3 units */
+  --cols: 18;                      /* layout units; 1 text column = 3 units */
 
   /* --- ink -------------------------------------------------------------- */
   --ink: #000;
@@ -380,7 +380,7 @@ body.has-toolbar{padding-top:34px}
 .overflow-flag{outline:1.5px dashed #c0392b; outline-offset:-1px}
 
 /* =========================== print ======================================== */
-@page{ size:A4 portrait; margin:0 }
+@page{ size:A3 portrait; margin:0 }
 
 @media print{
   html,body{background:#fff}
@@ -388,7 +388,7 @@ body.has-toolbar{padding-top:34px}
   .toolbar{display:none !important}
   .sheet{
     margin:0; box-shadow:none; background:#fff;
-    width:210mm; height:297mm;
+    width:297mm; height:420mm;
     break-after:page; page-break-after:always;
   }
   .sheet:last-child{break-after:auto; page-break-after:auto}

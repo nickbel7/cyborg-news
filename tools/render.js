@@ -25,7 +25,7 @@ async function launch() {
   const proc = spawn(CHROME, ['--headless=new', '--disable-gpu', '--no-sandbox',
     '--hide-scrollbars', '--force-device-scale-factor=2',
     '--remote-debugging-port=0', `--user-data-dir=${profile}`,
-    '--window-size=794,1123', 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
+    '--window-size=1123,1587', 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
 
   const port = await new Promise((res, rej) => {
     let buf = '';
@@ -109,11 +109,11 @@ async function waitReady(ws, ms) {
       const out = path.join(ROOT, built.replace(/\.html$/, '.pdf'));
       const r = await rpc(ws, 'Page.printToPDF', {
         printBackground: true, preferCSSPageSize: true,
-        paperWidth: 8.2677, paperHeight: 11.6929,
+        paperWidth: 11.6929, paperHeight: 16.5354,
         marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0
       });
       fs.writeFileSync(out, Buffer.from(r.data, 'base64'));
-      console.log(`${path.relative(ROOT, out)}  (${pages} pages, A4)`);
+      console.log(`${path.relative(ROOT, out)}  (${pages} pages, A3)`);
       console.log('  ' + report.split('  ·  ').join('\n  · '));
     } else if (cmd === 'png') {
       const dir = path.join(ROOT, 'build');
@@ -126,7 +126,7 @@ async function waitReady(ws, ms) {
         await sleep(120);
         const shot = await rpc(ws, 'Page.captureScreenshot', {
           format: 'png', captureBeyondViewport: true,
-          clip: { x: 0, y: 0, width: 794, height: 1123, scale: 2 }
+          clip: { x: 0, y: 0, width: 1123, height: 1587, scale: 2 }
         });
         fs.writeFileSync(path.join(dir, `page-${i}.png`), Buffer.from(shot.data, 'base64'));
         console.log('  build/page-' + i + '.png');
