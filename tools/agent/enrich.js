@@ -118,6 +118,7 @@ async function grab(url) {
       words: t.split(' ').length,
       text: t,
       submitted_by: s.submitted_by, note: s.note,
+      beat: s.beat || null,           // carried through so the planner can spread the issue
       fetched_at: new Date().toISOString(),
       status: t.split(' ').length < 120 ? 'thin' : 'ok'
     };
