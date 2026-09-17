@@ -403,6 +403,12 @@ const page = `<!doctype html>
   }
   .greeter .portrait:hover{transform:translateY(-2px)}
   .greeter .portrait:active{transform:translateY(0)}
+  /* A keyed sprite needs no card: the character stands on the page, with a
+     shadow that follows the pixels rather than a box around them. */
+  .greeter .portrait.is-cutout{
+    background:transparent; box-shadow:none; border-radius:0; overflow:visible;
+    filter:drop-shadow(0 4px 3px rgba(20,19,16,.12)) drop-shadow(0 14px 18px rgba(20,19,16,.14));
+  }
   .greeter video, .greeter img{display:block; width:100%; height:auto}
   .greeter .poster{display:none}
   /* Sprite sheet: a window one frame wide, and inside it the whole sheet
@@ -504,7 +510,7 @@ ${hasAvatar ? `<aside class="greeter" id="greeter" aria-label="Greeter">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
   </div>
-  <button class="portrait" id="greeterPortrait" type="button" title="Say something else" aria-label="Say something else">
+  <button class="portrait${avatar.sprite ? ' is-cutout' : ''}" id="greeterPortrait" type="button" title="Say something else" aria-label="Say something else">
 ${avatar.sprite ? `    <span class="spriteWin" style="aspect-ratio:${avatar.frameW}/${avatar.frameH}">
       <img src="avatar/${avatar.sprite}" alt="" style="animation:${motion.animation}">
     </span>` : `    <video id="greeterVideo" autoplay muted loop playsinline${avatar.poster ? ` poster="avatar/${avatar.poster}"` : ''}>

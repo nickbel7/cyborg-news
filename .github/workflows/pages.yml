@@ -12,6 +12,7 @@ on:
     branches: [master]
     paths:
       - 'issues/**'
+      - 'assets/avatar/**'
       - 'tools/site.js'
       - '.github/workflows/pages.yml'
   # A commit pushed by the build job uses GITHUB_TOKEN, and commits made with
