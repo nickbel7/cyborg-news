@@ -195,6 +195,11 @@ const page = `<!doctype html>
   .pill[disabled]{background:var(--chip); color:var(--chip-ink); cursor:default}
   .pill[disabled]:hover{opacity:1}
 
+  /* Mobile paging: a circular chevron pinned to each edge of the viewport,
+     not a pill with text. Hidden entirely on desktop, where the labelled
+     pills under the sheet already do this job. */
+  .edge{display:none}
+
   /* ---- the carousel: a pile of sheets receding down and away ---------- */
   .archive{
     position:fixed; right:26px; top:50%; transform:translateY(-50%);
@@ -230,6 +235,7 @@ const page = `<!doctype html>
   .card .when{
     position:absolute; left:0; right:0; bottom:0; padding:14px 0 7px;
     font-size:9px; font-weight:600; letter-spacing:.13em; color:var(--ink);
+    text-align:center;
     background:linear-gradient(to top, rgba(251,250,248,.96) 55%, rgba(251,250,248,0));
   }
   .card:hover{filter:brightness(.97)}
@@ -268,13 +274,59 @@ const page = `<!doctype html>
   }
 
   @media (max-width:1000px){
-    .archive{position:static; transform:none; width:100%; max-width:420px; margin:8px auto 0}
-    .deck{height:auto; display:flex; flex-wrap:wrap; gap:12px; justify-content:center}
-    .card{position:static; transform:none !important; opacity:1 !important; width:84px}
-    .card .when{position:static; background:none; padding:6px 0 0; color:var(--muted)}
     .tools{position:static; flex-direction:row; margin-top:14px; justify-content:center}
     .stage{flex-direction:column; align-items:center}
     .sheet{height:auto; width:min(92vw,540px)}
+
+    /* A wheel-driven vertical stack is a desktop-mouse idiom; a phone pages
+       with a thumb. The labelled PREV/NEXT pills are hidden and replaced by
+       plain chevrons pinned to the two edges of the screen — always within
+       thumb reach regardless of scroll position, and out of the way (faded)
+       once the archive row below is what's actually being read. */
+    .pager{display:none}
+    .edge{
+      display:grid; place-items:center;
+      position:fixed; top:50%; transform:translateY(-50%);
+      width:46px; height:46px; border-radius:50%; z-index:6;
+      border:0; padding:0; margin:0; cursor:pointer;
+      background:rgba(231,229,225,.92); color:var(--ink);
+      box-shadow:0 3px 12px rgba(20,19,16,.14);
+      transition:opacity .2s, background .15s;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .edge svg{width:20px; height:20px; fill:none; stroke:currentColor;
+              stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round}
+    .edge-prev{left:10px}
+    .edge-next{right:10px}
+    .edge:active{background:rgba(216,213,207,.92)}
+    .edge:disabled{opacity:.25; pointer-events:none}
+    .edge.is-hidden{opacity:0; pointer-events:none}
+
+    /* The archive, rebuilt as a real horizontally-scrolling row instead of a
+       grid the small cards were wrapping into. scroll-snap-align:start plus
+       scroll-padding-left means each swipe settles the next card flush
+       against the same inset the row starts from, like paging through a
+       stack rather than a list of little contact sheets. */
+    .archive{
+      position:static; transform:none; width:100%; max-width:none;
+      margin:22px 0 0; text-align:left;
+    }
+    .archive h2{padding-left:20px}
+    .deck{
+      position:static; height:auto;
+      display:flex; flex-wrap:nowrap; align-items:flex-start;
+      gap:16px; overflow-x:auto; overflow-y:visible;
+      padding:20px 20px 44px; margin:0;
+      scroll-snap-type:x mandatory; scroll-padding-left:20px;
+      -webkit-overflow-scrolling:touch; touch-action:pan-x; cursor:auto;
+      scrollbar-width:none;
+    }
+    .deck::-webkit-scrollbar{display:none}
+    .card{
+      position:static; flex:0 0 auto; scroll-snap-align:start;
+      transform-origin:center center;
+      width:64vw; max-width:230px; min-width:190px;
+    }
   }
 </style>
 </head>
@@ -298,7 +350,7 @@ ${manifest.length ? `<main class="room">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>
       </button>
       <a class="tool" id="dl" download title="Download PDF" aria-label="Download PDF">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
       </a>
     </div>
   </div>
@@ -307,9 +359,16 @@ ${manifest.length ? `<main class="room">
     <button class="pill" id="prev" type="button" disabled>PREV</button>
     <button class="pill" id="next" type="button" disabled>NEXT</button>
   </div>
+
+  <button class="edge edge-prev" id="edgePrev" type="button" aria-label="Previous page" disabled>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <button class="edge edge-next" id="edgeNext" type="button" aria-label="Next page" disabled>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
 </main>
 
-<nav class="archive">
+<nav class="archive" id="archive">
   <h2>PREVIOUS ISSUES</h2>
   <div class="deck" id="deck"></div>
 </nav>` : `<main class="room"><p class="empty-state">No issue has printed yet. The first one is set on Sunday.</p></main>`}
@@ -387,8 +446,10 @@ if (ISSUES.length) {
       docs.delete(e.pdf);
       fallback();
     }
-    $('prev').disabled = page <= 1;
-    $('next').disabled = page >= pages;
+    const atStart = page <= 1, atEnd = page >= pages;
+    $('prev').disabled = atStart; $('next').disabled = atEnd;
+    if ($('edgePrev')) $('edgePrev').disabled = atStart;
+    if ($('edgeNext')) $('edgeNext').disabled = atEnd;
   }
 
   /* ---- the carousel ---------------------------------------------------
@@ -401,6 +462,30 @@ if (ISSUES.length) {
      never leave the paper you are reading. */
   const flat = () => window.matchMedia('(max-width:1000px)').matches;
   let cards = [], focus = 0, aim = 0, running = false;
+
+  /* ---- mobile: a real horizontally-scrolling row --------------------
+     The card flush against the row's leading inset is "in focus"; as a
+     card scrolls away from that inset it shrinks and fades. This is the
+     same idea as the desktop wheel carousel — position drives zoom — but
+     driven by the browser's own native momentum/snap scroll rather than a
+     custom wheel/drag loop, so it inherits real touch physics instead of
+     fighting them. Costs one getBoundingClientRect per card per frame,
+     which is nothing for the handful of issues this rail ever holds. */
+  let mobileRaf = null;
+  function mobileFocus() {
+    mobileRaf = null;
+    if (!flat() || !cards.length) return;
+    const deckBox = $('deck').getBoundingClientRect();
+    const anchor = deckBox.left + 20;         // matches .deck's scroll-padding-left
+    cards.forEach(c => {
+      const r = c.getBoundingClientRect();
+      const t = Math.min(1, Math.max(0, r.left - anchor) / (r.width * 1.15));
+      const tt = t * t;
+      c.style.transform = 'scale(' + (1 - 0.16 * tt).toFixed(3) + ')';
+      c.style.opacity = Math.max(0.35, 1 - 0.55 * tt).toFixed(2);
+    });
+  }
+  const queueMobileFocus = () => { if (!mobileRaf) mobileRaf = requestAnimationFrame(mobileFocus); };
 
   /* The rail is PREVIOUS issues, so the one on the table is not in it. The
      last plate is the end of the archive: reaching it, or having nothing to
@@ -420,10 +505,22 @@ if (ISSUES.length) {
     $('deck').innerHTML = sheets.join('');
     cards = [].slice.call($('deck').querySelectorAll('.card'));
     focus = 0; aim = 0;
+    $('deck').scrollLeft = 0;                 // a rebuilt row starts at its own beginning
+    queueMobileFocus();
   }
 
   function layout() {
-    if (flat()) { cards.forEach(c => { c.style.transform = ''; c.style.opacity = ''; }); return; }
+    if (flat()) {
+      /* Flex items respect z-index even at position:static, so a stale
+         desktop depth value or a pointer-events:none from a receded card
+         would otherwise silently carry over into the mobile row. */
+      cards.forEach(c => {
+        c.style.transform = ''; c.style.opacity = '';
+        c.style.zIndex = ''; c.style.pointerEvents = '';
+      });
+      queueMobileFocus();
+      return;
+    }
     const W = 140, H = W * 1587 / 1123;                      // a sheet at the front
     cards.forEach((c, i) => {
       const d = i - focus;                                   // 0 = at the front
@@ -487,10 +584,32 @@ if (ISSUES.length) {
     build(); layout(); paint();                // the rail's membership changed
   });
 
+  $('deck').addEventListener('scroll', queueMobileFocus, { passive: true });
+
   addEventListener('resize', () => layout());
 
-  $('prev').addEventListener('click', () => { if (page > 1) { page--; paint(); } });
-  $('next').addEventListener('click', () => { if (page < pages) { page++; paint(); } });
+  /* One page-turn function for all four controls: the labelled pills under
+     the sheet on desktop, and the two edge chevrons on mobile. */
+  const go = delta => {
+    const p = page + delta;
+    if (p < 1 || p > pages) return;
+    page = p; paint();
+  };
+  $('prev').addEventListener('click', () => go(-1));
+  $('next').addEventListener('click', () => go(1));
+  if ($('edgePrev')) $('edgePrev').addEventListener('click', () => go(-1));
+  if ($('edgeNext')) $('edgeNext').addEventListener('click', () => go(1));
+
+  /* The edge chevrons are for paging the paper, so they step out of the way
+     (fade out) once the archive row they'd otherwise float over is what is
+     actually on screen. */
+  if ('IntersectionObserver' in window && $('archive')) {
+    const edges = [$('edgePrev'), $('edgeNext')].filter(Boolean);
+    new IntersectionObserver(
+      entries => edges.forEach(el => el.classList.toggle('is-hidden', entries[0].isIntersecting)),
+      { threshold: 0.12 }
+    ).observe($('archive'));
+  }
 
   /* Full screen shows the whole paper as one scrolling reel — no controls,
      the way a PDF reads. */
