@@ -113,10 +113,6 @@ const page = `<!doctype html>
     font-family:'Playfair Display',Georgia,serif; font-weight:700;
     font-size:clamp(15px,2.1vw,21px); letter-spacing:.02em; margin:0;
   }
-  .dateline .vol{
-    font-size:9px; font-weight:600; letter-spacing:.2em; color:var(--muted);
-    margin:5px 0 0; text-transform:uppercase;
-  }
 
   /* sheet + its tools travel together, and the pair is centred */
   .stage{
@@ -191,18 +187,24 @@ const page = `<!doctype html>
     font-size:10px; font-weight:600; letter-spacing:.16em; color:var(--muted);
     margin:0 0 20px;
   }
-  .deck{position:relative; height:430px; margin:0 auto}
+  /* A wheel over this area drives the carousel: every card's position and
+     zoom is computed per frame from a scroll offset that eases toward its
+     target, which is what makes it move smoothly rather than snapping
+     between fixed poses. */
+  .deck{
+    position:relative; height:min(62vh, 545px); margin:0 auto;
+    overflow:hidden; touch-action:none; cursor:ns-resize;
+  }
   .card{
     appearance:none; border:0; padding:0; cursor:pointer;
-    position:absolute; top:0; left:50%; width:150px;
+    position:absolute; top:0; left:50%; width:140px;
     background:transparent; color:inherit;
-    transition:transform .38s cubic-bezier(.22,.7,.3,1), opacity .38s;
-    transform-origin:top center;
+    transform-origin:top center; will-change:transform,opacity;
   }
   .card .sheetlet{
     position:relative; display:block; width:100%; aspect-ratio:1123/1587;
-    overflow:hidden; background:var(--sheet); border-radius:2px;
-    box-shadow:0 2px 6px rgba(20,19,16,.08), 0 16px 30px rgba(20,19,16,.10);
+    overflow:hidden; background:var(--sheet); border-radius:12px;
+    box-shadow:0 2px 8px rgba(20,19,16,.10), 0 20px 38px rgba(20,19,16,.14);
   }
   .card img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block}
   .card .none{position:absolute; inset:0; display:grid; place-items:center;
@@ -253,7 +255,6 @@ const page = `<!doctype html>
 ${manifest.length ? `<main class="room">
   <div class="dateline">
     <p class="day" id="dateline">&nbsp;</p>
-    <p class="vol" id="volume"></p>
   </div>
 
   <div class="stage">
@@ -326,7 +327,6 @@ if (ISSUES.length) {
     const e = ISSUES[issue];
     const mine = ++token;
     $('dateline').textContent = e.long;
-    $('volume').textContent = [e.volume, 'PAGE ' + page].filter(Boolean).join('  \\u00b7  ');
     $('dl').href = e.pdf;
     $('dl').setAttribute('download', 'cyborg-news-' + e.date + '.pdf');
 
@@ -354,8 +354,6 @@ if (ISSUES.length) {
       await Promise.race([draw($('canvas'), p, Math.round(box.width)), timeout]);
       if (mine !== token) return;
       $('fall').hidden = true; $('canvas').hidden = false; say('');
-      $('volume').textContent = [e.volume, 'PAGE ' + page + ' OF ' + pages]
-        .filter(Boolean).join('  \\u00b7  ');
       document.body.dataset.ready = '1';
     } catch (err) {
       if (mine !== token) return;
@@ -366,34 +364,96 @@ if (ISSUES.length) {
     $('next').disabled = page >= pages;
   }
 
-  /* The carousel: the selected issue in front, the rest receding down and
-     away behind it. Changing issue happens only here — prev and next never
-     leave the paper you are reading. */
-  function deck() {
-    const order = [issue].concat(ISSUES.map((_, i) => i).filter(i => i !== issue));
-    $('deck').innerHTML = order.map((idx, d) => {
-      const e = ISSUES[idx];
+  /* ---- the carousel ---------------------------------------------------
+     A vertical wheel of sheets. The card at the front is full size; the
+     ones behind recede down and away, each smaller and quieter than the
+     one before. A wheel over the rail moves a continuous offset, and every
+     card's zoom and position is recomputed from it each frame, so the
+     whole stack telescopes smoothly under the cursor instead of jumping
+     between poses. Clicking a card is what changes issue — prev and next
+     never leave the paper you are reading. */
+  const flat = () => window.matchMedia('(max-width:1000px)').matches;
+  let cards = [], focus = 0, aim = 0, running = false;
+
+  function build() {
+    $('deck').innerHTML = ISSUES.map((e, i) => {
       const art = e.thumb
         ? '<img src="' + e.thumb + '" alt="" loading="lazy">'
         : '<span class="none">PDF</span>';
-      const t = 'translateX(-50%) translateY(' + (d * 46) + 'px) scale(' + (1 - d * 0.11).toFixed(3) + ')';
-      return '<button class="card" type="button" data-i="' + idx + '"' +
-        (d === 0 ? ' aria-current="true"' : '') +
-        ' title="' + e.long + '"' +
-        ' style="transform:' + t + ';opacity:' + Math.max(0, 1 - d * 0.22).toFixed(2) +
-        ';z-index:' + (100 - d) + ';' + (d > 4 ? 'visibility:hidden;' : '') + '">' +
+      return '<button class="card" type="button" data-i="' + i + '" title="' + e.long + '">' +
         '<span class="sheetlet">' + art + '<span class="when">' + e.label + '</span></span>' +
         '</button>';
     }).join('');
+    cards = [].slice.call($('deck').querySelectorAll('.card'));
   }
+
+  function layout() {
+    if (flat()) { cards.forEach(c => { c.style.transform = ''; c.style.opacity = ''; }); return; }
+    const W = 140, H = W * 1587 / 1123;                      // a sheet at the front
+    cards.forEach((c, i) => {
+      const d = i - focus;                                   // 0 = at the front
+      const s = d >= 0 ? Math.max(0.40, 1 - 0.15 * d) : 1;   // zoom by depth
+      /* Each sheet starts near the foot of the one in front of it, so the
+         stack telescopes. Stepping by a flat 46px hid every card but the
+         first behind it and clipped their dates. The sum of the shrinking
+         card heights, in closed form so it stays smooth for a fractional
+         scroll position. */
+      const y = d >= 0 ? H * 0.72 * (d - 0.075 * d * (d - 1)) : d * H * 0.8;
+      const o = d >= 0 ? Math.max(0, 1 - 0.17 * d) : Math.max(0, 1 + d);
+      c.style.transform = 'translateX(-50%) translateY(' + y.toFixed(1) + 'px) scale(' + s.toFixed(3) + ')';
+      c.style.opacity = o.toFixed(2);
+      c.style.zIndex = String(200 - Math.round(d * 10));
+      c.style.pointerEvents = o < 0.08 ? 'none' : 'auto';
+      c.setAttribute('aria-current', String(i === issue));
+    });
+  }
+
+  function glide() {
+    running = true;
+    const step = () => {
+      focus += (aim - focus) * 0.18;
+      if (Math.abs(aim - focus) < 0.002) { focus = aim; layout(); running = false; return; }
+      layout();
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  const aimAt = v => {
+    aim = Math.max(0, Math.min(ISSUES.length - 1, v));
+    if (!running) glide();
+  };
+
+  $('deck').addEventListener('wheel', ev => {
+    if (flat()) return;
+    ev.preventDefault();                     // the rail scrolls, not the page
+    aimAt(aim + ev.deltaY / 220);
+  }, { passive: false });
+
+  /* dragging works too, for trackpads and touch */
+  let dragging = false, lastY = 0;
+  $('deck').addEventListener('pointerdown', ev => {
+    if (flat()) return;
+    dragging = true; lastY = ev.clientY; $('deck').setPointerCapture(ev.pointerId);
+  });
+  $('deck').addEventListener('pointermove', ev => {
+    if (!dragging) return;
+    aimAt(aim - (ev.clientY - lastY) / 90);
+    lastY = ev.clientY;
+  });
+  const drop = () => { dragging = false; };
+  $('deck').addEventListener('pointerup', drop);
+  $('deck').addEventListener('pointercancel', drop);
 
   $('deck').addEventListener('click', ev => {
     const b = ev.target.closest('.card');
     if (!b) return;
     const i = Number(b.dataset.i);
+    aimAt(i);
     if (i === issue) return;
-    issue = i; page = 1; deck(); paint();
+    issue = i; page = 1; paint();
   });
+
+  addEventListener('resize', () => layout());
 
   $('prev').addEventListener('click', () => { if (page > 1) { page--; paint(); } });
   $('next').addEventListener('click', () => { if (page < pages) { page++; paint(); } });
@@ -431,7 +491,8 @@ if (ISSUES.length) {
   let t;
   addEventListener('resize', () => { clearTimeout(t); t = setTimeout(paint, 200); });
 
-  deck();
+  build();
+  layout();
   paint();
 }
 </script>
