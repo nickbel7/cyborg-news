@@ -1,19 +1,16 @@
 #!/usr/bin/env node
 /* =========================================================================
-   site.js — build the reader: one page of the paper at a time, with every
-   issue ever printed stacked beside it.
+   site.js — build the reader: the current issue large and centred, with
+   every issue ever printed receding behind it in a dated carousel.
 
-   The reader renders the committed PDF rather than shipping page images
-   beside it. That was measured, not assumed: a page of this paper is a
-   clustered-dot halftone, which is high-frequency noise that lossy codecs
-   cannot compress — dropping WebP quality from 78 to 55 moved a two-page
-   issue only from 2,019KB to 1,733KB, so images would have added about
-   90MB a year of pixels duplicating a 937KB PDF that already holds them.
-
-   Rendering the PDF instead costs nothing in the repository, stays sharp at
-   any zoom because the type is still vector, and keeps one canonical
-   artefact. Only a small thumbnail is committed, for the archive stack,
-   because rendering five PDFs just to draw five thumbnails is slow.
+   The viewer renders the committed PDF with pdf.js rather than shipping page
+   images beside it. That was measured, not assumed: a page of this paper is
+   a clustered-dot halftone — high-frequency noise that lossy codecs cannot
+   compress. Dropping WebP quality from 78 to 55 moved a two-page issue only
+   from 2,019KB to 1,733KB, so images would have added about 90MB a year of
+   pixels duplicating a 937KB PDF that already contains them. Rendering the
+   PDF costs nothing in the repository and stays sharp at any zoom. Only an
+   84KB thumbnail per issue is committed, for the carousel.
 
    Static files throughout, so GitHub Pages serves it with nothing running.
    The archive is read from issues/<date>/, which is what run.js files after
@@ -33,6 +30,14 @@ const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174';
 const esc = s => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+const MON = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+const stamp = d => {
+  const [y, m, day] = d.split('-');
+  return `${Number(day)} ${MON[Number(m) - 1]} ${y}`;
+};
+const longDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-US',
+  { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).toUpperCase();
+
 /* Every dated folder that actually contains a printed paper. */
 const editions = (fs.existsSync(ISSUES) ? fs.readdirSync(ISSUES) : [])
   .filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d))
@@ -45,23 +50,16 @@ const editions = (fs.existsSync(ISSUES) ? fs.readdirSync(ISSUES) : [])
     const arts = (issue?.articles || []).slice().sort((a, b) => (b.priority || 0) - (a.priority || 0));
     return {
       date: d,
-      long: issue?.issue?.dateline_long || d,
+      long: issue?.issue?.dateline_long || longDate(d),
+      volume: issue?.issue?.volume || '',
       lead: arts[0]?.headline || null,
       hasThumb: fs.existsSync(path.join(dir, 'thumb.webp')),
       kb: Math.round(fs.statSync(path.join(dir, 'paper.pdf')).size / 1024)
     };
   });
 
-/* Every issue in the rail is labelled with its date, so the archive reads as
-   a dated list rather than a pile of anonymous sheets. */
-const MON = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-const stamp = d => {
-  const [y, m, day] = d.split('-');
-  return `${Number(day)} ${MON[Number(m) - 1]} ${y}`;
-};
-
 const manifest = editions.map(e => ({
-  date: e.date, long: e.long, lead: e.lead, kb: e.kb,
+  date: e.date, long: e.long, volume: e.volume, lead: e.lead, kb: e.kb,
   label: stamp(e.date),
   pdf: `issues/${e.date}/paper.pdf`,
   thumb: e.hasThumb ? `issues/${e.date}/thumb.webp` : null
@@ -75,7 +73,7 @@ const page = `<!doctype html>
 <title>CYBORG NEWS</title>
 <meta name="description" content="A printed newspaper for the lab, set weekly from the week's reporting on AI, cognition and human-machine systems.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Libre+Franklin:wght@500;600&display=swap">
 <style>
   :root{
     --paper:#f2f1ee;          /* the wall the sheet hangs on */
@@ -86,6 +84,7 @@ const page = `<!doctype html>
     --go:#141310;             /* the one active control */
     --go-ink:#ffffff;
     --sheet:#fbfaf8;
+    --rail:210px;             /* the carousel's column */
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -95,38 +94,58 @@ const page = `<!doctype html>
     font-size:14px; -webkit-font-smoothing:antialiased;
     padding-left:20px; padding-right:20px; padding-block:0;
   }
-  .wordmark{
-    position:fixed; top:22px; left:24px; z-index:5;
-    font-size:11px; font-weight:600; letter-spacing:.18em; color:var(--muted);
-  }
 
-  /* page | controls | archive */
+  /* The paper is centred in the window; the carousel floats at the right so
+     it cannot pull the sheet off centre. */
+  /* The paper takes whatever height is left once the dateline and the pager
+     have had theirs, so it is always as large as the window allows and can
+     never collide with them. An absolutely positioned dateline did collide:
+     growing the sheet pushed its top edge up over the volume line. */
   .room{
-    min-height:100vh; display:grid; gap:34px;
-    grid-template-columns:minmax(0,1fr) 44px 150px;
-    align-items:center; justify-content:center;
-    max-width:1080px; margin:0 auto; padding-block:64px 40px;
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; gap:10px;
+    padding-block:20px 16px;
   }
 
-  .viewer{display:flex; flex-direction:column; align-items:center; gap:24px; min-width:0}
+  /* the masthead date, set in the newspaper's own display face */
+  .dateline{text-align:center; flex:0 0 auto; max-width:92vw}
+  .dateline .day{
+    font-family:'Playfair Display',Georgia,serif; font-weight:700;
+    font-size:clamp(15px,2.1vw,21px); letter-spacing:.02em; margin:0;
+  }
+  .dateline .vol{
+    font-size:9px; font-weight:600; letter-spacing:.2em; color:var(--muted);
+    margin:5px 0 0; text-transform:uppercase;
+  }
+
+  /* sheet + its tools travel together, and the pair is centred */
+  .stage{
+    position:relative; flex:1 1 auto; min-height:0;
+    display:flex; align-items:center; justify-content:center;
+  }
   .sheet{
-    position:relative; width:100%; max-width:540px; aspect-ratio:1123/1587;
+    position:relative; aspect-ratio:1123/1587;
+    /* A definite height. A percentage height inside a flex item has no
+       definite parent height to resolve against, so the sheet silently fell
+       back to sizing from its aspect-ratio and shrank to 424px. This leaves
+       exactly the room the dateline, the pager and the padding need, and
+       gives the paper everything else. (No backticks in here: this stylesheet
+       lives inside a template literal.) */
+    height:min(calc(100vh - 150px), 1320px); width:auto; max-width:min(92vw, 820px);
     background:var(--sheet); border-radius:2px; margin:0;
     box-shadow:
       0 1px 1px rgba(20,19,16,.05),
-      0 8px 18px rgba(20,19,16,.07),
-      0 26px 48px rgba(20,19,16,.09);
+      0 10px 22px rgba(20,19,16,.08),
+      0 32px 60px rgba(20,19,16,.10);
     overflow:hidden;
   }
   .sheet canvas{width:100%; height:100%; display:block}
+  .sheet canvas[hidden]{display:none}
   .sheet .state{
     position:absolute; inset:0; display:grid; place-items:center;
     font-size:11px; letter-spacing:.14em; color:var(--chip-ink);
   }
   .sheet .state[hidden]{display:none}
-  .sheet canvas[hidden]{display:none}
-  /* shown only if the PDF will not render: the thumbnail, softly, with a
-     plain instruction over it — never an indefinite spinner */
   .sheet .fall{position:absolute; inset:0}
   .sheet .fall[hidden]{display:none}
   .sheet .fall img{width:100%; height:100%; object-fit:cover; object-position:top center;
@@ -137,103 +156,107 @@ const page = `<!doctype html>
     font-size:11px; font-weight:600; letter-spacing:.14em; color:var(--muted);
   }
 
-  .pager{display:flex; gap:10px}
-  .pill{
-    appearance:none; border:0; cursor:pointer; font:inherit; font-weight:600;
-    font-size:11px; letter-spacing:.12em; padding:10px 20px; border-radius:999px;
-    background:var(--go); color:var(--go-ink); transition:opacity .15s, transform .15s;
+  /* hugging the sheet, not the archive */
+  .tools{
+    position:absolute; left:calc(100% + 14px); top:0;
+    display:flex; flex-direction:column; gap:12px;
   }
-  .pill:hover{opacity:.85}
-  .pill:active{transform:translateY(1px)}
-  .pill[disabled]{background:var(--chip); color:var(--chip-ink); cursor:default; opacity:1}
-  .pill[disabled]:hover{opacity:1}
-
-  .tools{display:flex; flex-direction:column; gap:14px; align-self:start; margin-top:8px}
   .tool{
-    appearance:none; border:0; cursor:pointer; width:44px; height:44px; border-radius:50%;
+    appearance:none; border:0; cursor:pointer; width:42px; height:42px; border-radius:50%;
     background:var(--chip); color:var(--ink); display:grid; place-items:center;
     transition:background .15s, transform .15s; text-decoration:none;
   }
   .tool:hover{background:#dedbd5}
   .tool:active{transform:translateY(1px)}
-  .tool svg{width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.9;
+  .tool svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.9;
             stroke-linecap:round; stroke-linejoin:round}
 
-  .archive{align-self:start; padding-top:4px; min-width:0}
+  .pager{display:flex; gap:10px}
+  .pill{
+    appearance:none; border:0; cursor:pointer; font:inherit; font-weight:600;
+    font-size:11px; letter-spacing:.12em; padding:10px 22px; border-radius:999px;
+    background:var(--go); color:var(--go-ink); transition:opacity .15s, transform .15s;
+  }
+  .pill:hover{opacity:.85}
+  .pill:active{transform:translateY(1px)}
+  .pill[disabled]{background:var(--chip); color:var(--chip-ink); cursor:default}
+  .pill[disabled]:hover{opacity:1}
+
+  /* ---- the carousel: a pile of sheets receding down and away ---------- */
+  .archive{
+    position:fixed; right:26px; top:50%; transform:translateY(-50%);
+    width:var(--rail); text-align:center; z-index:4;
+  }
   .archive h2{
     font-size:10px; font-weight:600; letter-spacing:.16em; color:var(--muted);
-    margin:0 0 16px; text-align:center;
+    margin:0 0 20px;
   }
-  /* a dated, scrollable list — uniform sheets, because a receding pile
-     cannot carry a legible label on every issue */
-  .stack{
-    list-style:none; margin:0; padding:0 2px 6px; display:flex; flex-direction:column;
-    align-items:center; gap:16px;
-    max-height:calc(100vh - 190px); overflow-y:auto; scrollbar-width:thin;
-    scrollbar-color:#d8d5cf transparent;
-  }
-  .stack::-webkit-scrollbar{width:6px}
-  .stack::-webkit-scrollbar-thumb{background:#d8d5cf; border-radius:3px}
-  .stack li{width:100%}
+  .deck{position:relative; height:430px; margin:0 auto}
   .card{
-    appearance:none; border:0; padding:0; cursor:pointer; display:block; width:100%;
-    background:transparent; text-align:center; color:inherit;
-    transition:transform .18s, opacity .18s;
-    opacity:.62;
+    appearance:none; border:0; padding:0; cursor:pointer;
+    position:absolute; top:0; left:50%; width:150px;
+    background:transparent; color:inherit;
+    transition:transform .38s cubic-bezier(.22,.7,.3,1), opacity .38s;
+    transform-origin:top center;
   }
   .card .sheetlet{
-    display:block; width:100%; aspect-ratio:1123/1587; overflow:hidden;
-    background:var(--sheet); border-radius:2px;
-    box-shadow:0 2px 6px rgba(20,19,16,.07), 0 12px 24px rgba(20,19,16,.07);
-    transition:box-shadow .18s;
+    position:relative; display:block; width:100%; aspect-ratio:1123/1587;
+    overflow:hidden; background:var(--sheet); border-radius:2px;
+    box-shadow:0 2px 6px rgba(20,19,16,.08), 0 16px 30px rgba(20,19,16,.10);
   }
   .card img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block}
-  .card .none{width:100%; height:100%; display:grid; place-items:center;
+  .card .none{position:absolute; inset:0; display:grid; place-items:center;
               font-size:9px; letter-spacing:.12em; color:var(--chip-ink)}
+  /* the date rides the bottom edge, which stays visible as cards recede */
   .card .when{
-    display:block; margin-top:8px; font-size:9px; font-weight:600;
-    letter-spacing:.13em; color:var(--muted); white-space:nowrap;
+    position:absolute; left:0; right:0; bottom:0; padding:14px 0 7px;
+    font-size:9px; font-weight:600; letter-spacing:.13em; color:var(--ink);
+    background:linear-gradient(to top, rgba(251,250,248,.96) 55%, rgba(251,250,248,0));
   }
-  .card:hover{opacity:1; transform:translateY(-2px)}
-  .card:hover .sheetlet{box-shadow:0 4px 10px rgba(20,19,16,.09), 0 18px 34px rgba(20,19,16,.11)}
-  .card[aria-current="true"]{opacity:1}
-  .card[aria-current="true"] .when{color:var(--ink)}
+  .card[aria-current="true"]{cursor:default}
+  .card:not([aria-current="true"]):hover{filter:brightness(.97)}
 
-  .empty-state{grid-column:1/-1; text-align:center; color:var(--muted); font-size:13px}
+  .empty-state{color:var(--muted); font-size:13px}
 
+  /* ---- full screen: every page, scrolled like a PDF ------------------- */
   dialog.big{
     border:0; padding:0; background:transparent; width:100%; height:100%;
-    max-width:100vw; max-height:100vh; margin:0; overflow:auto;
+    max-width:100vw; max-height:100vh; margin:0; overflow-y:auto; overscroll-behavior:contain;
   }
-  dialog.big::backdrop{background:rgba(24,23,20,.9)}
-  dialog.big canvas{
-    display:block; margin:3vh auto; max-width:94vw; height:auto;
-    box-shadow:0 30px 80px rgba(0,0,0,.5); background:var(--sheet);
+  /* near-opaque: at 8% transparency the archive rail ghosted through the
+     backdrop and read as a rendering fault rather than depth */
+  dialog.big::backdrop{background:rgba(20,19,16,.975)}
+  .reel{display:flex; flex-direction:column; align-items:center; gap:22px; padding:26px 0 40px}
+  .reel canvas{
+    display:block; width:min(92vw,1020px); height:auto;
+    box-shadow:0 24px 70px rgba(0,0,0,.5); background:var(--sheet);
   }
+  .reel .loading{color:#bdb9b1; font-size:11px; letter-spacing:.14em; padding:40px 0}
   dialog.big .close{
     position:fixed; top:20px; right:22px; width:40px; height:40px; border-radius:50%;
-    border:0; cursor:pointer; background:rgba(255,255,255,.14); color:#fff;
-    display:grid; place-items:center;
+    border:0; cursor:pointer; background:rgba(255,255,255,.16); color:#fff;
+    display:grid; place-items:center; z-index:2;
   }
 
-  @media (max-width:860px){
-    .room{
-      grid-template-columns:minmax(0,1fr); gap:26px; padding-block:56px 32px;
-      justify-items:center;
-    }
-    .tools{flex-direction:row; align-self:center; margin-top:0}
-    .archive{width:100%; max-width:420px}
-    .stack{flex-direction:row; flex-wrap:wrap; gap:10px; justify-content:center}
-    .stack li{width:74px}
-    .card{margin-top:0 !important; opacity:1 !important; width:74px}
+  @media (max-width:1000px){
+    .archive{position:static; transform:none; width:100%; max-width:420px; margin:8px auto 0}
+    .deck{height:auto; display:flex; flex-wrap:wrap; gap:12px; justify-content:center}
+    .card{position:static; transform:none !important; opacity:1 !important; width:84px}
+    .card .when{position:static; background:none; padding:6px 0 0; color:var(--muted)}
+    .tools{position:static; flex-direction:row; margin-top:14px; justify-content:center}
+    .stage{flex-direction:column; align-items:center}
+    .sheet{height:auto; width:min(92vw,540px)}
   }
 </style>
 </head>
 <body>
-<div class="wordmark">CYBORG NEWS</div>
-
 ${manifest.length ? `<main class="room">
-  <div class="viewer">
+  <div class="dateline">
+    <p class="day" id="dateline">&nbsp;</p>
+    <p class="vol" id="volume"></p>
+  </div>
+
+  <div class="stage">
     <figure class="sheet" id="sheet">
       <canvas id="canvas"></canvas>
       <div class="fall" id="fall" hidden>
@@ -242,32 +265,32 @@ ${manifest.length ? `<main class="room">
       </div>
       <div class="state" id="state">LOADING</div>
     </figure>
-    <div class="pager">
-      <button class="pill" id="prev" type="button" disabled>PREV</button>
-      <button class="pill" id="next" type="button" disabled>NEXT</button>
+    <div class="tools">
+      <button class="tool" id="expand" type="button" title="Full screen" aria-label="Full screen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>
+      </button>
+      <a class="tool" id="dl" download title="Download PDF" aria-label="Download PDF">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v13M6 12l6 6 6-6"/></svg>
+      </a>
     </div>
   </div>
 
-  <div class="tools">
-    <button class="tool" id="expand" type="button" title="Full screen" aria-label="Full screen">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>
-    </button>
-    <a class="tool" id="dl" download title="Download PDF" aria-label="Download PDF">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v13M6 12l6 6 6-6"/></svg>
-    </a>
+  <div class="pager">
+    <button class="pill" id="prev" type="button" disabled>PREV</button>
+    <button class="pill" id="next" type="button" disabled>NEXT</button>
   </div>
+</main>
 
-  <nav class="archive">
-    <h2>PREVIOUS ISSUES</h2>
-    <ul class="stack" id="stack"></ul>
-  </nav>
-</main>` : `<main class="room"><p class="empty-state">No issue has printed yet. The first one is set on Sunday.</p></main>`}
+<nav class="archive">
+  <h2>PREVIOUS ISSUES</h2>
+  <div class="deck" id="deck"></div>
+</nav>` : `<main class="room"><p class="empty-state">No issue has printed yet. The first one is set on Sunday.</p></main>`}
 
 <dialog class="big" id="big">
   <button class="close" id="bigclose" type="button" aria-label="Close">
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
-  <canvas id="bigcanvas"></canvas>
+  <div class="reel" id="reel"></div>
 </dialog>
 
 <script src="${PDFJS}/pdf.min.js"></script>
@@ -283,11 +306,10 @@ if (ISSUES.length) {
   }
 
   const say = t => { const s = $('state'); s.textContent = t; s.hidden = !t; };
-
-  function openDoc(url) {
+  const openDoc = url => {
     if (!docs.has(url)) docs.set(url, pdfjsLib.getDocument(url).promise);
     return docs.get(url);
-  }
+  };
 
   async function draw(canvas, pdfPage, cssWidth) {
     const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -302,36 +324,24 @@ if (ISSUES.length) {
 
   async function paint() {
     const e = ISSUES[issue];
-    const mine = ++token;                      // a later click must win
+    const mine = ++token;
+    $('dateline').textContent = e.long;
+    $('volume').textContent = [e.volume, 'PAGE ' + page].filter(Boolean).join('  \\u00b7  ');
     $('dl').href = e.pdf;
     $('dl').setAttribute('download', 'cyborg-news-' + e.date + '.pdf');
-    document.querySelectorAll('.card').forEach((c, i) =>
-      c.setAttribute('aria-current', String(i === issue)));
 
     /* A reader must never sit on LOADING for ever. pdf.js can hang without
-       ever rejecting — its worker simply stops — so the render is raced
-       against a clock and the page falls back to the thumbnail and a plain
-       download rather than showing nothing at all. */
-    const fallback = msg => {
-      say('');
-      $('canvas').hidden = true;
-      $('fallimg').src = e.thumb || '';
-      $('fallimg').hidden = !e.thumb;
+       ever rejecting, so the render is raced against a clock and falls back
+       to the thumbnail rather than showing nothing at all. */
+    const fallback = () => {
+      say(''); $('canvas').hidden = true;
+      $('fallimg').src = e.thumb || ''; $('fallimg').hidden = !e.thumb;
       $('fall').hidden = false;
-      $('fallnote').textContent = msg;
       document.body.dataset.ready = 'fallback';
     };
-    const ok = () => {
-      $('fall').hidden = true;
-      $('canvas').hidden = false;
-      say('');
-      document.body.dataset.ready = '1';
-    };
 
-    if (!window.pdfjsLib) { fallback('OPEN THE PDF'); return; }
-    say('LOADING');
-    $('fall').hidden = true;
-    $('canvas').hidden = false;
+    if (!window.pdfjsLib) { fallback(); return; }
+    say('LOADING'); $('fall').hidden = true; $('canvas').hidden = false;
     try {
       const timeout = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 12000));
       const doc = await Promise.race([openDoc(e.pdf), timeout]);
@@ -340,50 +350,80 @@ if (ISSUES.length) {
       if (page > pages) page = 1;
       const p = await Promise.race([doc.getPage(page), timeout]);
       if (mine !== token) return;
-      await Promise.race([draw($('canvas'), p, $('sheet').clientWidth), timeout]);
+      const box = $('sheet').getBoundingClientRect();
+      await Promise.race([draw($('canvas'), p, Math.round(box.width)), timeout]);
       if (mine !== token) return;
-      ok();
+      $('fall').hidden = true; $('canvas').hidden = false; say('');
+      $('volume').textContent = [e.volume, 'PAGE ' + page + ' OF ' + pages]
+        .filter(Boolean).join('  \\u00b7  ');
+      document.body.dataset.ready = '1';
     } catch (err) {
       if (mine !== token) return;
-      docs.delete(e.pdf);                  // a hung load must not be cached
-      fallback('OPEN THE PDF');
+      docs.delete(e.pdf);
+      fallback();
     }
     $('prev').disabled = page <= 1;
     $('next').disabled = page >= pages;
   }
 
-  // a dated list: every issue shows when it was printed, and clicking one is
-  // the only way to change issue — prev/next never leave the current paper
-  $('stack').innerHTML = ISSUES.map((e, i) => {
-    const art = e.thumb
-      ? '<img src="' + e.thumb + '" alt="" loading="lazy">'
-      : '<span class="none">PDF</span>';
-    return '<li><button class="card" type="button" data-i="' + i + '" title="' + e.long + '">' +
-      '<span class="sheetlet">' + art + '</span>' +
-      '<span class="when">' + e.label + '</span>' +
-      '</button></li>';
-  }).join('');
+  /* The carousel: the selected issue in front, the rest receding down and
+     away behind it. Changing issue happens only here — prev and next never
+     leave the paper you are reading. */
+  function deck() {
+    const order = [issue].concat(ISSUES.map((_, i) => i).filter(i => i !== issue));
+    $('deck').innerHTML = order.map((idx, d) => {
+      const e = ISSUES[idx];
+      const art = e.thumb
+        ? '<img src="' + e.thumb + '" alt="" loading="lazy">'
+        : '<span class="none">PDF</span>';
+      const t = 'translateX(-50%) translateY(' + (d * 46) + 'px) scale(' + (1 - d * 0.11).toFixed(3) + ')';
+      return '<button class="card" type="button" data-i="' + idx + '"' +
+        (d === 0 ? ' aria-current="true"' : '') +
+        ' title="' + e.long + '"' +
+        ' style="transform:' + t + ';opacity:' + Math.max(0, 1 - d * 0.22).toFixed(2) +
+        ';z-index:' + (100 - d) + ';' + (d > 4 ? 'visibility:hidden;' : '') + '">' +
+        '<span class="sheetlet">' + art + '<span class="when">' + e.label + '</span></span>' +
+        '</button>';
+    }).join('');
+  }
 
-  $('stack').addEventListener('click', ev => {
+  $('deck').addEventListener('click', ev => {
     const b = ev.target.closest('.card');
     if (!b) return;
-    issue = Number(b.dataset.i); page = 1; paint();
+    const i = Number(b.dataset.i);
+    if (i === issue) return;
+    issue = i; page = 1; deck(); paint();
   });
+
   $('prev').addEventListener('click', () => { if (page > 1) { page--; paint(); } });
   $('next').addEventListener('click', () => { if (page < pages) { page++; paint(); } });
 
+  /* Full screen shows the whole paper as one scrolling reel — no controls,
+     the way a PDF reads. */
   $('expand').addEventListener('click', async () => {
     const e = ISSUES[issue];
     if (!window.pdfjsLib) { window.open(e.pdf, '_blank'); return; }
+    $('reel').innerHTML = '<p class="loading">LOADING</p>';
     $('big').showModal();
-    const doc = await openDoc(e.pdf);
-    const p = await doc.getPage(page);
-    await draw($('bigcanvas'), p, Math.min(window.innerWidth * .94, 1100));
+    try {
+      const doc = await openDoc(e.pdf);
+      const width = Math.min(window.innerWidth * 0.92, 1020);
+      $('reel').innerHTML = '';
+      for (let n = 1; n <= doc.numPages; n++) {
+        const c = document.createElement('canvas');
+        $('reel').appendChild(c);
+        await draw(c, await doc.getPage(n), width);
+      }
+    } catch (err) {
+      $('reel').innerHTML = '<p class="loading">COULD NOT RENDER \\u2014 OPEN THE PDF</p>';
+    }
   });
-  $('bigclose').addEventListener('click', () => $('big').close());
-  $('big').addEventListener('click', ev => { if (ev.target.id === 'big') $('big').close(); });
+  const shut = () => { $('big').close(); $('reel').innerHTML = ''; };
+  $('bigclose').addEventListener('click', shut);
+  $('big').addEventListener('click', ev => { if (ev.target.id === 'big') shut(); });
 
   addEventListener('keydown', ev => {
+    if ($('big').open) return;                 // full screen scrolls, it does not page
     if (ev.key === 'ArrowRight') $('next').click();
     if (ev.key === 'ArrowLeft') $('prev').click();
   });
@@ -391,6 +431,7 @@ if (ISSUES.length) {
   let t;
   addEventListener('resize', () => { clearTimeout(t); t = setTimeout(paint, 200); });
 
+  deck();
   paint();
 }
 </script>
