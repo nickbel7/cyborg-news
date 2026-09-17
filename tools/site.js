@@ -390,7 +390,7 @@ const page = `<!doctype html>
      not content: it never covers the paper, and on a phone it steps aside
      (fades) once the archive row is what is on screen. */
   .greeter{
-    position:fixed; left:18px; bottom:16px; z-index:5;
+    position:fixed; left:56px; bottom:16px; z-index:5;
     display:flex; flex-direction:column; align-items:flex-start; gap:10px;
     transition:opacity .25s;
   }
@@ -445,7 +445,7 @@ const page = `<!doctype html>
   .greeter .bubble .shut svg{width:11px; height:11px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round}
 
   @media (max-width:1000px){
-    .greeter{left:12px; bottom:12px; gap:8px}
+    .greeter{left:34px; bottom:12px; gap:8px}
     .greeter .portrait{width:104px; border-radius:11px}
     .greeter .bubble{max-width:200px; font-size:12px; padding:9px 26px 9px 12px}
   }
