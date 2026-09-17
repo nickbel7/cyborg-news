@@ -97,7 +97,7 @@ async function waitReady(ws, ms) {
   const ws = await connect(port);
   try {
     await rpc(ws, 'Page.enable');
-    await rpc(ws, 'Page.navigate', { url: url + (cmd === 'png' ? '?bare=1' : '') });
+    await rpc(ws, 'Page.navigate', { url: url + (/^(png|web)$/.test(cmd) ? '?bare=1' : '') });
     await waitReady(ws, 60000);
 
     const report = await evaluate(ws, "document.body.dataset.report || ''");
@@ -136,6 +136,38 @@ async function waitReady(ws, ms) {
         console.log('  build/page-' + i + '.png');
       }
       console.log('  ' + report.split('  ·  ').join('\n  · '));
+
+    /* Page images for the reader, filed with the issue they belong to.
+       WebP rather than JPEG: these pages are clustered-dot halftones, and
+       JPEG smears that high-frequency dot pattern into grey mush. */
+    } else if (cmd === 'web') {
+      /* One small thumbnail for the archive stack, and nothing else.
+
+         Full page images were measured and rejected. A page of this paper is
+         a clustered-dot halftone — high-frequency noise that lossy codecs
+         cannot compress. Dropping WebP quality from 78 to 55 moved a
+         two-page issue only from 2,019KB to 1,733KB, so shipping page images
+         would add roughly 90MB a year of pixels duplicating the 937KB PDF
+         that already holds them. The reader renders the PDF instead, which
+         also keeps the type vector-sharp at any zoom. */
+      const SCALE = Number(process.env.WEB_SCALE || 0.22);
+      const QUALITY = Number(process.env.WEB_QUALITY || 72);
+      const date = process.env.ISSUE_DATE || new Date().toISOString().slice(0, 10);
+      const dir = process.env.WEB_OUT || path.join(ROOT, 'issues', date);
+      fs.mkdirSync(dir, { recursive: true });
+
+      await evaluate(ws, `[...document.querySelectorAll('.sheet')].forEach((s,j)=>{
+        s.style.display = (j === 0) ? '' : 'none';
+        s.style.margin = '0'; s.style.boxShadow = 'none'; s.style.background = '#fff';
+      }); document.documentElement.style.background='#fff'; 1`);
+      await sleep(120);
+      const shot = await rpc(ws, 'Page.captureScreenshot', {
+        format: 'webp', quality: QUALITY, captureBeyondViewport: true,
+        clip: { x: 0, y: 0, width: 1123, height: 1587, scale: SCALE }
+      });
+      const out = path.join(dir, 'thumb.webp');
+      fs.writeFileSync(out, Buffer.from(shot.data, 'base64'));
+      console.log(`  ${path.relative(ROOT, out)}  (${Math.round(fs.statSync(out).size / 1024)} KB)`);
     }
   } finally {
     try { ws.close(); } catch (e) {}
