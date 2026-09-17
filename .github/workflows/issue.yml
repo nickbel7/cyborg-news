@@ -1,0 +1,156 @@
+name: Build the issue
+
+# Stories are gathered through the week and the paper is set on Sunday.
+# There is no approval step: the gate decides whether an issue may print.
+on:
+  schedule:
+    - cron: '0 22 * * 0'          # Sunday 22:00 UTC — Sunday evening in Boston
+  workflow_dispatch:              # the Monday rebuild button
+    inputs:
+      date:
+        description: 'Issue date (YYYY-MM-DD). Blank uses today.'
+        required: false
+      days:
+        description: 'How many days back to collect'
+        required: false
+        default: '7'
+      from:
+        description: 'Resume from a stage (collect, plan, write, photo, build, fit, gate, pdf)'
+        required: false
+
+concurrency:
+  group: cyborg-news-issue
+  cancel-in-progress: false       # never interrupt a run that is mid-issue
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90           # the fit loop makes serial model calls
+    permissions:
+      contents: write             # commit the printed issue back to the repo
+      issues: write               # report a failed gate
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # The renderer drives headless Chrome over the DevTools protocol, so it
+      # needs a real browser rather than a one-shot --print-to-pdf call.
+      - name: Locate Chrome
+        run: |
+          for c in google-chrome google-chrome-stable chromium chromium-browser; do
+            if command -v "$c" >/dev/null 2>&1; then
+              echo "CHROME=$(command -v $c)" >> "$GITHUB_ENV"
+              "$c" --version
+              exit 0
+            fi
+          done
+          echo "no chrome on the runner" >&2
+          exit 1
+
+      # A value written to $GITHUB_ENV reaches LATER steps, never the step
+      # that writes it — so the date is settled before anything reads it.
+      - name: Settle the issue date
+        run: |
+          D='${{ inputs.date }}'
+          if [ -z "$D" ]; then D=$(date -u +%F); fi
+          echo "ISSUE_DATE=$D" >> "$GITHUB_ENV"
+          echo "building the issue of $D"
+
+      - name: Build the paper
+        env:
+          MUSE_API_KEY: ${{ secrets.MUSE_API_KEY }}
+          COLLECT_DAYS: ${{ inputs.days || '7' }}
+        run: node tools/agent/run.js ${{ inputs.from && format('--from {0}', inputs.from) || '' }}
+
+      # Proofs and the PDF are kept even on a failed run: a gate failure is
+      # exactly when you want to look at the page that caused it.
+      - name: Keep the proofs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue-${{ env.ISSUE_DATE }}
+          path: |
+            issues/**
+            build/page-*.png
+            data/issue.json
+            data/plan.json
+            data/fit-report.json
+          if-no-files-found: ignore
+          retention-days: 30
+
+      # Nothing unverified reaches the repository: run.js stops the run when
+      # the gate fails, so this step never runs on a paper that did not pass.
+      #
+      # data/extracts is deliberately NOT committed. It caches the full text
+      # of other people's articles, it rebuilds from the inbox in a minute,
+      # and this repository is public.
+      - name: File the issue
+        if: success()
+        run: |
+          git config user.name  'cyborg-news'
+          git config user.email 'actions@github.com'
+          git add -A issues assets/img data/issue.json data/plan.json data/inbox
+          if git diff --staged --quiet; then
+            echo "nothing changed"
+          else
+            git commit -m "Issue of ${ISSUE_DATE}" \
+                       -m "Built by tools/agent/run.js. Every quotation checked against its source and every photograph licensed before this was committed."
+            git push
+          fi
+
+      - name: Build the reader
+        if: success()
+        run: node tools/site.js
+
+      - name: Stage the reader for Pages
+        if: success()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      # The gate publishes nothing when it fails, so the failure has to be
+      # visible somewhere a person will actually look.
+      - name: Report a failed build
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = process.env.ISSUE_DATE || 'unknown date';
+            const url = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Issue of ${date} did not print`,
+              labels: ['build'],
+              body: [
+                `The run for **${date}** stopped before publishing, so last week's paper still stands.`,
+                ``,
+                `The most likely cause is the gate: a quotation that could not be matched to its`,
+                `source, a photograph without a usable licence, or a claim about the lab.`,
+                ``,
+                `[Full log and proofs](${url}) — the page images and \`fit-report.json\` are attached`,
+                `to that run as artifacts.`,
+                ``,
+                `To retry once the cause is fixed, run the workflow manually with \`from\` set to the`,
+                `stage to resume at (\`write\` re-does the copy, \`gate\` only re-checks).`
+              ].join('\n')
+            });
+
+  # Deploying from the artifact the build job uploaded means this job needs no
+  # checkout, and so cannot race the commit the build job just pushed.
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

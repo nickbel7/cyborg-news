@@ -104,6 +104,7 @@
     const line = bits.join('  ·  ');
     status.textContent = line;                 // detached in bare mode; harmless
     document.body.dataset.report = line;
+    document.body.dataset.reportJson = JSON.stringify(report);   // for the refit loop
     document.body.dataset.ready = '1';
 
 

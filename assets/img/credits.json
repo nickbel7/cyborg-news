@@ -13,5 +13,27 @@
     "title": "File:Thomas Urquhart by George Glover1641.jpg",
     "licence": "Public domain",
     "artist": "George Glover"
+  },
+  "lead-2.jpg": {
+    "source": "https://commons.wikimedia.org/wiki/File:Datacenter_Server_Racks_(22370909788).jpg",
+    "licence": "CC BY 2.0",
+    "artist": "Carl Lender from Sunrise, USA",
+    "title": "File:Datacenter Server Racks (22370909788).jpg",
+    "width": 6000,
+    "height": 4000,
+    "query": "data center server racks",
+    "used_for": "lead-2",
+    "fetched": "2026-09-16"
+  },
+  "lead-1.jpg": {
+    "source": "https://commons.wikimedia.org/wiki/File:US_Capitol-2.tif",
+    "licence": "CC BY-SA 4.0",
+    "artist": "Balon Greyjoy",
+    "title": "File:US Capitol-2.tif",
+    "width": 5166,
+    "height": 3444,
+    "query": "US Capitol exterior",
+    "used_for": "lead-1",
+    "fetched": "2026-09-16"
   }
 }

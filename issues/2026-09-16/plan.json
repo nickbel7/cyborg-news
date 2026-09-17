@@ -1,0 +1,202 @@
+{
+  "shape": "cover/a3-lead + inside/a3-lead",
+  "rationale": "This issue pits September's breakneck frontier shipments and their first critical-cyber flag against a political system refusing to act. Lab-grounded cognition studies show what that speed costs the minds that must use it.",
+  "assignments": [
+    {
+      "slot": "lead",
+      "page": 1,
+      "source_ids": [
+        "5058a721ba",
+        "b07307ecd8"
+      ],
+      "kicker": "Washington",
+      "angle": "Reports Congress is unlikely to act before midterms as Johnson and Trump dismiss a joint slowdown plea from Amodei Altman Hassabis and Musk after an Anthropic resignation warning.",
+      "words": 299,
+      "priority": 10,
+      "photo": {
+        "subject": "the exterior of the United States Capitol building with visitors on the steps on a clear day",
+        "search": "US Capitol exterior daylight",
+        "why": "anchors the congressional inaction story in its physical setting"
+      }
+    },
+    {
+      "slot": "third",
+      "page": 1,
+      "source_ids": [
+        "2b6d8af44d"
+      ],
+      "kicker": "Global Rules",
+      "angle": "Reports September shifts regulation from preparation to enforcement with European Union high risk audits a California September 30 decision a Brazil vote and an India framework.",
+      "words": 413,
+      "priority": 7
+    },
+    {
+      "slot": "fourth",
+      "page": 1,
+      "source_ids": [
+        "e12ed4dc76"
+      ],
+      "kicker": "Media Lab",
+      "angle": "Reports a MIT Media Lab study tracked 67 people over four weeks finding AI help lifted fake news accuracy by 21 percent yet eroded solo detection.",
+      "words": 295,
+      "priority": 6
+    },
+    {
+      "slot": "second",
+      "page": 1,
+      "source_ids": [
+        "e4b3ae1ffd"
+      ],
+      "kicker": "Industry",
+      "angle": "Reports money and concrete for compute as Planted Solar raises 31M dollars with Google LawZero draws 150M dollar pledges and Anthropic leases a multibillion dollar Queensland site.",
+      "words": 235,
+      "priority": 6
+    },
+    {
+      "slot": "second",
+      "page": 2,
+      "source_ids": [
+        "76720b12c3"
+      ],
+      "kicker": "Memory",
+      "angle": "Reports a Barcaui experiment finds chatbot assisted study speeds initial work but cuts recall weeks later suggesting shallower encoding.",
+      "words": 421,
+      "priority": 8
+    },
+    {
+      "slot": "lead",
+      "page": 2,
+      "source_ids": [
+        "a08756ffc8"
+      ],
+      "kicker": "Frontier Models",
+      "angle": "Reports five frontier launches in ten days culminating in GPT-6 Astra tripping the critical cyber threshold while pricing cuts and gated cyber variants rewrite costs.",
+      "words": 380,
+      "priority": 9,
+      "photo": {
+        "subject": "rows of server racks with blinking lights inside a large data center",
+        "search": "data center server racks",
+        "why": "shows the compute infrastructure behind the September frontier launches"
+      }
+    },
+    {
+      "slot": "mid-a",
+      "page": 2,
+      "source_ids": [
+        "4e665c1c0d"
+      ],
+      "kicker": "Red Lines",
+      "angle": "Recounts the Ressa launched September 2025 call signed by 200 leaders including 10 Nobel laureates urging bans on bioweapon design mass surveillance and impersonation.",
+      "words": 252,
+      "priority": 5
+    },
+    {
+      "slot": "mid-b",
+      "page": 2,
+      "source_ids": [
+        "2134be345b"
+      ],
+      "kicker": "Humanness",
+      "angle": "Reports secondary analysis of the HeartBot study finds message humanness predicts whether users perceive a chatbot as human after adjusting for demographics.",
+      "words": 252,
+      "priority": 5
+    },
+    {
+      "slot": "mid-c",
+      "page": 2,
+      "source_ids": [
+        "4d4d02c2cd"
+      ],
+      "kicker": "Cognition",
+      "angle": "Argues the Frank and Goodman review that stimulus computable AI trained on human scale data can serve as testable cognitive models.",
+      "words": 252,
+      "priority": 5
+    }
+  ],
+  "rail": [
+    {
+      "source_id": "04587f6232",
+      "group": "Also noted",
+      "lead": "Brain geometry shapes learning",
+      "point": "Busch and colleagues show intrinsic activity geometry keeps learning inside existing neural manifolds."
+    },
+    {
+      "source_id": "192e1fef60",
+      "group": "In brief",
+      "lead": "Gateway lists September releases",
+      "point": "Timeline logs Atria Dawn Preview September 12 plus Fugu models September 11 and DeepSeek Flash September 10."
+    },
+    {
+      "source_id": "2e0099df3d",
+      "group": "In brief",
+      "lead": "White House oversight mechanisms expand",
+      "point": "Hinshaw notes June 2 order formalizes federal role without direct business duties amid Mythos and Fable export worries."
+    },
+    {
+      "source_id": "38924b760a",
+      "group": "Also noted",
+      "lead": "Survey warns outsourced thinking atrophies",
+      "point": "Very Big Brain synthesis argues use dependent skills fade when AI assistants consistently bypass them."
+    },
+    {
+      "source_id": "39019b841a",
+      "group": "In brief",
+      "lead": "Dated ledger tracks breaking changes",
+      "point": "DigitalApplied dates Claude Fable 51 and Mythos 51 September 1 with three API breaks plus Gemini 38 Flash and Muse Spark 13 September 2."
+    },
+    {
+      "source_id": "4e4bcd7f20",
+      "group": "In brief",
+      "lead": "Project Lily reviews private chats",
+      "point": "404 Media reports Crossing Hurdles contractors via Mercor score real ChatGPT chats with personal details still inside."
+    },
+    {
+      "source_id": "5760c469fe",
+      "group": "Also noted",
+      "lead": "Editorial links reasoning theory mind",
+      "point": "PMC editorial frames shared AI neuroscience problem of learning uncertainty and self to other modeling."
+    },
+    {
+      "source_id": "db1cc11bbe",
+      "group": "Also noted",
+      "lead": "Fifty five cognition preprints listed",
+      "point": "arXiv September neurons and cognition roundup indexes 55 titles from sleep rhythms to cortical geometry without synthesis."
+    },
+    {
+      "source_id": "f60b4da796",
+      "group": "Also noted",
+      "lead": "Review probes chatbot executive function",
+      "point": "MDPI systematic review asks whether chatbot interaction reinforces planning and goal directed control."
+    },
+    {
+      "source_id": "ff75df0efd",
+      "group": "In brief",
+      "lead": "California frontier law bites",
+      "point": "Wikipedia notes TFAIA in effect January 1 2026 plus Newsom September 10 child chatbot risk assessment laws with fines for harm."
+    }
+  ],
+  "rejected": [
+    {
+      "source_id": "09c96b83c5",
+      "why": "loading placeholder with no facts"
+    },
+    {
+      "source_id": "115f83bc46",
+      "why": "cookie wall with no extractable content"
+    },
+    {
+      "source_id": "4b65c117a8",
+      "why": "arXiv index page with no results reported"
+    },
+    {
+      "source_id": "7a234213f1",
+      "why": "listing page with no findings summarized"
+    },
+    {
+      "source_id": "cf009bd1ed",
+      "why": "consultancy SEO page with no specific regulation facts"
+    }
+  ],
+  "date": "2026-09-16",
+  "pool_size": 25
+}

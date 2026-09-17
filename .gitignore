@@ -2,6 +2,19 @@
 build/
 cyborg-news-*.html
 
+# the reader, rebuilt from issues/ by tools/site.js on every run
+site/
+
+# a cache of other people's article text, rebuilt from data/inbox in a minute.
+# this repository is public: it should not republish the sources it reads.
+data/extracts/
+data/fit-report.json
+
+# experiment leftovers, kept locally rather than in the history
+data/issue.claude.json
+data/issue.muse.json
+data/issue.prev.json
+
 # built issues are kept: the reader will serve past papers from here
 !cyborg-news-*.pdf
 
