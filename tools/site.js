@@ -157,8 +157,13 @@ const page = `<!doctype html>
     position:absolute; left:calc(100% + 14px); top:0;
     display:flex; flex-direction:column; gap:12px;
   }
+  /* One of these is a button and one is an anchor. Resetting the border but
+     not the padding left the button carrying the browser's default padding,
+     so the two glyphs sat at different offsets inside their circles. */
   .tool{
-    appearance:none; border:0; cursor:pointer; width:42px; height:42px; border-radius:50%;
+    appearance:none; border:0; padding:0; margin:0; line-height:0;
+    box-sizing:border-box; font:inherit;
+    cursor:pointer; width:42px; height:42px; border-radius:50%;
     background:var(--chip); color:var(--ink); display:grid; place-items:center;
     transition:background .15s, transform .15s; text-decoration:none;
   }
@@ -215,8 +220,18 @@ const page = `<!doctype html>
     font-size:9px; font-weight:600; letter-spacing:.13em; color:var(--ink);
     background:linear-gradient(to top, rgba(251,250,248,.96) 55%, rgba(251,250,248,0));
   }
-  .card[aria-current="true"]{cursor:default}
-  .card:not([aria-current="true"]):hover{filter:brightness(.97)}
+  .card:hover{filter:brightness(.97)}
+  /* the plate that closes the carousel */
+  .endcap{cursor:default}
+  .endcap .sheetlet{
+    background:var(--chip);
+    box-shadow:0 1px 4px rgba(20,19,16,.05), 0 10px 20px rgba(20,19,16,.06);
+  }
+  .endcap .endtext{
+    position:absolute; inset:0; display:grid; place-items:center; text-align:center;
+    padding:0 14px; font-size:10px; font-weight:600; letter-spacing:.14em;
+    line-height:1.7; color:var(--chip-ink);
+  }
 
   .empty-state{color:var(--muted); font-size:13px}
 
@@ -271,7 +286,7 @@ ${manifest.length ? `<main class="room">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>
       </button>
       <a class="tool" id="dl" download title="Download PDF" aria-label="Download PDF">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v13M6 12l6 6 6-6"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
       </a>
     </div>
   </div>
@@ -375,16 +390,24 @@ if (ISSUES.length) {
   const flat = () => window.matchMedia('(max-width:1000px)').matches;
   let cards = [], focus = 0, aim = 0, running = false;
 
+  /* The rail is PREVIOUS issues, so the one on the table is not in it. The
+     last plate is the end of the archive: reaching it, or having nothing to
+     show at all, says so rather than leaving a void. */
   function build() {
-    $('deck').innerHTML = ISSUES.map((e, i) => {
+    const others = ISSUES.map((e, i) => ({ e, i })).filter(x => x.i !== issue);
+    const sheets = others.map(({ e, i }) => {
       const art = e.thumb
         ? '<img src="' + e.thumb + '" alt="" loading="lazy">'
         : '<span class="none">PDF</span>';
       return '<button class="card" type="button" data-i="' + i + '" title="' + e.long + '">' +
         '<span class="sheetlet">' + art + '<span class="when">' + e.label + '</span></span>' +
         '</button>';
-    }).join('');
+    });
+    sheets.push('<div class="card endcap"><span class="sheetlet">' +
+      '<span class="endtext">SORRY,<br>WE RAN OUT</span></span></div>');
+    $('deck').innerHTML = sheets.join('');
     cards = [].slice.call($('deck').querySelectorAll('.card'));
+    focus = 0; aim = 0;
   }
 
   function layout() {
@@ -404,7 +427,6 @@ if (ISSUES.length) {
       c.style.opacity = o.toFixed(2);
       c.style.zIndex = String(200 - Math.round(d * 10));
       c.style.pointerEvents = o < 0.08 ? 'none' : 'auto';
-      c.setAttribute('aria-current', String(i === issue));
     });
   }
 
@@ -446,11 +468,11 @@ if (ISSUES.length) {
 
   $('deck').addEventListener('click', ev => {
     const b = ev.target.closest('.card');
-    if (!b) return;
+    if (!b || !b.dataset.i) return;            // the end plate is not a link
     const i = Number(b.dataset.i);
-    aimAt(i);
     if (i === issue) return;
-    issue = i; page = 1; paint();
+    issue = i; page = 1;
+    build(); layout(); paint();                // the rail's membership changed
   });
 
   addEventListener('resize', () => layout());
