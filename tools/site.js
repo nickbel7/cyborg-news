@@ -403,6 +403,15 @@ const page = `<!doctype html>
   }
   .greeter .portrait:hover{transform:translateY(-2px)}
   .greeter .portrait:active{transform:translateY(0)}
+  /* He hops when he speaks: up, a small squash on landing, a half-bounce. */
+  @keyframes greeterHop{
+    0%{transform:translateY(0)}
+    30%{transform:translateY(-10px) scaleY(1.04)}
+    55%{transform:translateY(0) scaleY(.96)}
+    75%{transform:translateY(-3px) scaleY(1)}
+    100%{transform:translateY(0)}
+  }
+  .greeter .portrait.is-talking{transform-origin:50% 100%; animation:greeterHop .55s cubic-bezier(.3,.7,.3,1)}
   /* A keyed sprite needs no card: the character stands on the page, with a
      shadow that follows the pixels rather than a box around them. */
   .greeter .portrait.is-cutout{
@@ -455,7 +464,7 @@ const page = `<!doctype html>
     .greeter video{display:none}
     .greeter .poster{display:block}
     .greeter .spriteWin img{animation:none !important}   /* holds on frame 0 */
-    .greeter .portrait{transition:none}
+    .greeter .portrait{transition:none; animation:none !important}
     .greeter .bubble{transition:none}
   }
 </style>
@@ -806,38 +815,93 @@ ${hasAvatar ? `<script>
   var root = $('greeter'), bubble = $('greeterBubble'), text = $('greeterText');
   if (!root || !bubble || !text) return;
 
-  var LINES = [
-    'Fresh news every week.',
-    'Go get the physical issue.',
-    'Printed every Sunday from the week\\u2019s reporting.',
-    'Every quote in here is checked against its source.',
-    'Scroll down for the archive.',
-    'I\\u2019m made entirely of last week\\u2019s news.'
+  /* He talks like a shopkeeper NPC: a greeting when you arrive, a bark
+     when you do something, idle chatter in between — and he hops when he
+     speaks. Every line is a joke or something true of the paper: the gate
+     checks every quote, the run is on Sunday, the masthead says free to
+     humans. Nothing here claims anything about the lab. */
+  var GREET = [
+    'Oh! A reader! Come in, come in.',
+    'Welcome, traveller. This week\\u2019s issue is hot off the press.',
+    'Hey, you made it. Grab a paper!'
   ];
-  var SHOW_MS = 5600, GAP_MS = 2400, FIRST_MS = 1200;
-  var i = -1, timer = null, dismissed = false;
+  var IDLE = [
+    'Get yours!',
+    'Extra! Extra! Read all about it.',
+    'Free to humans. Cyborgs pay double.',
+    'Go on, take one. They\\u2019re free.',
+    'Every quote in here? Checked against its source. I\\u2019m thorough like that.',
+    'New issue every Sunday. I never sleep.',
+    'Psst \\u2014 the archive\\u2019s down below.',
+    'It\\u2019s all real. I only print what I can prove.',
+    'Yes, I look like the editor. Long story.',
+    'Print it. Fold it. Leave it on someone\\u2019s desk.'
+  ];
+  var ON = {
+    turn:     ['Page two\\u2019s where the good stuff is.', 'Turning pages, are we? Take your time.', 'Careful \\u2014 the ink\\u2019s still wet.'],
+    download: ['Going to press! That\\u2019s the spirit.', 'One for the road. Good choice.', 'Print it. Fold it. Leave it on someone\\u2019s desk.'],
+    expand:   ['Ah, the big screen. Now we\\u2019re talking.', 'Front row seat. Enjoy.'],
+    pick:     ['An old one! Good taste.', 'Ah, a classic. I remember that week.'],
+    empty:    ['That\\u2019s all of them. I\\u2019m new here.', 'Nothing older, sorry. Come back Sunday.']
+  };
+  var SHOW_MS = 5200, GAP_MS = 3200, FIRST_MS = 900;
+  var timer = null, dismissed = false, bag = [];
   try { dismissed = sessionStorage.getItem('greeter-off') === '1'; } catch (e) {}
 
-  function say(next) {
-    clearTimeout(timer);
-    if (dismissed) return;
-    i = (i + (next ? 1 : 0)) % LINES.length;
-    text.textContent = LINES[i];
-    bubble.classList.add('is-on');
-    timer = setTimeout(function () {
-      bubble.classList.remove('is-on');
-      timer = setTimeout(function () { say(true); }, GAP_MS);
-    }, SHOW_MS);
+  var pick = function (list) { return list[Math.floor(Math.random() * list.length)]; };
+  /* Idle lines come out of a shuffled bag: nothing repeats until every
+     line has been said once. */
+  function nextIdle() {
+    if (!bag.length) bag = IDLE.slice().sort(function () { return Math.random() - 0.5; });
+    return bag.pop();
   }
 
-  $('greeterPortrait').addEventListener('click', function () {
+  var portrait = $('greeterPortrait');
+  function hop() {
+    portrait.classList.remove('is-talking');
+    void portrait.offsetWidth;                       // restart the animation
+    portrait.classList.add('is-talking');
+  }
+  function say(line) {
+    clearTimeout(timer);
+    if (dismissed) return;
+    text.textContent = line || nextIdle();
+    bubble.classList.add('is-on');
+    hop();
+    timer = setTimeout(function () {
+      bubble.classList.remove('is-on');
+      timer = setTimeout(function () { say(); }, GAP_MS);
+    }, SHOW_MS);
+  }
+  var react = function (key) { say(pick(ON[key])); };
+
+  portrait.addEventListener('click', function () {
     if (dismissed) { dismissed = false; try { sessionStorage.removeItem('greeter-off'); } catch (e) {} }
-    say(true);
+    say();
   });
   $('greeterShut').addEventListener('click', function (ev) {
     ev.stopPropagation();
     dismissed = true; clearTimeout(timer); bubble.classList.remove('is-on');
     try { sessionStorage.setItem('greeter-off', '1'); } catch (e) {}
+  });
+
+  /* Reactions ride on the page's own controls by delegation, so this
+     script never needs to know how they work — only that they were used.
+     A disabled button fires no click, so there is no bark for a page turn
+     that could not happen. */
+  document.addEventListener('click', function (ev) {
+    var t = ev.target.closest ? ev.target.closest('#prev,#next,#edgePrev,#edgeNext,#dl,#expand,.card,.endcap') : null;
+    if (!t || dismissed) return;
+    if (t.id === 'dl') react('download');
+    else if (t.id === 'expand') react('expand');
+    else if (t.classList.contains('card')) react('pick');
+    else if (t.classList.contains('endcap')) react('empty');
+    else react('turn');
+  });
+  document.addEventListener('keydown', function (ev) {
+    var big = $('big');
+    if (big && big.open) return;
+    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') react('turn');
   });
 
   /* On a phone the archive row lives at the foot of the page, exactly
@@ -855,7 +919,7 @@ ${hasAvatar ? `<script>
   var v = $('greeterVideo');
   if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { try { v.pause(); } catch (e) {} }
 
-  setTimeout(function () { say(true); }, FIRST_MS);
+  setTimeout(function () { say(pick(GREET)); }, FIRST_MS);
 })();
 </script>` : ''}
 </body>
