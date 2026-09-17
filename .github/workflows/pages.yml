@@ -1,0 +1,62 @@
+name: Publish the reader
+
+# Publishing the site is separated from printing the paper on purpose.
+#
+# The reader is a few hundred lines of static HTML built from issues/ that are
+# already committed, so it costs seconds and no model calls. Tying it to the
+# Sunday build meant a typo in the reader could only be fixed by reprinting
+# the whole newspaper — thirty-five minutes and about a dollar — and it meant
+# that until the first paper printed there was nothing on the site at all.
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'issues/**'
+      - 'tools/site.js'
+      - '.github/workflows/pages.yml'
+  # A commit pushed by the build job uses GITHUB_TOKEN, and commits made with
+  # that token deliberately do not trigger further workflows — so the Sunday
+  # build has to hand over explicitly rather than relying on its own push.
+  workflow_run:
+    workflows: ['Build the issue']
+    types: [completed]
+  workflow_dispatch:
+
+concurrency:
+  group: cyborg-news-pages
+  cancel-in-progress: true        # only the newest reader matters
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # After a failed print there is nothing new to show, and last week's
+    # paper should stay up untouched.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master           # the build job may have committed since this was queued
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Build the reader
+        run: node tools/site.js
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
