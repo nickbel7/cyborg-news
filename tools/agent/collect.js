@@ -70,6 +70,8 @@ const FRESH = process.argv.includes('--fresh');
    order far less decisive than it was, but a tie should fall to the outlet
    that writes in sentences. */
 const FEEDS = [
+  // researchers writing prose about their own work, CC-BY licensed
+  ['https://theconversation.com/us/technology/articles.atom', 4],
   ['https://www.theverge.com/rss/ai-artificial-intelligence/index.xml', 4],
   ['https://techcrunch.com/category/artificial-intelligence/feed/', 4],
   ['https://www.wired.com/feed/tag/ai/latest/rss', 4],
@@ -126,17 +128,31 @@ function qualifies(beat, text) {
 
 const classify = text => BEAT_ORDER.find(b => qualifies(b, text)) || null;
 
-const strip = s => (s || '')
-  .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-  .replace(/<[^>]+>/g, ' ')
-  .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'")
-  .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ')
-  .replace(/\s+/g, ' ').trim();
+/* Feed bodies arrive escaped to varying depths: The Conversation ships its
+   article as &lt;figure&gt;… inside <content>, so entities are decoded first,
+   then the markup that decoding reveals is stripped. */
+const strip = s => {
+  let t = (s || '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
+  t = t.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#0?39;|&apos;|&rsquo;/g, "'")
+       .replace(/&quot;|&ldquo;|&rdquo;/g, '"').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
+  t = t.replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ');
+  return t.replace(/&[a-z]+;/gi, ' ').replace(/\s+/g, ' ').trim();
+};
 
 const tag = (block, name) => {
   const m = block.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)</${name}>`, 'i'));
   return m ? strip(m[1]) : null;
 };
+
+/* Whichever element actually carries the writing. Reading only <description>
+   judged Ars Technica on 81 characters and arXiv on a 1,388-character
+   abstract, so preprints won every beat by default while the news feeds
+   looked empty. The real article text is usually in <content:encoded>. */
+function body(b) {
+  return [tag(b, 'content:encoded'), tag(b, 'content'), tag(b, 'description'), tag(b, 'summary')]
+    .filter(Boolean)
+    .sort((x, y) => y.length - x.length)[0] || '';
+}
 
 /* RSS 2.0, RDF and Atom all in one, because the feeds above are a mix. */
 function parse(xml) {
@@ -153,7 +169,7 @@ function parse(xml) {
     items.push({
       title: tag(b, 'title') || '',
       link: link.trim(),
-      summary: (tag(b, 'description') || tag(b, 'summary') || tag(b, 'content') || '').slice(0, 600),
+      summary: body(b).slice(0, 1500),
       date: when ? new Date(when) : null
     });
   }
