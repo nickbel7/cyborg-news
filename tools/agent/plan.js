@@ -54,7 +54,7 @@ const digest = pool.map(e => ({
   site: e.site,
   published: (e.published || '').slice(0, 10) || 'undated',
   words: e.words,
-  submitted_by: e.submitted_by,
+  beat: e.beat || 'unsorted',     // who submitted it stopped mattering once the collector did
   note: e.note || '',
   extract: (e.text || '').slice(0, 1100)
 }));

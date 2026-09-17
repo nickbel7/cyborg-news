@@ -40,6 +40,7 @@ const STAGES = [
   ['gate',   'check quotes, licences and claims',   ['tools/agent/gate.js']],
   ['pdf',    'render the printable sheet',          ['tools/render.js', 'pdf']],
   ['proof',  'render the proof images',             ['tools/render.js', 'png']],
+  ['web',    'render the archive thumbnail',        ['tools/render.js', 'web']],
   ['archive','file the issue',                      null]
 ];
 
