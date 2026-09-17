@@ -103,6 +103,10 @@ async function waitReady(ws, ms) {
     const report = await evaluate(ws, "document.body.dataset.report || ''");
     const pages = await evaluate(ws, "document.querySelectorAll('.sheet').length");
 
+    // the same findings as structured data, which is what the refit loop reads
+    fs.writeFileSync(path.join(ROOT, 'data/fit-report.json'),
+      await evaluate(ws, "document.body.dataset.reportJson || '{}'"));
+
     if (cmd === 'report') {
       console.log(report.split('  ·  ').join('\n  · '));
     } else if (cmd === 'pdf') {
