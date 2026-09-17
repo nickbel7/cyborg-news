@@ -818,11 +818,11 @@ ${hasAvatar ? `<script>
   /* He talks like a shopkeeper NPC: a greeting when you arrive, a bark
      when you do something, idle chatter in between — and he hops when he
      speaks. Every line is a joke or something true of the paper: the gate
-     checks every quote, the run is on Sunday, the masthead says free to
+     checks every quote, the run is on Monday, the masthead says free to
      humans. Nothing here claims anything about the lab. */
   var GREET = [
     'Oh! A reader! Come in, come in.',
-    'Welcome, traveller. This week\\u2019s issue is hot off the press.',
+    'Welcome, human. This week\\u2019s issue is hot off the press.',
     'Hey, you made it. Grab a paper!'
   ];
   var IDLE = [
@@ -831,8 +831,7 @@ ${hasAvatar ? `<script>
     'Free to humans. Cyborgs pay double.',
     'Go on, take one. They\\u2019re free.',
     'Every quote in here? Checked against its source. I\\u2019m thorough like that.',
-    'New issue every Sunday. I never sleep.',
-    'Psst \\u2014 the archive\\u2019s down below.',
+    'New issue every Monday. I never sleep.',
     'It\\u2019s all real. I only print what I can prove.',
     'Yes, I look like the editor. Long story.',
     'Print it. Fold it. Leave it on someone\\u2019s desk.'
@@ -842,7 +841,7 @@ ${hasAvatar ? `<script>
     download: ['Going to press! That\\u2019s the spirit.', 'One for the road. Good choice.', 'Print it. Fold it. Leave it on someone\\u2019s desk.'],
     expand:   ['Ah, the big screen. Now we\\u2019re talking.', 'Front row seat. Enjoy.'],
     pick:     ['An old one! Good taste.', 'Ah, a classic. I remember that week.'],
-    empty:    ['That\\u2019s all of them. I\\u2019m new here.', 'Nothing older, sorry. Come back Sunday.']
+    empty:    ['That\\u2019s all of them. I\\u2019m new here.', 'Nothing older, sorry. Come back Monday.']
   };
   var SHOW_MS = 5200, GAP_MS = 3200, FIRST_MS = 900;
   var timer = null, dismissed = false, bag = [];
