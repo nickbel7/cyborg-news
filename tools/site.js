@@ -28,10 +28,11 @@ const ISSUES = path.join(ROOT, 'issues');
 const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174';
 
 /* The greeter: an animated portrait in the bottom-left corner that says
-   hello and points people at the paper. The loop itself is generated
-   outside this repo (an image-to-video model run through Weave) and dropped
-   in assets/avatar/. The widget is gated on that file existing, so the site
-   ships cleanly without it and switches on the moment the loop lands. */
+   hello and points people at the paper. The frames themselves are generated
+   outside this repo (an image model run through Weave, then keyed and
+   sliced by scratch tooling) and dropped in assets/avatar/. The widget is
+   gated on that file existing, so the site ships cleanly without it and
+   switches on the moment the sheet lands. */
 const AVATAR_DIR = path.join(ROOT, 'assets', 'avatar');
 const avatarFile = f => fs.existsSync(path.join(AVATAR_DIR, f)) ? f : null;
 const avatar = {
@@ -50,11 +51,37 @@ if (avatar.sprite) {
     const j = JSON.parse(fs.readFileSync(path.join(AVATAR_DIR, 'sprite.json'), 'utf8'));
     Object.assign(avatar, {
       frames: j.frames || avatar.frames, fps: j.fps || avatar.fps,
-      frameW: j.frameW || avatar.frameW, frameH: j.frameH || avatar.frameH
+      frameW: j.frameW || avatar.frameW, frameH: j.frameH || avatar.frameH,
+      sequence: Array.isArray(j.sequence) && j.sequence.length ? j.sequence : null
     });
   } catch {}
 }
 const hasAvatar = Boolean(avatar.sprite || avatar.mp4 || avatar.webm);
+
+/* An idle is not N equal beats: the neutral face holds for a second or
+   two, a blink is gone in a tenth of one. sprite.json may therefore carry
+   a `sequence` of [frame, ms] pairs, which becomes a keyframe list with
+   step-end timing — each frame held for its own duration, in any order,
+   with repeats. Without one the frames simply play evenly at `fps`. */
+function greeterMotion() {
+  const N = avatar.frames;
+  if (!avatar.sequence) return {
+    keyframes: '@keyframes greeterStep{to{transform:translateX(-100%)}}',
+    animation: `greeterStep ${(N / avatar.fps).toFixed(3)}s steps(${N}) infinite`
+  };
+  const total = avatar.sequence.reduce((s, [, ms]) => s + ms, 0);
+  let at = 0;
+  const stops = avatar.sequence.map(([frame, ms]) => {
+    const stop = `${(at / total * 100).toFixed(2)}%{transform:translateX(${(-frame * 100 / N).toFixed(3)}%)}`;
+    at += ms;
+    return stop;
+  });
+  return {
+    keyframes: `@keyframes greeterStep{${stops.join('')}}`,
+    animation: `greeterStep ${(total / 1000).toFixed(2)}s step-end infinite`
+  };
+}
+const motion = hasAvatar ? greeterMotion() : null;
 
 const esc = s => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -388,7 +415,7 @@ const page = `<!doctype html>
     display:block; height:100%; width:auto; max-width:none;
     image-rendering:pixelated; image-rendering:crisp-edges;
   }
-  @keyframes greeterStep{to{transform:translateX(-100%)}}
+  ${motion ? motion.keyframes : ''}
   .greeter .bubble{
     position:relative; max-width:230px; padding:11px 30px 11px 14px;
     background:var(--sheet); color:var(--ink); border-radius:12px;
@@ -479,7 +506,7 @@ ${hasAvatar ? `<aside class="greeter" id="greeter" aria-label="Greeter">
   </div>
   <button class="portrait" id="greeterPortrait" type="button" title="Say something else" aria-label="Say something else">
 ${avatar.sprite ? `    <span class="spriteWin" style="aspect-ratio:${avatar.frameW}/${avatar.frameH}">
-      <img src="avatar/${avatar.sprite}" alt="" style="animation:greeterStep ${(avatar.frames / avatar.fps).toFixed(3)}s steps(${avatar.frames}) infinite">
+      <img src="avatar/${avatar.sprite}" alt="" style="animation:${motion.animation}">
     </span>` : `    <video id="greeterVideo" autoplay muted loop playsinline${avatar.poster ? ` poster="avatar/${avatar.poster}"` : ''}>
       ${avatar.webm ? `<source src="avatar/${avatar.webm}" type="video/webm">` : ''}
       ${avatar.mp4 ? `<source src="avatar/${avatar.mp4}" type="video/mp4">` : ''}
