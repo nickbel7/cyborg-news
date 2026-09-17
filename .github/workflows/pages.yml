@@ -53,6 +53,8 @@ jobs:
           node-version: '22'
 
       - name: Build the reader
+        env:
+          CUSTOM_DOMAIN: newspaper.cyborglab.org
         run: node tools/site.js
 
       - uses: actions/upload-pages-artifact@v3

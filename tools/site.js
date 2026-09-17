@@ -930,6 +930,12 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'issues'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), page);
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');   // keep Pages off Jekyll
+/* Pages is published here from an Actions artifact, not a branch, and an
+   artifact-based deployment does not carry the custom domain the way a
+   branch-based one does — the domain has to travel with the build output
+   itself. Set via the CUSTOM_DOMAIN env var so the workflow controls it,
+   not this script; leave it unset and no file is written. */
+if (process.env.CUSTOM_DOMAIN) fs.writeFileSync(path.join(OUT, 'CNAME'), process.env.CUSTOM_DOMAIN.trim() + '\n');
 
 let bytes = 0;
 for (const e of editions) {
