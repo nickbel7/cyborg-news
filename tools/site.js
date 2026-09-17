@@ -35,11 +35,26 @@ const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174';
 const AVATAR_DIR = path.join(ROOT, 'assets', 'avatar');
 const avatarFile = f => fs.existsSync(path.join(AVATAR_DIR, f)) ? f : null;
 const avatar = {
+  /* Preferred: a sprite sheet — N same-sized frames side by side — stepped
+     through with CSS steps(), so a pixel-art character stays pixel-sharp.
+     A video model would interpolate between frames and smear the pixels. */
+  sprite: avatarFile('sprite.png') || avatarFile('sprite.webp') || avatarFile('sprite.gif'),
+  frames: 4, fps: 6, frameW: 2, frameH: 3,
+  /* Fallback: a rendered loop, for a painted rather than pixel character. */
   mp4: avatarFile('idle.mp4'),
   webm: avatarFile('idle.webm'),
   poster: avatarFile('poster.webp') || avatarFile('poster.jpg') || avatarFile('poster.png')
 };
-const hasAvatar = Boolean(avatar.mp4 || avatar.webm);
+if (avatar.sprite) {
+  try {
+    const j = JSON.parse(fs.readFileSync(path.join(AVATAR_DIR, 'sprite.json'), 'utf8'));
+    Object.assign(avatar, {
+      frames: j.frames || avatar.frames, fps: j.fps || avatar.fps,
+      frameW: j.frameW || avatar.frameW, frameH: j.frameH || avatar.frameH
+    });
+  } catch {}
+}
+const hasAvatar = Boolean(avatar.sprite || avatar.mp4 || avatar.webm);
 
 const esc = s => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -363,6 +378,17 @@ const page = `<!doctype html>
   .greeter .portrait:active{transform:translateY(0)}
   .greeter video, .greeter img{display:block; width:100%; height:auto}
   .greeter .poster{display:none}
+  /* Sprite sheet: a window one frame wide, and inside it the whole sheet
+     stepping left one frame at a time. steps(N) over translateX(-100%) of
+     an image N frames wide lands on exactly frames 0..N-1 and never on the
+     empty space past the last one. Nearest-neighbour scaling keeps the
+     pixels square when the sheet is shown larger than it is. */
+  .greeter .spriteWin{display:block; width:100%; overflow:hidden}
+  .greeter .spriteWin img{
+    display:block; height:100%; width:auto; max-width:none;
+    image-rendering:pixelated; image-rendering:crisp-edges;
+  }
+  @keyframes greeterStep{to{transform:translateX(-100%)}}
   .greeter .bubble{
     position:relative; max-width:230px; padding:11px 30px 11px 14px;
     background:var(--sheet); color:var(--ink); border-radius:12px;
@@ -395,6 +421,7 @@ const page = `<!doctype html>
   @media (prefers-reduced-motion: reduce){
     .greeter video{display:none}
     .greeter .poster{display:block}
+    .greeter .spriteWin img{animation:none !important}   /* holds on frame 0 */
     .greeter .portrait{transition:none}
     .greeter .bubble{transition:none}
   }
@@ -451,11 +478,13 @@ ${hasAvatar ? `<aside class="greeter" id="greeter" aria-label="Greeter">
     </button>
   </div>
   <button class="portrait" id="greeterPortrait" type="button" title="Say something else" aria-label="Say something else">
-    <video id="greeterVideo" autoplay muted loop playsinline${avatar.poster ? ` poster="avatar/${avatar.poster}"` : ''}>
+${avatar.sprite ? `    <span class="spriteWin" style="aspect-ratio:${avatar.frameW}/${avatar.frameH}">
+      <img src="avatar/${avatar.sprite}" alt="" style="animation:greeterStep ${(avatar.frames / avatar.fps).toFixed(3)}s steps(${avatar.frames}) infinite">
+    </span>` : `    <video id="greeterVideo" autoplay muted loop playsinline${avatar.poster ? ` poster="avatar/${avatar.poster}"` : ''}>
       ${avatar.webm ? `<source src="avatar/${avatar.webm}" type="video/webm">` : ''}
       ${avatar.mp4 ? `<source src="avatar/${avatar.mp4}" type="video/mp4">` : ''}
     </video>
-    ${avatar.poster ? `<img class="poster" src="avatar/${avatar.poster}" alt="">` : ''}
+    ${avatar.poster ? `<img class="poster" src="avatar/${avatar.poster}" alt="">` : ''}`}
   </button>
 </aside>` : ''}
 
@@ -822,7 +851,7 @@ for (const e of editions) {
 if (hasAvatar) {
   const dst = path.join(OUT, 'avatar');
   fs.mkdirSync(dst, { recursive: true });
-  for (const f of [avatar.mp4, avatar.webm, avatar.poster].filter(Boolean)) {
+  for (const f of [avatar.sprite, avatar.mp4, avatar.webm, avatar.poster].filter(Boolean)) {
     fs.copyFileSync(path.join(AVATAR_DIR, f), path.join(dst, f));
     bytes += fs.statSync(path.join(AVATAR_DIR, f)).size;
   }
