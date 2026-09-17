@@ -52,8 +52,17 @@ const editions = (fs.existsSync(ISSUES) ? fs.readdirSync(ISSUES) : [])
     };
   });
 
+/* Every issue in the rail is labelled with its date, so the archive reads as
+   a dated list rather than a pile of anonymous sheets. */
+const MON = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+const stamp = d => {
+  const [y, m, day] = d.split('-');
+  return `${Number(day)} ${MON[Number(m) - 1]} ${y}`;
+};
+
 const manifest = editions.map(e => ({
   date: e.date, long: e.long, lead: e.lead, kb: e.kb,
+  label: stamp(e.date),
   pdf: `issues/${e.date}/paper.pdf`,
   thumb: e.hasThumb ? `issues/${e.date}/thumb.webp` : null
 }));
@@ -150,24 +159,45 @@ const page = `<!doctype html>
   .tool svg{width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.9;
             stroke-linecap:round; stroke-linejoin:round}
 
-  .archive{align-self:start; padding-top:4px}
+  .archive{align-self:start; padding-top:4px; min-width:0}
   .archive h2{
     font-size:10px; font-weight:600; letter-spacing:.16em; color:var(--muted);
-    margin:0 0 18px; text-align:center;
+    margin:0 0 16px; text-align:center;
   }
-  .stack{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; align-items:center}
-  .stack li{width:100%; display:flex; justify-content:center}
+  /* a dated, scrollable list — uniform sheets, because a receding pile
+     cannot carry a legible label on every issue */
+  .stack{
+    list-style:none; margin:0; padding:0 2px 6px; display:flex; flex-direction:column;
+    align-items:center; gap:16px;
+    max-height:calc(100vh - 190px); overflow-y:auto; scrollbar-width:thin;
+    scrollbar-color:#d8d5cf transparent;
+  }
+  .stack::-webkit-scrollbar{width:6px}
+  .stack::-webkit-scrollbar-thumb{background:#d8d5cf; border-radius:3px}
+  .stack li{width:100%}
   .card{
-    appearance:none; border:0; padding:0; cursor:pointer; display:block;
-    background:var(--sheet); border-radius:2px; overflow:hidden;
-    aspect-ratio:1123/1587; width:100%;
+    appearance:none; border:0; padding:0; cursor:pointer; display:block; width:100%;
+    background:transparent; text-align:center; color:inherit;
+    transition:transform .18s, opacity .18s;
+    opacity:.62;
+  }
+  .card .sheetlet{
+    display:block; width:100%; aspect-ratio:1123/1587; overflow:hidden;
+    background:var(--sheet); border-radius:2px;
     box-shadow:0 2px 6px rgba(20,19,16,.07), 0 12px 24px rgba(20,19,16,.07);
-    transition:transform .18s, box-shadow .18s, opacity .18s;
+    transition:box-shadow .18s;
   }
   .card img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block}
-  .card:hover{transform:translateY(-3px); box-shadow:0 4px 10px rgba(20,19,16,.09), 0 18px 34px rgba(20,19,16,.11)}
   .card .none{width:100%; height:100%; display:grid; place-items:center;
               font-size:9px; letter-spacing:.12em; color:var(--chip-ink)}
+  .card .when{
+    display:block; margin-top:8px; font-size:9px; font-weight:600;
+    letter-spacing:.13em; color:var(--muted); white-space:nowrap;
+  }
+  .card:hover{opacity:1; transform:translateY(-2px)}
+  .card:hover .sheetlet{box-shadow:0 4px 10px rgba(20,19,16,.09), 0 18px 34px rgba(20,19,16,.11)}
+  .card[aria-current="true"]{opacity:1}
+  .card[aria-current="true"] .when{color:var(--ink)}
 
   .empty-state{grid-column:1/-1; text-align:center; color:var(--muted); font-size:13px}
 
@@ -322,18 +352,16 @@ if (ISSUES.length) {
     $('next').disabled = page >= pages;
   }
 
-  // the receding stack: each sheet clearly smaller and quieter than the one
-  // above, overlapping enough to read as a pile rather than a list
+  // a dated list: every issue shows when it was printed, and clicking one is
+  // the only way to change issue — prev/next never leave the current paper
   $('stack').innerHTML = ISSUES.map((e, i) => {
-    const w = Math.max(42, 100 - i * 22);
-    const op = Math.max(.4, 1 - i * .2);
     const art = e.thumb
       ? '<img src="' + e.thumb + '" alt="" loading="lazy">'
       : '<span class="none">PDF</span>';
-    return '<li style="width:' + w + '%">' +
-      '<button class="card" type="button" data-i="' + i + '" title="' + e.long + '" ' +
-      'style="margin-top:' + (i ? -34 : 0) + 'px;opacity:' + op.toFixed(2) + ';z-index:' + (99 - i) + '">' +
-      art + '</button></li>';
+    return '<li><button class="card" type="button" data-i="' + i + '" title="' + e.long + '">' +
+      '<span class="sheetlet">' + art + '</span>' +
+      '<span class="when">' + e.label + '</span>' +
+      '</button></li>';
   }).join('');
 
   $('stack').addEventListener('click', ev => {

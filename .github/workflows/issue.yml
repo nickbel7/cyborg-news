@@ -102,15 +102,9 @@ jobs:
             git push
           fi
 
-      - name: Build the reader
-        if: success()
-        run: node tools/site.js
-
-      - name: Stage the reader for Pages
-        if: success()
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
+      # The reader is published by .github/workflows/pages.yml, which this
+      # workflow hands over to on completion. Keeping them apart means a fix
+      # to the site does not cost a reprint of the paper.
 
       # The gate publishes nothing when it fails, so the failure has to be
       # visible somewhere a person will actually look.
@@ -140,17 +134,3 @@ jobs:
               ].join('\n')
             });
 
-  # Deploying from the artifact the build job uploaded means this job needs no
-  # checkout, and so cannot race the commit the build job just pushed.
-  publish:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    steps:
-      - id: deploy
-        uses: actions/deploy-pages@v4
