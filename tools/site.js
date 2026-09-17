@@ -114,10 +114,22 @@ const page = `<!doctype html>
     font-size:clamp(15px,2.1vw,21px); letter-spacing:.02em; margin:0;
   }
 
-  /* sheet + its tools travel together, and the pair is centred */
+  /* sheet + its tools travel together, and the pair is centred.
+
+     align-items is flex-start, not center. .tools is absolutely positioned
+     with top:0, which anchors it to .stage's own top edge. .sheet's height
+     (calc(100vh - 150px)) is only an estimate of what the dateline and
+     pager need, so it rarely fills .stage exactly — centering .sheet then
+     left a gap between .stage's top and .sheet's top that .tools, pinned to
+     .stage, did not share, so the two drifted apart. flex-start makes
+     .sheet's top edge coincide with .stage's top edge always, which is
+     exactly where .tools is anchored, so they align by construction rather
+     than by matching a guessed number. Any leftover space falls below the
+     sheet instead of being split top and bottom, which costs nothing here
+     since nothing sits under it but the pager. */
   .stage{
     position:relative; flex:1 1 auto; min-height:0;
-    display:flex; align-items:center; justify-content:center;
+    display:flex; align-items:flex-start; justify-content:center;
   }
   .sheet{
     position:relative; aspect-ratio:1123/1587;
