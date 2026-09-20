@@ -26,14 +26,25 @@
     "fetched": "2026-09-16"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:US_Capitol-2.tif",
-    "licence": "CC BY-SA 4.0",
-    "artist": "Balon Greyjoy",
-    "title": "File:US Capitol-2.tif",
-    "width": 5166,
-    "height": 3444,
-    "query": "US Capitol exterior",
+    "source": "https://commons.wikimedia.org/wiki/File:The_New_York_Times_newsroom_1942.jpg",
+    "licence": "Public domain",
+    "artist": "Marjory Collins",
+    "title": "File:The New York Times newsroom 1942.jpg",
+    "width": 3696,
+    "height": 2800,
+    "query": "newspaper newsroom reporters",
     "used_for": "lead-1",
-    "fetched": "2026-09-16"
+    "fetched": "2026-09-20"
+  },
+  "top-a-2.jpg": {
+    "source": "https://commons.wikimedia.org/wiki/File:Bonn,_Hofgarten,_Unifest_2023,_H%C3%BCtewurf_--_2023_--_7796.jpg",
+    "licence": "CC BY-SA 4.0",
+    "artist": "Dietmar Rabich",
+    "title": "File:Bonn, Hofgarten, Unifest 2023, Hütewurf -- 2023 -- 7796.jpg",
+    "width": 6720,
+    "height": 3780,
+    "query": "person using smartphone library",
+    "used_for": "top-a-2",
+    "fetched": "2026-09-20"
   }
 }
