@@ -120,6 +120,8 @@ Pick ONE shape, fill every article slot in it, and return JSON only:
     }
   ],
   "rail": [                               // 10 one-line briefs from sources NOT made into articles
+    // the "point" is what the source found or did, never that it was posted:
+    // "a listing indexes 55 preprints" is not a brief, it is a table of contents
     {"source_id": "<id>", "group": "In brief"|"Also noted", "lead": "3-5 words", "point": "one sentence"}
   ],
   "rejected": [ {"source_id": "<id>", "why": "one clause"} ]
