@@ -27,6 +27,62 @@ const OUT = path.join(ROOT, 'site');
 const ISSUES = path.join(ROOT, 'issues');
 const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174';
 
+/* The greeter: an animated portrait in the bottom-left corner that says
+   hello and points people at the paper. The frames themselves are generated
+   outside this repo (an image model run through Weave, then keyed and
+   sliced by scratch tooling) and dropped in assets/avatar/. The widget is
+   gated on that file existing, so the site ships cleanly without it and
+   switches on the moment the sheet lands. */
+const AVATAR_DIR = path.join(ROOT, 'assets', 'avatar');
+const avatarFile = f => fs.existsSync(path.join(AVATAR_DIR, f)) ? f : null;
+const avatar = {
+  /* Preferred: a sprite sheet — N same-sized frames side by side — stepped
+     through with CSS steps(), so a pixel-art character stays pixel-sharp.
+     A video model would interpolate between frames and smear the pixels. */
+  sprite: avatarFile('sprite.png') || avatarFile('sprite.webp') || avatarFile('sprite.gif'),
+  frames: 4, fps: 6, frameW: 2, frameH: 3,
+  /* Fallback: a rendered loop, for a painted rather than pixel character. */
+  mp4: avatarFile('idle.mp4'),
+  webm: avatarFile('idle.webm'),
+  poster: avatarFile('poster.webp') || avatarFile('poster.jpg') || avatarFile('poster.png')
+};
+if (avatar.sprite) {
+  try {
+    const j = JSON.parse(fs.readFileSync(path.join(AVATAR_DIR, 'sprite.json'), 'utf8'));
+    Object.assign(avatar, {
+      frames: j.frames || avatar.frames, fps: j.fps || avatar.fps,
+      frameW: j.frameW || avatar.frameW, frameH: j.frameH || avatar.frameH,
+      sequence: Array.isArray(j.sequence) && j.sequence.length ? j.sequence : null
+    });
+  } catch {}
+}
+const hasAvatar = Boolean(avatar.sprite || avatar.mp4 || avatar.webm);
+
+/* An idle is not N equal beats: the neutral face holds for a second or
+   two, a blink is gone in a tenth of one. sprite.json may therefore carry
+   a `sequence` of [frame, ms] pairs, which becomes a keyframe list with
+   step-end timing — each frame held for its own duration, in any order,
+   with repeats. Without one the frames simply play evenly at `fps`. */
+function greeterMotion() {
+  const N = avatar.frames;
+  if (!avatar.sequence) return {
+    keyframes: '@keyframes greeterStep{to{transform:translateX(-100%)}}',
+    animation: `greeterStep ${(N / avatar.fps).toFixed(3)}s steps(${N}) infinite`
+  };
+  const total = avatar.sequence.reduce((s, [, ms]) => s + ms, 0);
+  let at = 0;
+  const stops = avatar.sequence.map(([frame, ms]) => {
+    const stop = `${(at / total * 100).toFixed(2)}%{transform:translateX(${(-frame * 100 / N).toFixed(3)}%)}`;
+    at += ms;
+    return stop;
+  });
+  return {
+    keyframes: `@keyframes greeterStep{${stops.join('')}}`,
+    animation: `greeterStep ${(total / 1000).toFixed(2)}s step-end infinite`
+  };
+}
+const motion = hasAvatar ? greeterMotion() : null;
+
 const esc = s => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -328,6 +384,89 @@ const page = `<!doctype html>
       width:64vw; max-width:230px; min-width:190px;
     }
   }
+  /* ---- the greeter ----------------------------------------------------
+     A small framed portrait pinned to the bottom-left, with a speech
+     bubble above it that cycles through a few lines. It is page chrome,
+     not content: it never covers the paper, and on a phone it steps aside
+     (fades) once the archive row is what is on screen. */
+  .greeter{
+    position:fixed; left:56px; bottom:16px; z-index:5;
+    display:flex; flex-direction:column; align-items:flex-start; gap:10px;
+    transition:opacity .25s;
+  }
+  .greeter.is-hidden{opacity:0; pointer-events:none}
+  .greeter .portrait{
+    appearance:none; border:0; padding:0; cursor:pointer; display:block;
+    width:150px; border-radius:14px; overflow:hidden; background:var(--sheet);
+    box-shadow:0 2px 6px rgba(20,19,16,.10), 0 18px 34px rgba(20,19,16,.14);
+    transition:transform .2s;
+  }
+  .greeter .portrait:hover{transform:translateY(-2px)}
+  .greeter .portrait:active{transform:translateY(0)}
+  /* He hops when he speaks: up, a small squash on landing, a half-bounce. */
+  @keyframes greeterHop{
+    0%{transform:translateY(0)}
+    30%{transform:translateY(-10px) scaleY(1.04)}
+    55%{transform:translateY(0) scaleY(.96)}
+    75%{transform:translateY(-3px) scaleY(1)}
+    100%{transform:translateY(0)}
+  }
+  .greeter .portrait.is-talking{transform-origin:50% 100%; animation:greeterHop .55s cubic-bezier(.3,.7,.3,1)}
+  /* A keyed sprite needs no card: the character stands on the page, with a
+     shadow that follows the pixels rather than a box around them. */
+  .greeter .portrait.is-cutout{
+    background:transparent; box-shadow:none; border-radius:0; overflow:visible;
+    filter:drop-shadow(0 4px 3px rgba(20,19,16,.12)) drop-shadow(0 14px 18px rgba(20,19,16,.14));
+  }
+  .greeter video, .greeter img{display:block; width:100%; height:auto}
+  .greeter .poster{display:none}
+  /* Sprite sheet: a window one frame wide, and inside it the whole sheet
+     stepping left one frame at a time. steps(N) over translateX(-100%) of
+     an image N frames wide lands on exactly frames 0..N-1 and never on the
+     empty space past the last one. Nearest-neighbour scaling keeps the
+     pixels square when the sheet is shown larger than it is. */
+  .greeter .spriteWin{display:block; width:100%; overflow:hidden}
+  .greeter .spriteWin img{
+    display:block; height:100%; width:auto; max-width:none;
+    image-rendering:pixelated; image-rendering:crisp-edges;
+  }
+  ${motion ? motion.keyframes : ''}
+  .greeter .bubble{
+    position:relative; max-width:230px; padding:11px 30px 11px 14px;
+    background:var(--sheet); color:var(--ink); border-radius:12px;
+    font-size:12.5px; line-height:1.4; font-weight:500;
+    box-shadow:0 2px 6px rgba(20,19,16,.08), 0 10px 22px rgba(20,19,16,.10);
+    opacity:0; transform:translateY(6px); transition:opacity .28s, transform .28s;
+  }
+  .greeter .bubble.is-on{opacity:1; transform:translateY(0)}
+  /* the tail, pointing down at the portrait */
+  .greeter .bubble::after{
+    content:''; position:absolute; left:22px; bottom:-7px; width:14px; height:14px;
+    background:var(--sheet); transform:rotate(45deg); border-radius:2px;
+    box-shadow:3px 3px 6px rgba(20,19,16,.06);
+  }
+  .greeter .bubble .shut{
+    appearance:none; border:0; background:transparent; cursor:pointer;
+    position:absolute; top:6px; right:6px; width:20px; height:20px; border-radius:50%;
+    color:var(--chip-ink); display:grid; place-items:center; padding:0;
+  }
+  .greeter .bubble .shut:hover{background:var(--chip); color:var(--ink)}
+  .greeter .bubble .shut svg{width:11px; height:11px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round}
+
+  @media (max-width:1000px){
+    .greeter{left:34px; bottom:12px; gap:8px}
+    .greeter .portrait{width:104px; border-radius:11px}
+    .greeter .bubble{max-width:200px; font-size:12px; padding:9px 26px 9px 12px}
+  }
+  /* Motion is the one thing this element is made of, so under reduced
+     motion it becomes a still: the loop is paused and the poster shown. */
+  @media (prefers-reduced-motion: reduce){
+    .greeter video{display:none}
+    .greeter .poster{display:block}
+    .greeter .spriteWin img{animation:none !important}   /* holds on frame 0 */
+    .greeter .portrait{transition:none; animation:none !important}
+    .greeter .bubble{transition:none}
+  }
 </style>
 </head>
 <body>
@@ -372,6 +511,24 @@ ${manifest.length ? `<main class="room">
   <h2>PREVIOUS ISSUES</h2>
   <div class="deck" id="deck"></div>
 </nav>` : `<main class="room"><p class="empty-state">No issue has printed yet. The first one is set on Sunday.</p></main>`}
+
+${hasAvatar ? `<aside class="greeter" id="greeter" aria-label="Greeter">
+  <div class="bubble" id="greeterBubble" role="status" aria-live="polite">
+    <span id="greeterText"></span>
+    <button class="shut" id="greeterShut" type="button" aria-label="Dismiss">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <button class="portrait${avatar.sprite ? ' is-cutout' : ''}" id="greeterPortrait" type="button" title="Say something else" aria-label="Say something else">
+${avatar.sprite ? `    <span class="spriteWin" style="aspect-ratio:${avatar.frameW}/${avatar.frameH}">
+      <img src="avatar/${avatar.sprite}" alt="" style="animation:${motion.animation}">
+    </span>` : `    <video id="greeterVideo" autoplay muted loop playsinline${avatar.poster ? ` poster="avatar/${avatar.poster}"` : ''}>
+      ${avatar.webm ? `<source src="avatar/${avatar.webm}" type="video/webm">` : ''}
+      ${avatar.mp4 ? `<source src="avatar/${avatar.mp4}" type="video/mp4">` : ''}
+    </video>
+    ${avatar.poster ? `<img class="poster" src="avatar/${avatar.poster}" alt="">` : ''}`}
+  </button>
+</aside>` : ''}
 
 <dialog class="big" id="big">
   <button class="close" id="bigclose" type="button" aria-label="Close">
@@ -649,6 +806,121 @@ if (ISSUES.length) {
   paint();
 }
 </script>
+${hasAvatar ? `<script>
+/* The greeter is its own script, deliberately outside the reader's scope:
+   it must work on a page with no issues at all, and nothing in it should
+   be able to break the paper. */
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var root = $('greeter'), bubble = $('greeterBubble'), text = $('greeterText');
+  if (!root || !bubble || !text) return;
+
+  /* He talks like a shopkeeper NPC: a greeting when you arrive, a bark
+     when you do something, idle chatter in between — and he hops when he
+     speaks. Every line is a joke or something true of the paper: the gate
+     checks every quote, the run is on Monday, the masthead says free to
+     humans. Nothing here claims anything about the lab. */
+  var GREET = [
+    'Oh! A reader! Come in, come in.',
+    'Welcome, human. This week\\u2019s issue is hot off the press.',
+    'Hey, you made it. Grab a paper!'
+  ];
+  var IDLE = [
+    'Get yours!',
+    'Extra! Extra! Read all about it.',
+    'Free to humans. Cyborgs pay double.',
+    'Go on, take one. They\\u2019re free.',
+    'Every quote in here? Checked against its source. I\\u2019m thorough like that.',
+    'New issue every Monday. I never sleep.',
+    'It\\u2019s all real. I only print what I can prove.',
+    'Yes, I look like the editor. Long story.',
+    'Print it. Fold it. Leave it on someone\\u2019s desk.'
+  ];
+  var ON = {
+    turn:     ['Page two\\u2019s where the good stuff is.', 'Turning pages, are we? Take your time.', 'Careful \\u2014 the ink\\u2019s still wet.'],
+    download: ['Going to press! That\\u2019s the spirit.', 'One for the road. Good choice.', 'Print it. Fold it. Leave it on someone\\u2019s desk.'],
+    expand:   ['Ah, the big screen. Now we\\u2019re talking.', 'Front row seat. Enjoy.'],
+    pick:     ['An old one! Good taste.', 'Ah, a classic. I remember that week.'],
+    empty:    ['That\\u2019s all of them. I\\u2019m new here.', 'Nothing older, sorry. Come back Monday.']
+  };
+  var SHOW_MS = 5200, GAP_MS = 3200, FIRST_MS = 900;
+  var timer = null, dismissed = false, bag = [];
+  try { dismissed = sessionStorage.getItem('greeter-off') === '1'; } catch (e) {}
+
+  var pick = function (list) { return list[Math.floor(Math.random() * list.length)]; };
+  /* Idle lines come out of a shuffled bag: nothing repeats until every
+     line has been said once. */
+  function nextIdle() {
+    if (!bag.length) bag = IDLE.slice().sort(function () { return Math.random() - 0.5; });
+    return bag.pop();
+  }
+
+  var portrait = $('greeterPortrait');
+  function hop() {
+    portrait.classList.remove('is-talking');
+    void portrait.offsetWidth;                       // restart the animation
+    portrait.classList.add('is-talking');
+  }
+  function say(line) {
+    clearTimeout(timer);
+    if (dismissed) return;
+    text.textContent = line || nextIdle();
+    bubble.classList.add('is-on');
+    hop();
+    timer = setTimeout(function () {
+      bubble.classList.remove('is-on');
+      timer = setTimeout(function () { say(); }, GAP_MS);
+    }, SHOW_MS);
+  }
+  var react = function (key) { say(pick(ON[key])); };
+
+  portrait.addEventListener('click', function () {
+    if (dismissed) { dismissed = false; try { sessionStorage.removeItem('greeter-off'); } catch (e) {} }
+    say();
+  });
+  $('greeterShut').addEventListener('click', function (ev) {
+    ev.stopPropagation();
+    dismissed = true; clearTimeout(timer); bubble.classList.remove('is-on');
+    try { sessionStorage.setItem('greeter-off', '1'); } catch (e) {}
+  });
+
+  /* Reactions ride on the page's own controls by delegation, so this
+     script never needs to know how they work — only that they were used.
+     A disabled button fires no click, so there is no bark for a page turn
+     that could not happen. */
+  document.addEventListener('click', function (ev) {
+    var t = ev.target.closest ? ev.target.closest('#prev,#next,#edgePrev,#edgeNext,#dl,#expand,.card,.endcap') : null;
+    if (!t || dismissed) return;
+    if (t.id === 'dl') react('download');
+    else if (t.id === 'expand') react('expand');
+    else if (t.classList.contains('card')) react('pick');
+    else if (t.classList.contains('endcap')) react('empty');
+    else react('turn');
+  });
+  document.addEventListener('keydown', function (ev) {
+    var big = $('big');
+    if (big && big.open) return;
+    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') react('turn');
+  });
+
+  /* On a phone the archive row lives at the foot of the page, exactly
+     where this sits. Step aside while that row is what is being read. */
+  var flat = function () { return window.matchMedia('(max-width:1000px)').matches; };
+  var archive = $('archive');
+  if (archive && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      root.classList.toggle('is-hidden', flat() && entries[0].isIntersecting);
+    }, { threshold: 0.12 }).observe(archive);
+  }
+
+  /* Reduced motion: the loop is hidden by CSS; pause it too so it is not
+     decoding video nobody can see. */
+  var v = $('greeterVideo');
+  if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { try { v.pause(); } catch (e) {} }
+
+  setTimeout(function () { say(pick(GREET)); }, FIRST_MS);
+})();
+</script>` : ''}
 </body>
 </html>
 `;
@@ -658,6 +930,12 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'issues'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), page);
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');   // keep Pages off Jekyll
+/* Pages is published here from an Actions artifact, not a branch, and an
+   artifact-based deployment does not carry the custom domain the way a
+   branch-based one does — the domain has to travel with the build output
+   itself. Set via the CUSTOM_DOMAIN env var so the workflow controls it,
+   not this script; leave it unset and no file is written. */
+if (process.env.CUSTOM_DOMAIN) fs.writeFileSync(path.join(OUT, 'CNAME'), process.env.CUSTOM_DOMAIN.trim() + '\n');
 
 let bytes = 0;
 for (const e of editions) {
@@ -671,8 +949,18 @@ for (const e of editions) {
   }
 }
 
+/* the greeter's loop and poster, only when they exist */
+if (hasAvatar) {
+  const dst = path.join(OUT, 'avatar');
+  fs.mkdirSync(dst, { recursive: true });
+  for (const f of [avatar.sprite, avatar.mp4, avatar.webm, avatar.poster].filter(Boolean)) {
+    fs.copyFileSync(path.join(AVATAR_DIR, f), path.join(dst, f));
+    bytes += fs.statSync(path.join(AVATAR_DIR, f)).size;
+  }
+}
+
 console.log(`\nsite/ built — ${editions.length} issue${editions.length === 1 ? '' : 's'}, ` +
-  `${Math.round(bytes / 1024)} KB served`);
+  `${Math.round(bytes / 1024)} KB served` + (hasAvatar ? ', greeter on' : ', greeter off (no assets/avatar/idle.mp4 yet)'));
 for (const e of editions) {
   console.log(`  ${e.date}  ${String(e.kb).padStart(4)} KB pdf  ` +
     `${e.hasThumb ? 'thumb' : 'no thumb'}  ${(e.lead || '').slice(0, 40)}`);
