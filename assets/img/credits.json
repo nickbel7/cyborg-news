@@ -26,25 +26,25 @@
     "fetched": "2026-09-16"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:The_New_York_Times_newsroom_1942.jpg",
-    "licence": "Public domain",
-    "artist": "Marjory Collins",
-    "title": "File:The New York Times newsroom 1942.jpg",
-    "width": 3696,
-    "height": 2800,
-    "query": "newspaper newsroom reporters",
+    "source": "https://commons.wikimedia.org/wiki/File:Old_St._Louis_County_Courthouse,_Gateway_Arch_National_Park,_St._Louis,_MO_-_53058077310.jpg",
+    "licence": "CC BY-SA 2.0",
+    "artist": "w_lemay",
+    "title": "File:Old St. Louis County Courthouse, Gateway Arch National Park, St. Louis, MO - 53058077310.jpg",
+    "width": 4032,
+    "height": 3024,
+    "query": "federal courthouse exterior stone columns",
     "used_for": "lead-1",
-    "fetched": "2026-09-20"
+    "fetched": "2026-09-21"
   },
   "top-a-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Bonn,_Hofgarten,_Unifest_2023,_H%C3%BCtewurf_--_2023_--_7796.jpg",
-    "licence": "CC BY-SA 4.0",
-    "artist": "Dietmar Rabich",
-    "title": "File:Bonn, Hofgarten, Unifest 2023, Hütewurf -- 2023 -- 7796.jpg",
-    "width": 6720,
-    "height": 3780,
-    "query": "person using smartphone library",
+    "source": "https://commons.wikimedia.org/wiki/File:Saint-Tropez_et_sa_citadelle_(Ifremer_01023-113456).jpg",
+    "licence": "CC BY 4.0",
+    "artist": "Stephane Lesbats (IFREMER, Pôle Images, Centre Bretagne - ZI de la Pointe du Diable - CS 10070 - 29280 Plouzané, France) Stephane Lesbats (IFREMER, Pôle Images, Centre Bretagne - ZI de la Pointe du Diable - CS 10070 - 29280 Plouzané, France)",
+    "title": "File:Saint-Tropez et sa citadelle (Ifremer 01023-113456).jpg",
+    "width": 8053,
+    "height": 5369,
+    "query": "surveillance camera pole city street",
     "used_for": "top-a-2",
-    "fetched": "2026-09-20"
+    "fetched": "2026-09-21"
   }
 }
