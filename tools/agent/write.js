@@ -15,6 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 const muse = require('./muse');
+const budget = require('../budget');
 
 const ROOT = path.join(__dirname, '..', '..');
 const plan = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/plan.json'), 'utf8'));
@@ -151,6 +152,19 @@ async function writeFurniture(boxSlots) {
   const digest = [...pool.values()].filter(e => e.status === 'ok')
     .map(e => `- ${e.title} (${e.site}): ${(e.text || '').slice(0, 700)}`).join('\n');
 
+  /* A box's word budget swings hard by slot: 56mm in the foot tier of one
+     template, 187mm running the full side of another — a "text" box on the
+     tall one at the short one's length leaves a third of a page blank, and
+     nothing downstream catches it. The fitter's whitespace check only
+     walks article slots, not boxes, so this is the one place a box gets
+     sized at all. */
+  const boxBrief = boxSlots.map(s =>
+    `  - "${s.n}" is ${s.h}mm tall — if you write it as kind:"text", that is ` +
+    `about ${budget.boxWords(s)} words (several short paragraphs, not one); ` +
+    `as "table" or "listing", scale the row count the same way, more rows ` +
+    `for a taller slot.`).join('\n');
+  const names = boxSlots.map(s => s.n);
+
   const user = `Write the standing furniture for this issue.
 
 Return JSON only:
@@ -158,7 +172,7 @@ Return JSON only:
 {
   "section2": "two or three words naming page two, e.g. \\"Minds & Machines\\"",
   "ticker": [ {"k":"LABEL <=16 chars","v":"value","d":"detail <=18 chars","dir":"up"|"down"|"flat"} ],
-  "boxes": [ ... ${boxSlots.length} boxes, slots ${boxSlots.map(s => `"${s}"`).join(', ')} ... ],
+  "boxes": [ ... ${names.length} boxes, slots ${names.map(n => `"${n}"`).join(', ')} ... ],
   "fillers": [ {"hed":"one word","text":"one sentence"} ]
 }
 
@@ -166,13 +180,17 @@ Return JSON only:
 windows, benchmark scores, release dates. Not stock indices. Every number must
 come from the source material below.
 
-"boxes": ${boxSlots.length} boxes. Use each slot name exactly once. Each is one of:
+"boxes": ${names.length} boxes. Use each slot name exactly once, and match how
+much you write to how much room the slot actually has:
+${boxBrief}
+Each box is one of:
   {"id":"slug","slot":"box-a","kind":"table","title":"...","caption":"...",
-   "head":["Col","Col","Col"],"rows":[["a","b","c"], ...]}       // 4-6 rows
+   "head":["Col","Col","Col"],"rows":[["a","b","c"], ...]}
   {"id":"slug","slot":"box-b","kind":"listing","title":"...",
-   "rows":[{"when":"Sept 24","what":"short","who":"one clause"}, ...]}   // 4-6 rows
+   "rows":[{"when":"Sept 24","what":"short","who":"one clause"}, ...]}
   {"id":"slug","slot":"box-c","kind":"text","title":"...","tint":true,
-   "paras":["<b>A bold opening clause.</b> Then two sentences."]}
+   "paras":["<b>A bold opening clause.</b> Then as many further sentences and
+   paragraphs as the word count above calls for."]}
 Use a mix of kinds. A "listing" box should be things ahead on the calendar,
 with real dates from the sources — never anything about this laboratory.
 
@@ -226,7 +244,7 @@ async function main() {
   new Function('window', fs.readFileSync(path.join(ROOT, 'js/templates.js'), 'utf8'))(g);
   const all = [...g.Templates.COVER_TEMPLATES, ...g.Templates.INSIDE_TEMPLATES];
   const templates = plan.shape.split(' + ').map(id => all.find(t => t.id === id));
-  const boxSlots = templates.flatMap(t => t.slots.filter(s => s.accepts === 'box').map(s => s.n));
+  const boxSlots = templates.flatMap(t => t.slots.filter(s => s.accepts === 'box'));
 
   console.log(`\nwriting ${plan.assignments.length} articles and the furniture`);
   const [articles, furniture] = await Promise.all([

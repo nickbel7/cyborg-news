@@ -46,6 +46,25 @@ function slotWords(slot) {
   return { cols, words: Math.round((body / LINE) * cols * WORDS_PER_LINE) };
 }
 
+/* A standing box's "text" kind renders through the same .body class as an
+   article (js/engine.js renderBox), just as one wide column instead of
+   several narrow ones — so the words-per-area estimate is the same as
+   slotWords, only the head is a single title line rather than a kicker,
+   headline and deck, and the "columns" figure is the box's own width as a
+   fraction of one text column rather than a whole number of them.
+   Left unbudgeted, this is exactly the gap the fitter cannot see: the
+   whitespace audit only walks article slots, so a text box sized by
+   guesswork rather than this can sit on the page for a full issue with a
+   third of its height empty and nothing in the fit report ever says so. */
+const BOX_HEAD_MM = 6;      // box-head title line, its rule, and the margin below it
+const BOX_PAD_MM = 4.8;     // .boxed padding, top and bottom
+
+function boxWords(slot) {
+  const cols = slot.s / 3;                          // fractional: one wide column, not several
+  const body = Math.max(0, slot.h - BOX_PAD_MM - BOX_HEAD_MM);
+  return Math.round((body / LINE) * cols * WORDS_PER_LINE);
+}
+
 function planOf(argv) {
   const ids = argv.filter(a => a.includes('/'));
   if (ids.length) return ids;
@@ -53,34 +72,45 @@ function planOf(argv) {
   return issue.issue.plan || ['cover/a3-lead', 'inside/a3-lead'];
 }
 
-const plan = planOf(process.argv.slice(2));
-const out = { plan, pages: [], totals: { articles: 0, boxes: 0, words: 0 } };
+/* The CLI (and its data/issue.json read) only runs standalone; write.js and
+   refit.js want the pure geometry functions above without either the
+   console output or a dependency on an issue already existing on disk. */
+if (require.main === module) {
+  const plan = planOf(process.argv.slice(2));
+  const out = { plan, pages: [], totals: { articles: 0, boxes: 0, words: 0 } };
 
-plan.forEach((id, i) => {
-  const tpl = ALL.find(t => t.id === id);
-  if (!tpl) { console.error('unknown template: ' + id); process.exit(1); }
-  const slots = tpl.slots.filter(s => s.accepts === 'article').map(s => {
-    const { cols, words } = slotWords(s);
-    return { slot: s.n, span: s.s, cols, height: s.h, plate: s.artPos === 'top', words };
-  }).sort((a, b) => b.words - a.words);
-  const boxes = tpl.slots.filter(s => s.accepts === 'box').length;
-  out.pages.push({ page: i + 1, template: id, boxes, slots });
-  out.totals.articles += slots.length;
-  out.totals.boxes += boxes;
-  out.totals.words += slots.reduce((n, s) => n + s.words, 0);
-});
+  plan.forEach((id, i) => {
+    const tpl = ALL.find(t => t.id === id);
+    if (!tpl) { console.error('unknown template: ' + id); process.exit(1); }
+    const slots = tpl.slots.filter(s => s.accepts === 'article').map(s => {
+      const { cols, words } = slotWords(s);
+      return { slot: s.n, span: s.s, cols, height: s.h, plate: s.artPos === 'top', words };
+    }).sort((a, b) => b.words - a.words);
+    const boxSlots = tpl.slots.filter(s => s.accepts === 'box').map(s =>
+      ({ slot: s.n, span: s.s, height: s.h, words: boxWords(s) }));
+    out.pages.push({ page: i + 1, template: id, boxes: boxSlots.length, slots, boxSlots });
+    out.totals.articles += slots.length;
+    out.totals.boxes += boxSlots.length;
+    out.totals.words += slots.reduce((n, s) => n + s.words, 0);
+  });
 
-if (process.argv.includes('--json')) {
-  console.log(JSON.stringify(out, null, 2));
-} else {
-  console.log(`\nplan: ${plan.join('  ->  ')}\n`);
-  for (const p of out.pages) {
-    console.log(`page ${p.page}  ${p.template}   (${p.boxes} standing boxes)`);
-    console.log('   slot        cols  height  plate   words');
-    for (const s of p.slots) {
-      console.log(`   ${s.slot.padEnd(11)} ${String(s.cols).padStart(3)}  ${String(s.height).padStart(5)}mm  ${(s.plate ? 'yes' : '  -').padStart(5)}   ${String(s.words).padStart(5)}`);
+  if (process.argv.includes('--json')) {
+    console.log(JSON.stringify(out, null, 2));
+  } else {
+    console.log(`\nplan: ${plan.join('  ->  ')}\n`);
+    for (const p of out.pages) {
+      console.log(`page ${p.page}  ${p.template}   (${p.boxes} standing boxes)`);
+      console.log('   slot        cols  height  plate   words');
+      for (const s of p.slots) {
+        console.log(`   ${s.slot.padEnd(11)} ${String(s.cols).padStart(3)}  ${String(s.height).padStart(5)}mm  ${(s.plate ? 'yes' : '  -').padStart(5)}   ${String(s.words).padStart(5)}`);
+      }
+      for (const s of p.boxSlots) {
+        console.log(`   ${s.slot.padEnd(11)} box  ${String(s.height).padStart(5)}mm          ${String(s.words).padStart(5)}  (if written as kind:"text")`);
+      }
+      console.log('');
     }
-    console.log('');
+    console.log(`${out.totals.articles} article slots, ${out.totals.boxes} boxes, about ${out.totals.words} words of copy\n`);
   }
-  console.log(`${out.totals.articles} article slots, ${out.totals.boxes} boxes, about ${out.totals.words} words of copy\n`);
 }
+
+module.exports = { slotWords, boxWords, headMM };
