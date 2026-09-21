@@ -191,8 +191,22 @@ Each box is one of:
   {"id":"slug","slot":"box-c","kind":"text","title":"...","tint":true,
    "paras":["<b>A bold opening clause.</b> Then as many further sentences and
    paragraphs as the word count above calls for."]}
-Use a mix of kinds. A "listing" box should be things ahead on the calendar,
-with real dates from the sources — never anything about this laboratory.
+Use a mix of kinds.
+
+A box has to earn its column: it leaves the reader with something they could
+repeat to someone else. A "table" sets things against each other on a measure
+that decides something — what a model costs against what it scores, what each
+of three bills would require, how large an effect was against how many people
+it was measured on. A "listing" is what is still ahead: dates that have not
+happened yet, taken from the sources.
+
+Never build a box out of publication metadata. File sizes, submission or upload
+dates, version numbers and identifiers describe how a document was posted
+rather than what it found, and a submission date has already passed by the time
+this is printed, so it tells the reader nothing. If the only thing a set of
+rows has in common is that each was posted somewhere, there is no box there —
+write about what they found instead, or choose another kind.
+Never anything about this laboratory.
 
 "fillers": 6 items. Single sentences that fill a short column, each from the
 source material.
