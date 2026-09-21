@@ -264,7 +264,7 @@ async function main() {
       name: 'CYBORG NEWS',
       left_ear: 'MIT · CAMBRIDGE, MASS.',
       right_ear: 'INTERNAL EDITION · NOT FOR CIRCULATION',
-      site: 'CYBORGNEWS.MIT.EDU',
+      site: 'NEWSPAPER.CYBORGLAB.ORG',
       price: 'FREE TO HUMANS',
       dateline_long: LONG, dateline_short: SHORT,
       volume: 'VOL. II', number: '',
