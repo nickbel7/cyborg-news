@@ -162,7 +162,8 @@ async function writeFurniture(boxSlots) {
     `  - "${s.n}" is ${s.h}mm tall — if you write it as kind:"text", that is ` +
     `about ${budget.boxWords(s)} words (several short paragraphs, not one); ` +
     `as "table" or "listing", scale the row count the same way, more rows ` +
-    `for a taller slot.`).join('\n');
+    `for a taller slot — but only rows that carry their own weight. A box ` +
+    `that runs short is better than one padded to length.`).join('\n');
   const names = boxSlots.map(s => s.n);
 
   const user = `Write the standing furniture for this issue.

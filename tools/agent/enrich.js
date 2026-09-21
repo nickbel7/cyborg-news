@@ -52,6 +52,23 @@ function meta(html, names) {
   return null;
 }
 
+/* A repository page keeps its one piece of prose in an abstract, which is
+   not a <p>, so the paragraph sweep below walks straight past it and comes
+   back with the submission history and the citation-tool furniture instead.
+   That is not hypothetical: every arXiv source in the issue of 21 September
+   was stored as "Submission history ... [v1] Mon, 14 Sep 2026 (529 KB) ...
+   Bibliographic Tools" — 356 words of page chrome, over the 120-word bar,
+   so it reached the planner as a readable source. Two thirds of that week's
+   pool was preprints, and the paper printed a box of file sizes and filing
+   dates because that was genuinely all its sources contained. */
+function abstractOf(html) {
+  const m = meta(html, ['citation_abstract']);
+  if (m) return m;
+  const block = html.match(
+    /<blockquote[^>]*class=["'][^"']*abstract[^"']*["'][^>]*>([\s\S]*?)<\/blockquote>/i);
+  return block ? text(block[1]).replace(/^abstract:?\s*/i, '') : null;
+}
+
 // prefer a real article container; otherwise the biggest block of paragraphs
 function body(html) {
   const clean = strip(html);
@@ -60,7 +77,16 @@ function body(html) {
   const paras = [...scope.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
     .map(m => text(m[1])).filter(p => p.split(' ').length > 12);
   const joined = paras.join('\n\n');
-  return (joined.length > 400 ? joined : text(scope)).slice(0, 7000);
+  const scraped = (joined.length > 400 ? joined : text(scope)).slice(0, 7000);
+
+  /* Keep what was scraped only when it is plainly a longer piece of writing
+     than the abstract. On a page that is an abstract and nothing else, the
+     rest is furniture; on a real article that happens to carry an abstract,
+     the body outruns it and wins. A news page has neither marker and is
+     untouched by this. */
+  const abs = abstractOf(html);
+  if (abs && abs.length > 200 && scraped.length < abs.length * 2) return abs.slice(0, 7000);
+  return scraped;
 }
 
 async function grab(url) {
