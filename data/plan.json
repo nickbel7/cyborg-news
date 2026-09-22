@@ -1,7 +1,18 @@
 {
   "shape": "cover/a3-lead + inside/a3-grid",
-  "rationale": "This issue centers on accountability for AI systems already deployed, from training-data theft to city cameras to age gates. Practical guides, lab benchmarks and learning science give readers tools to respond.",
+  "rationale": "This issue leads with accountability for AI training data, then balances it with how people actually learn, play and protect themselves. Classrooms, app stores, courtrooms and methods labs together give policy, industry, cognition and capability in one hang.",
   "assignments": [
+    {
+      "slot": "third",
+      "page": 1,
+      "source_ids": [
+        "936c8f9348"
+      ],
+      "kicker": "Learning",
+      "angle": "ChatGPT lifted coding scores to 89% but cut recall and ownership versus web search in a 55-student C-programming trial.",
+      "words": 413,
+      "priority": 9
+    },
     {
       "slot": "lead",
       "page": 1,
@@ -9,34 +20,23 @@
         "a59b8440a1"
       ],
       "kicker": "Copyright",
-      "angle": "Unsealed filings show a Microsoft scientist called news scraping for AI perhaps the largest theft of labor in history as The New York Times case moves forward.",
+      "angle": "Unsealed NYT filings quote a Microsoft scientist calling news scraping unprecedented theft as ChatGPT and Copilot liability is litigated.",
       "words": 299,
       "priority": 10,
       "photo": {
-        "subject": "the exterior of a federal courthouse in Manhattan on a weekday morning",
-        "search": "federal courthouse exterior stone steps",
-        "why": "the story is about the unsealed copyright lawsuit filings against Microsoft and OpenAI"
+        "subject": "the exterior of a federal courthouse with stone steps and columns",
+        "search": "federal courthouse exterior stone columns",
+        "why": "the story turns on an unsealed summary-judgment motion in the news copyright suit"
       }
-    },
-    {
-      "slot": "third",
-      "page": 1,
-      "source_ids": [
-        "2795ab6da0"
-      ],
-      "kicker": "Surveillance",
-      "angle": "Boston abandoned its Flock license-plate reader pilot after a vendor error shared camera data nationwide in violation of its BPD-only contract.",
-      "words": 413,
-      "priority": 9
     },
     {
       "slot": "fourth",
       "page": 1,
       "source_ids": [
-        "936c8f9348"
+        "365635f4f8"
       ],
-      "kicker": "Learning",
-      "angle": "In a 55-student experiment, ChatGPT-4.5 users scored 89% versus 69% on C tasks but recalled less after 48 hours and claimed only 45% ownership.",
+      "kicker": "Apps",
+      "angle": "Apptopia finds Meta's Muse beat ChatGPT's first-12-day iOS downloads in the U.S. and Canada with 1.8 million installs.",
       "words": 295,
       "priority": 8
     },
@@ -44,45 +44,45 @@
       "slot": "second",
       "page": 1,
       "source_ids": [
-        "365635f4f8"
+        "55764e08c6"
       ],
-      "kicker": "Industry",
-      "angle": "Apptopia estimates show Meta's Muse beat ChatGPT's early iOS launch in the U.S. and Canada with 1.8 million downloads in its first 12 days.",
+      "kicker": "Startups",
+      "angle": "a16z's $42M Horowitz Andreessen Academy trades degrees for tech stints with Altman, Anthropic, Google, Meta and Palantir.",
       "words": 235,
-      "priority": 7
+      "priority": 5
     },
     {
       "slot": "top-b",
       "page": 2,
       "source_ids": [
-        "137410ca4a"
+        "554f21e561"
       ],
-      "kicker": "Privacy",
-      "angle": "WIRED details how chatbot defaults collect intimate prompts for training and legal disclosure and what settings limit that exposure.",
+      "kicker": "Youth Safety",
+      "angle": "The EU Kids Act would phase social-media access and mandate age assurance, which EFF warns trades privacy for safety.",
       "words": 415,
-      "priority": 6
+      "priority": 7
     },
     {
       "slot": "foot-a",
       "page": 2,
       "source_ids": [
-        "554f21e561"
+        "137410ca4a"
       ],
-      "kicker": "Regulation",
-      "angle": "The draft EU Kids Act would impose phased social-media access, safety-by-design duties and age assurance that critics say mandate age gates for all.",
+      "kicker": "Privacy",
+      "angle": "Chatbots now act as therapists and confessionals while defaulting to retention and training use, requiring practical opt-outs.",
       "words": 413,
-      "priority": 6
+      "priority": 8
     },
     {
       "slot": "foot-b",
       "page": 2,
       "source_ids": [
-        "0c2e7bcfb6"
+        "fce5c94662"
       ],
-      "kicker": "Wellbeing",
-      "angle": "The COPES dataset shows SFT and DPO lift strategy alignment by 50% for peer mental-health replies but gains vary sharply by subreddit.",
+      "kicker": "Methods",
+      "angle": "MIT political methodologist Naoki Egami builds statistics to measure society accurately across parallel research agendas.",
       "words": 413,
-      "priority": 5
+      "priority": 7
     },
     {
       "slot": "top-a",
@@ -90,109 +90,113 @@
       "source_ids": [
         "97666bdd7a"
       ],
-      "kicker": "Robotics",
-      "angle": "PhysAI-Bench extracts 10,178 UAV mission decisions with MCP calls, sensor traces and 6G conditions to test 29 models on agentic choice.",
+      "kicker": "Drones",
+      "angle": "PhysAI-Bench tests 29 foundation models on 10,178 UAV decisions under latency, packet loss and edge-load constraints.",
       "words": 301,
-      "priority": 7,
+      "priority": 6,
       "photo": {
-        "subject": "a quadcopter drone in flight above an open field at dusk",
-        "search": "quadcopter drone flying field sky",
-        "why": "the benchmark evaluates LLM agentic decision-making for autonomous UAV missions"
+        "subject": "a small quadcopter drone in flight above an open grass field",
+        "search": "quadcopter drone flying field",
+        "why": "the benchmark evaluates agentic LLM decisions for autonomous UAV missions"
       }
     }
   ],
   "rail": [
     {
-      "source_id": "05bfab3b93",
+      "source_id": "0c2e7bcfb6",
       "group": "In brief",
-      "lead": "Simulating societies over time",
-      "point": "SocioVerse2 adds evolving environments, counterfactual intervention branches and editable study state to human-AI social simulation."
+      "lead": "Peer-support tuning uneven",
+      "point": "SFT and DPO on COPES lifted strategy alignment 50% but gains varied sharply by subreddit and coping strategy."
     },
     {
       "source_id": "0cf2be2f0b",
       "group": "In brief",
       "lead": "MIT Reads turns fictional",
-      "point": "The 10-year MIT Libraries program pivots to fiction and memoir to rebuild social connection in the age of AI."
+      "point": "The 10-year MIT Libraries program pivots to fiction and memoir to rebuild shared humanity in the AI age."
+    },
+    {
+      "source_id": "18e3269475",
+      "group": "Also noted",
+      "lead": "Conversational studies replicated",
+      "point": "Gricea reproduced 93% of eligible CUI 2026 configurations while finding 96% omitted details needed for replication."
+    },
+    {
+      "source_id": "05bfab3b93",
+      "group": "Also noted",
+      "lead": "Society simulated longitudinally",
+      "point": "SocioVerse2 adds evolving environments, counterfactual forks and editable study states to human-AI simulation."
     },
     {
       "source_id": "10d1997027",
       "group": "Also noted",
-      "lead": "When updated bots persist",
-      "point": "The paper frames embodied-AI identity continuity around embodied, behavioral and relational-autobiographical history weighted toward shared roles."
-    },
-    {
-      "source_id": "18e3269475",
-      "group": "In brief",
-      "lead": "Replicable chatbot studies",
-      "point": "Gricea packaged study procedures and systems as reusable artifacts and replicated 93% of eligible CUI 2026 configurations."
-    },
-    {
-      "source_id": "ec80f418df",
-      "group": "In brief",
-      "lead": "ADHD developers and copresence",
-      "point": "Interviews with 14 engineers with ADHD found AI body-doubling avoids reputation management but loses human onboarding support."
-    },
-    {
-      "source_id": "fce5c94662",
-      "group": "Also noted",
-      "lead": "Measuring politics precisely",
-      "point": "MIT political methodologist Naoki Egami describes solving political-science questions with applied statistics and computer science."
+      "lead": "Robot identity persists",
+      "point": "A framework ties continued agent identity to embodied, behavioral and shared-history cues across updates and migrations."
     },
     {
       "source_id": "710f52f9d0",
       "group": "Also noted",
-      "lead": "Testing digital capability",
-      "point": "The paper contrasts DigComp and UNESCO competence definitions with the International Digital Driving License as demonstrated performance evidence."
+      "lead": "Digital license assessed",
+      "point": "IDDL is positioned as demonstrated capability evidence beyond what DigComp and UNESCO define as competence."
     },
     {
       "source_id": "b5cf8e64a6",
       "group": "Also noted",
-      "lead": "Hospital for datasets",
-      "point": "The Data Hospital proposes a ten-stage admit-assess-intervene-validate workflow separating raw observation from approved fixes."
+      "lead": "Data quality hospitalized",
+      "point": "The Data Hospital proposes a ten-stage admit-to-replay workflow separating raw observation from approved interventions."
+    },
+    {
+      "source_id": "dde4919431",
+      "group": "In brief",
+      "lead": "California AI order weighed",
+      "point": "EFF backed Newsom's SB-53 loss-of-control reporting push but urged action on bias, Flock surveillance and pricing."
     },
     {
       "source_id": "263764f683",
       "group": "In brief",
-      "lead": "Videos counter health myths",
-      "point": "Culturally adaptive AI videos durably reduced belief in women's health misinformation in the reported experiments."
+      "lead": "Health myths countered",
+      "point": "Culturally adaptive AI videos durably reduced belief in women's health misinformation."
     },
     {
       "source_id": "bad9605d2e",
-      "group": "In brief",
-      "lead": "Agents drift toward collusion",
-      "point": "Long-horizon LLM agent interactions produced emergent collusive strategies across repeated tasks."
+      "group": "Also noted",
+      "lead": "Agents drift to collusion",
+      "point": "Long-horizon LLM agent interactions showed emergent collusive strategies over extended episodes."
     }
   ],
   "rejected": [
     {
       "source_id": "1c70d0582b",
-      "why": "extract is arXiv navigation boilerplate with no findings"
+      "why": "extract is arXiv navigation chrome only with no findings"
     },
     {
       "source_id": "1d1fc5389d",
-      "why": "extract is arXiv navigation boilerplate with no findings"
+      "why": "extract is arXiv navigation chrome only with no findings"
+    },
+    {
+      "source_id": "5b1612a485",
+      "why": "extract is arXiv navigation chrome only with no findings"
     },
     {
       "source_id": "68d88ebde6",
-      "why": "extract is arXiv navigation boilerplate with no findings"
+      "why": "extract is arXiv navigation chrome only with no findings"
     },
     {
       "source_id": "960c20e877",
-      "why": "extract is arXiv navigation boilerplate with no findings"
+      "why": "extract is arXiv navigation chrome only with no findings"
     },
     {
       "source_id": "c3119d7890",
-      "why": "extract is arXiv navigation boilerplate with no findings"
+      "why": "extract is arXiv navigation chrome only with no findings"
     },
     {
       "source_id": "c4a483f805",
-      "why": "extract is arXiv navigation boilerplate with no findings"
+      "why": "extract is arXiv navigation chrome only with no findings"
     },
     {
       "source_id": "f758b3526e",
-      "why": "extract is submission metadata with no argument or evidence"
+      "why": "extract is submission metadata only with no results"
     }
   ],
   "date": "2026-09-22",
-  "pool_size": 25
+  "pool_size": 26
 }

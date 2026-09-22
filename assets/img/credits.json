@@ -26,24 +26,24 @@
     "fetched": "2026-09-16"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Exterior._Federal_Building_and_U.S._Courthouse,_Paducah,_Kentucky_LCCN2016648259.tif",
-    "licence": "Public domain",
-    "artist": "Carol M. Highsmith",
-    "title": "File:Exterior. Federal Building and U.S. Courthouse, Paducah, Kentucky LCCN2016648259.tif",
-    "width": 7544,
-    "height": 4496,
-    "query": "federal courthouse exterior",
+    "source": "https://commons.wikimedia.org/wiki/File:Old_St._Louis_County_Courthouse,_Gateway_Arch_National_Park,_St._Louis,_MO_-_53058077310.jpg",
+    "licence": "CC BY-SA 2.0",
+    "artist": "w_lemay",
+    "title": "File:Old St. Louis County Courthouse, Gateway Arch National Park, St. Louis, MO - 53058077310.jpg",
+    "width": 4032,
+    "height": 3024,
+    "query": "federal courthouse exterior stone columns",
     "used_for": "lead-1",
     "fetched": "2026-09-22"
   },
   "top-a-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:BLM_drone_training_above_Horning_Seed_Orchard_(35179078385).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:TF-99_at_the_Forefront-_Testing_New_Technologies_for_Operational_Readiness_(9102648).jpg",
     "licence": "Public domain",
-    "artist": "BLM Oregon &amp; Washington",
-    "title": "File:BLM drone training above Horning Seed Orchard (35179078385).jpg",
-    "width": 1920,
-    "height": 1080,
-    "query": "quadcopter drone flying field sky",
+    "artist": "U.S. Air Force photo by Senior Airman Amanda Jett",
+    "title": "File:TF-99 at the Forefront- Testing New Technologies for Operational Readiness (9102648).jpg",
+    "width": 7506,
+    "height": 4914,
+    "query": "quadcopter drone flying field",
     "used_for": "top-a-2",
     "fetched": "2026-09-22"
   }

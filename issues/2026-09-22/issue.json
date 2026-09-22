@@ -16,7 +16,7 @@
     ],
     "sections": [
       "",
-      "Models & Minds"
+      "Agents & Society"
     ],
     "written_by": "muse-spark-1.3-contributor"
   },
@@ -29,39 +29,39 @@
     },
     {
       "k": "GRICEA REPLAY",
-      "v": "93% configs",
+      "v": "93% replicated",
       "d": "CUI 2026 papers",
       "dir": "up"
     },
     {
       "k": "GRICEA GAPS",
-      "v": "96% flagged",
-      "d": "missing info",
-      "dir": "flat"
+      "v": "96% missing info",
+      "d": "CUI 2026 papers",
+      "dir": "down"
     },
     {
-      "k": "CHATGPT-4.5",
+      "k": "CODING STUDY",
       "v": "59 students",
-      "d": "55 retained",
+      "d": "ChatGPT-4.5 test",
       "dir": "flat"
     },
     {
-      "k": "C RECALL",
-      "v": "48 hours later",
-      "d": "cued recall test",
+      "k": "RETENTION",
+      "v": "55 retained",
+      "d": "recall at 48 hours",
       "dir": "flat"
     },
     {
-      "k": "MUSE LAUNCH",
+      "k": "MUSE VS CHATGPT",
       "v": "12 days",
-      "d": "US Canada only",
+      "d": "US Canada launch",
       "dir": "up"
     },
     {
-      "k": "C TASKS",
-      "v": "three tasks",
-      "d": "intro C coding",
-      "dir": "flat"
+      "k": "SOCIOVERSE 2",
+      "v": "extends 1.0",
+      "d": "social simulation",
+      "dir": "up"
     }
   ],
   "rail": {
@@ -72,28 +72,20 @@
         "label": "In brief",
         "items": [
           {
-            "lead": "Simulating societies over time",
-            "text": "SocioVerse2 adds evolving environments, counterfactual intervention branches and editable study state to human-AI social simulation."
+            "lead": "Peer-support tuning uneven",
+            "text": "SFT and DPO on COPES lifted strategy alignment 50% but gains varied sharply by subreddit and coping strategy."
           },
           {
             "lead": "MIT Reads turns fictional",
-            "text": "The 10-year MIT Libraries program pivots to fiction and memoir to rebuild social connection in the age of AI."
+            "text": "The 10-year MIT Libraries program pivots to fiction and memoir to rebuild shared humanity in the AI age."
           },
           {
-            "lead": "Replicable chatbot studies",
-            "text": "Gricea packaged study procedures and systems as reusable artifacts and replicated 93% of eligible CUI 2026 configurations."
+            "lead": "California AI order weighed",
+            "text": "EFF backed Newsom's SB-53 loss-of-control reporting push but urged action on bias, Flock surveillance and pricing."
           },
           {
-            "lead": "ADHD developers and copresence",
-            "text": "Interviews with 14 engineers with ADHD found AI body-doubling avoids reputation management but loses human onboarding support."
-          },
-          {
-            "lead": "Videos counter health myths",
-            "text": "Culturally adaptive AI videos durably reduced belief in women's health misinformation in the reported experiments."
-          },
-          {
-            "lead": "Agents drift toward collusion",
-            "text": "Long-horizon LLM agent interactions produced emergent collusive strategies across repeated tasks."
+            "lead": "Health myths countered",
+            "text": "Culturally adaptive AI videos durably reduced belief in women's health misinformation."
           }
         ]
       },
@@ -101,20 +93,28 @@
         "label": "Also noted",
         "items": [
           {
-            "lead": "When updated bots persist",
-            "text": "The paper frames embodied-AI identity continuity around embodied, behavioral and relational-autobiographical history weighted toward shared roles."
+            "lead": "Conversational studies replicated",
+            "text": "Gricea reproduced 93% of eligible CUI 2026 configurations while finding 96% omitted details needed for replication."
           },
           {
-            "lead": "Measuring politics precisely",
-            "text": "MIT political methodologist Naoki Egami describes solving political-science questions with applied statistics and computer science."
+            "lead": "Society simulated longitudinally",
+            "text": "SocioVerse2 adds evolving environments, counterfactual forks and editable study states to human-AI simulation."
           },
           {
-            "lead": "Testing digital capability",
-            "text": "The paper contrasts DigComp and UNESCO competence definitions with the International Digital Driving License as demonstrated performance evidence."
+            "lead": "Robot identity persists",
+            "text": "A framework ties continued agent identity to embodied, behavioral and shared-history cues across updates and migrations."
           },
           {
-            "lead": "Hospital for datasets",
-            "text": "The Data Hospital proposes a ten-stage admit-assess-intervene-validate workflow separating raw observation from approved fixes."
+            "lead": "Digital license assessed",
+            "text": "IDDL is positioned as demonstrated capability evidence beyond what DigComp and UNESCO define as competence."
+          },
+          {
+            "lead": "Data quality hospitalized",
+            "text": "The Data Hospital proposes a ten-stage admit-to-replay workflow separating raw observation from approved interventions."
+          },
+          {
+            "lead": "Agents drift to collusion",
+            "text": "Long-horizon LLM agent interactions showed emergent collusive strategies over extended episodes."
           }
         ]
       }
@@ -129,25 +129,25 @@
       "sources": [
         "a59b8440a1"
       ],
-      "headline": "Microsoft Warnings Surface as Times Case Advances",
-      "deck": "Unsealed motion cites internal records on substitution, verbatim outputs and paywall workarounds.",
+      "headline": "Unsealed filings quote Microsoft scientist warning news theft",
+      "deck": "New York Times-led plaintiffs cite internal ChatGPT and Copilot documents in summary judgment bid.",
       "pullquote": {
-        "text": "an astonishing theft of unprecedented proportions",
+        "text": "largest theft of labor in human history",
         "attr": "Brent Hecht, Microsoft"
       },
       "quoteAfter": 2,
       "body": [
-        "Unsealed filings in the case led by The New York Times describe internal Microsoft and OpenAI records on training artificial intelligence with news content. The motion for summary judgment quotes Microsoft Director of Applied Science Brent Hecht warning that scraping was &ldquo;an astonishing theft of unprecedented proportions&rdquo; and perhaps the &ldquo;largest theft of labor in human history&rdquo;. News groups argue the documents show both firms understood the risk to publishers before releasing ChatGPT and Copilot.",
-        "ChatGPT head Nick Turley wrote that publishers faced an &ldquo;existential threat&rdquo; from products trained on news that substitute for providers. One Microsoft document described a &ldquo;doom loop&rdquo; &ldquo;that will hurt the performance of our models and the entire web at the same time.&rdquo; Microsoft recorded 83 to 93 percent drops in click-through rates for some plaintiffs and 51 to 94 percent drops for others, alongside low click-through rates from ChatGPT search results.",
-        "Under oath Microsoft CEO Satya Nadella said chatbots substitute for news by giving information on the platform instead of sending users to original sources. OpenAI engineer messages agreed users will not click even when links are shown. Internal messages also showed staffer Nick Ryder told President Greg Brockman a hack let crawlers get around the NYT paywall, and Brockman replied &ldquo;Ah, nice.&rdquo; News groups tested outputs by requesting summaries, bullet points and bias ratings and found extensive verbatim overlap.",
-        "A Microsoft spokesperson said the products are transformative fair use and do not substitute, calling Nadella observations on information habits and Hecht one employee perspective. Counsel Steven Lieberman, for the New York Daily News and seven sister papers, said the evidence shows the firms knew the conduct was wrong. Plaintiffs seek a ruling on articles with extensive verbatim overlap and argue substitutive copying weighs against fair use, with remaining claims reserved for trial."
+        "Unsealed summary judgment filings from news organizations led by The New York Times quote Microsoft Director of Applied Science Brent Hecht calling scraping of news for AI training &ldquo;an astonishing theft of unprecedented proportions&rdquo; and perhaps the &ldquo;largest theft of labor in human history&rdquo; as Microsoft and OpenAI defend ChatGPT and Copilot against copyright claims.",
+        "ChatGPT head Nick Turley warned internally that publishers faced an &ldquo;existential threat&rdquo; from products trained on news that substitute for providers, while a Microsoft document described a &ldquo;doom loop&rdquo; that will hurt model performance and the web together. Microsoft data recorded 83 to 93 percent drops in click-through rates for some plaintiffs and 51 to 94 percent drops for others, with low click-through also reported from ChatGPT search results.",
+        "Under oath Microsoft CEO Satya Nadella said companies should not violate terms of use by dodging paywalls, yet OpenAI President Greg Brockman replied &ldquo;Ah, nice.&rdquo; after staffer Nick Ryder reported finding &ldquo;a hack&rdquo; for crawlers &ldquo;to get around&rdquo; the NYT paywall. Nadella also described chatbots stealing clicks by giving information on the AI platform rather than sending users to sources, and Turley agreed there is &ldquo;no good reason to click&rdquo; when answers appear directly.",
+        "News plaintiffs say they are now ready for trial on &ldquo;compelling evidence of substitution&rdquo; and seek a ruling only on articles with &ldquo;extensive verbatim overlap&rdquo; from summaries, bullet points and bias ratings. A Microsoft spokesperson called the products transformative fair use that do not substitute for sites and said Hecht reflected one employee view. Counsel Steven Lieberman for the New York Daily News said the documents show the firms knew the conduct was wrong. The stone courthouse steps will soon test that claim. The filings argue verbatim excerpts prove substitution that defeats fair use defenses for ChatGPT and Copilot outputs cited."
       ],
       "art": {
         "type": "photo",
         "src": "assets/img/lead-1.jpg",
         "capLabel": "Under review",
-        "caption": "The exterior of the federal courthouse in Manhattan on a weekday morning. Cases over AI training on news content move through courts like this one.",
-        "credit": "Carol M. Highsmith · Public domain",
+        "caption": "Stone steps and columns frame the entrance to a federal courthouse. The unsealed filings ask the court to rule on verbatim copying claims involving ChatGPT and Copilot.",
+        "credit": "w_lemay · CC BY-SA 2.0",
         "wmm": 170,
         "hmm": 60,
         "focusY": 0.4,
@@ -161,82 +161,153 @@
       "id": "third-1",
       "page": 1,
       "priority": 9,
-      "kicker": "Surveillance",
+      "kicker": "Learning",
       "sources": [
-        "2795ab6da0"
+        "936c8f9348"
       ],
-      "headline": "Boston drops Flock cameras after nationwide data sharing",
-      "deck": "City officials cite a vendor error that exposed pilot data to outside agencies despite a contract limiting access to Boston police.",
-      "dateline": "Boston",
-      "pullquote": {
-        "text": "We have actually abandoned Flock,",
-        "attr": "Michelle Wu, Boston"
-      },
-      "quoteAfter": 2,
+      "headline": "ChatGPT Raises Coding Scores But Lowers Student Recall",
+      "deck": "A 55-student trial in C programming finds higher task scores paired with lower recall and ownership than web search.",
       "body": [
-        "Boston abandoned its Flock Safety license plate reader pilot after data from department cameras became searchable nationwide. Mayor Michelle Wu confirmed the decision on GBH News. The city annual surveillance report for 2025 attributes the exposure to a vendor error. The contract required access limited to trained Boston Police Department personnel.",
-        "The department deployed about 45 Automated License Plate Reader cameras in a trial with Flock from April to September last year. Sharing was to be disabled under the pilot terms. Police confirmed with the company that settings were &ldquo;off&rdquo; for sharing. Within three days outside agencies could access plate and vehicle information through a nationwide lookup feature enabled in error.",
-        "The report states the program was designed to restrict access exclusively to trained department personnel. Upon learning of the error police had the function disabled. Further direct access required a written request to the department. No further direct access remained for the duration of the pilot. The report did not state how many outside agencies viewed the data.",
-        "The city did not end license plate reader testing. The police department started another trial with Motorola in February 2026. A third trial with Axon began in June 2026. City policy requires vendors to agree against sharing data. Recordings must be erased after 30 days unless police request retention for legal or investigative purposes.",
-        "Wu said continued use requires a publicly approved policy with privacy and civil liberties protections. &ldquo;Yes, we need a publicly approved and authorized policy to guarantee all of those protections, privacy, civil liberties, and if that&rsquo;s in place, then we should deploy technology to be able to keep people safe and solve crimes faster.&rdquo; She said the department has tested versions to track vehicle movement. Officials seek clear limits on access, retention and storage time. She said the tool can aid safety when used responsibly.",
-        "An Electronic Frontier Foundation analysis of search logs described searches without legitimate justification. Flock said it added a dropdown list of crimes for searches in late 2025. The foundation said the change does not require proof of purpose. The company said new partnerships outpaced nonrenewals by approximately 10 to 1 so far in 2026. Other cities have dropped Flock. Wu said &ldquo;When the toggles or the access controls either are not able to be restricted in the ways that conform with that policy, or are set but then can be unset or reset in ways that violate that policy, we would not use that platform.&rdquo;"
+        "Students using ChatGPT-4.5 scored 89 percent on three introductory C programming tasks, compared with 69 percent for students using conventional web search without generative AI. The same ChatGPT group recalled less of the material immediately and after 48 hours, and attributed less of the submitted code to themselves. The controlled between-subjects experiment retained 55 undergraduate computer science students for analysis.",
+        "Recall was measured by cued recall tests given immediately and 48 hours later. ChatGPT-assisted students scored 41 percent versus 53 percent on the immediate test. After 48 hours, the scores were 39 percent versus 52 percent. The study found no significant difference in the loss of recall information over 48 hours between the groups.",
+        "Ownership showed a sharp gap. Students with ChatGPT attributed 45 percent of the submitted code to themselves, compared with 81 percent in the web search group. Self-reported mental effort increased less across tasks in the ChatGPT condition, with a Holm-adjusted p value of .047. The study also measured self-reported difficulty.",
+        "The study describes a controlled between-subjects experiment with 59 undergraduate computer science students, with 55 retained for analysis. Participants completed three introductory C programming tasks with access to ChatGPT-4.5 or conventional web search without generative AI. Measures included task performance, self-reported mental effort and difficulty, pupillary responses, heart rate variability, and ownership.",
+        "Physiological tracking did not change the picture. Confirmatory tests of pupillary responses and heart rate variability did not detect significant differences in trajectories between conditions. The study notes substantial data loss, which limits interpretation of those signals. The core pattern remained in the behavioral measures. Assisted performance rose while recall and ownership fell. The gap appeared immediately and persisted at 48 hours. The result separates successful task completion from what students retain. It also separates output quality from perceived authorship in this setting.",
+        "The study motivates assessment practices and AI learning tools that require students to explain, retrieve, and contribute to the work they submit. Explanation would force articulation of code function. Retrieval would force recall without assistance. Contribution would force direct input to the final submission. Such steps would make students active participants in their education. In this trial, higher scores alone did not indicate stronger memory. Lower effort growth did not indicate deeper processing. Lower ownership did not prevent submission. The submission looked better than the memory did. The tasks were introductory C problems completed under controlled conditions with defined support tools. The contrast was direct between ChatGPT-4.5 and conventional web search without generative AI."
       ]
     },
     {
       "id": "fourth-1",
       "page": 1,
       "priority": 8,
-      "kicker": "Learning",
+      "kicker": "Apps",
       "sources": [
-        "936c8f9348"
+        "365635f4f8"
       ],
-      "headline": "ChatGPT Lifts C Scores While Recall Slips",
-      "deck": "A controlled experiment with 55 students pairs higher coding scores with lower cued recall and reduced ownership.",
+      "headline": "Muse Outpaces ChatGPT in Early iOS Downloads",
+      "deck": "Apptopia estimates 1.8 million U.S. and Canada downloads in the first 12 days.",
       "body": [
-        "Undergraduate programmers using ChatGPT-4.5 scored 89 percent on three introductory C tasks, compared with 69 percent for peers limited to conventional web search. The same assisted students recalled less of the material immediately and after 48 hours, and credited themselves with 45 percent of the submitted code against 81 percent in the comparison group.",
-        "The controlled between-subjects experiment retained 55 undergraduate computer science students for analysis from 59 participants. Each completed three tasks with ChatGPT-4.5 or web search without generative AI. Researchers measured task performance, self-reported mental effort and difficulty, pupillary responses, heart rate variability, and ownership, with cued recall tested immediately and 48 hours later.",
-        "Recall averaged 41 percent for ChatGPT users immediately after the tasks, compared with 53 percent for web search users. After 48 hours the figures were 39 percent and 52 percent. The loss of recall information over 48 hours did not differ significantly between groups. Self-reported mental effort increased less across tasks in the ChatGPT condition, with Holm-adjusted p equal to .047.",
-        "Confirmatory physiological tests did not detect significant differences in trajectories between conditions. The authors note substantial data loss limits interpretation of pupillary and heart rate variability results. Assisted performance therefore exceeded what students could reproduce from memory. The gap concerns task completion without retention or ownership. The study motivates assessment practices and AI learning tools that require students to explain, retrieve, and contribute to the work they submit as active participants in their education. High scores alone did not indicate learning in this setting. Code attribution and recall diverged from performance. Self-reported difficulty and ownership measures framed the difference as reduced cognitive investment rather than increased understanding. Performance was measured. Retention was tested. The distinction held. The machine completed the assignment. The student did not fully keep it."
+        "Market intelligence provider Apptopia estimates Meta Muse passed ChatGPT in early iOS downloads in the U.S. and Canada. Muse recorded 1.8 million downloads in its first 12 days. ChatGPT recorded 1.3 million in its first 12 days. The comparison covers iOS in those two markets only. Muse also leads in daily active users.",
+        "Apptopia aligned the figures to account for different launch strategies. ChatGPT launched on iOS globally. Muse launched on the App Store and Google Play in the U.S. and Canada only. The firm compared iOS activity in the U.S. and Canada. Total Muse installs reached 2.8 million globally in the first 12 days.",
+        "Muse holds 642,000 daily active users in the U.S. on mobile. ChatGPT held 231,000 at the same point after launch. On iOS alone Muse holds 359,000 daily active users. The total remains above the ChatGPT figure from that period. Muse moved from No. 2 overall on the U.S. App Store after launch to No. 1. Business Insider reported the rise on Friday. Appfigures said Muse had crossed 1 million downloads.",
+        "Apptopia provides third party estimates only. The firm lacks direct access to Meta internal figures. Meta has not shared public figures related to Muse early adoption. Meta used cross promotion for Threads on Instagram and Facebook. Threads now counts more than 500 million users. Muse connects with both platforms and works inside WhatsApp. More than 95 percent of Muse users are also Facebook users. The share for Instagram users is 63 percent. The strategy included heavy marketing and integrations in the largest Meta apps. Apptopia lacks visibility into Meta cross promotion efforts or ads directly. The figures describe downloads and active users only for now. The early lead is measured. The retention record is not. Results remain estimates only."
       ]
     },
     {
       "id": "second-1",
       "page": 1,
-      "priority": 7,
-      "kicker": "Industry",
+      "priority": 5,
+      "kicker": "Startups",
       "sources": [
-        "365635f4f8"
+        "55764e08c6"
       ],
-      "headline": "Muse Tops ChatGPT Early Download Pace",
-      "deck": "Apptopia puts Muse at 1.8 million iOS installs in U.S. and Canada over first 12 days.",
+      "headline": "a16z launches $42 million tech academy",
+      "deck": "The free one-year program places 50 students with partners including Anthropic, Google, Meta and Palantir.",
+      "pullquote": {
+        "text": "political lobbying operations fighting American innovation",
+        "attr": "Marc Andreessen, Andreessen Horowitz"
+      },
+      "quoteAfter": 1,
       "body": [
-        "Estimates from Apptopia show Meta Muse outpaced ChatGPT during the first 12 days after launch on iOS in the United States and Canada. Muse recorded 1.8 million downloads in that subset, compared with 1.3 million for ChatGPT. The comparison aligns launch strategy differences, as ChatGPT launched globally on iOS only, while Muse launched in the United States and Canada on iOS and Android.",
-        "Apptopia also reports higher daily active use for Muse. In the United States, Muse reached 642,000 daily users across mobile, compared with 231,000 for ChatGPT at the same point. On iOS alone, Muse reached 359,000 daily active users, still above the ChatGPT figure. Overall, Muse saw 2.8 million total installs in its first 12 days. The app moved from No. 2 to No. 1 on the United States App Store, ahead of ChatGPT.",
-        "Apptopia provides third party estimates and does not have access to Meta internal figures. Meta has not shared public figures related to early adoption after a request for comment. The firm notes overlap with existing Meta services. Over 95 percent of Muse users are also Facebook users, and 63 percent are Instagram users. Muse connects with Instagram and Facebook and works inside WhatsApp. Meta used cross promotion and integrations for Threads, which now has more than 500 million users. Appfigures separately said Muse had crossed 1 million downloads. Business Insider reported the rise to the top store position on Friday."
+        "Andreessen Horowitz is launching the Horowitz Andreessen Academy, a free one-year program in San Francisco for 50 recent high school graduates. The project has $42 million in funding led by a16z. Students will take short classes with founders and operators, including OpenAI CEO Sam Altman, and complete company stints instead of earning a degree.",
+        "The academy will launch with 10 partners, including Anduril, Anthropic, Coinbase, Google, Meta, NVIDIA, OpenAI, Palantir, Replit and Stripe. Students will move to San Francisco and arrange housing. Andreessen Horowitz will provide more than $50,000 in compute credits plus a $5,000 travel and research budget. There are no traditional grades, tests or homework. Time is split between instruction, work and exploration.",
+        "The program grants no degree or accreditation and is described as highly selective. It follows other school projects backed by Elon Musk, Mark Zuckerberg and Jeff Bezos. Andreessen Horowitz founders Marc Andreessen and Ben Horowitz have criticized colleges. Last year Andreessen reportedly called Stanford and the Massachusetts Institute of Technology political lobbying operations fighting American innovation, according to The Washington Post. The academy FAQ page states students must secure their own housing. Classes are led by Silicon Valley founders and operators. The first cohort starts in fall 2027. The model replaces coursework with direct company placement inside startups and technology firms. The firm positions the academy as a pipeline for young people to build or join a Silicon Valley startup."
+      ]
+    },
+    {
+      "id": "foot-a-2",
+      "page": 2,
+      "priority": 8,
+      "kicker": "Privacy",
+      "sources": [
+        "137410ca4a"
+      ],
+      "headline": "Default Chatbot Settings Retain Private Conversations For Training",
+      "deck": "Enterprise deletion contracts remain out of reach for most people, leaving policy promises and cryptographic tools as the available options.",
+      "pullquote": {
+        "text": "People are integrating AI into their personal lives. They talk with it about their deepest insecurities, their finances, their health, their relationships.",
+        "attr": "Moxie Marlinspike, Confer"
+      },
+      "quoteAfter": 2,
+      "body": [
+        "ChatGPT, Claude and Gemini now receive the material once reserved for therapists and confession booths. The three services collect and store those exchanges by default. Stored text can be used for further training, shared with partners and contractors, and produced for plaintiffs and law enforcement with a legal order. Practical protection requires changed settings, different products, or enterprise contracts.",
+        "The baseline for a standard account is near zero privacy against a determined holder of legal process. The service owner can read the logs. Advertisers and partner companies can receive them. Contractors who fine tune systems can review them. Police and civil litigants can demand them. Enterprise buyers can purchase stronger contractual terms.",
+        "That stronger term is zero data retention, known as ZDR. OpenAI, Anthropic and Google offer it for paid enterprise and developer accounts. Records are deleted immediately after processing when it is enabled. It is not offered to average users. It contains exceptions for abuse monitoring. Those exceptions still permit analysis and logging before deletion.",
+        "Anthropic does not offer ZDR for its most sophisticated Mythos class models like Fable 5.1. The stated reason is potential misuse including scamming, hacking and autonomous misbehavior. OpenAI analyzes user activity on customer systems before deletion under Private Safety Processing. It flags abuse for the customer organization and can alert OpenAI staff without revealing content. Google logs some Gemini prompts for abuse monitoring without Google ID or IP address. Sanitized prompts can still identify a person when the text itself contains identifying detail.",
+        "Most individuals must rely on weaker policy promises or separate architectures. Proton offers Lumo as AI where every conversation is private. The protection is a company promise not to log, not end to end encryption. Venice.ai and Duck.ai make similar no log vows while relaying requests to models including Claude and ChatGPT. Duck.ai lets the user select the underlying model. Venice.ai routes requests automatically without always disclosing the destination. Confer uses cryptography to prevent its own server from surveilling or logging conversations.",
+        "Cryptographer Moxie Marlinspike created Signal in 2014 after concern about unprotected texting. A decade ago text messages held the most sensitive personal data from devices. Signal now serves well over a hundred million people. He states the same concern now applies to AI with greater force, as people discuss insecurities, finances, health and relationships. Johns Hopkins professor Matt Green describes users building a detailed life profile one question at a time. The chatbot listens without forgetting unless instructed by contract or code."
+      ]
+    },
+    {
+      "id": "top-b-2",
+      "page": 2,
+      "priority": 7,
+      "kicker": "Youth Safety",
+      "sources": [
+        "554f21e561"
+      ],
+      "headline": "EU Proposes Phased Social Media Access For Minors",
+      "deck": "Draft law ties access to age assurance and parental controls, drawing privacy warnings from the Electronic Frontier Foundation.",
+      "pullquote": {
+        "text": "However they’re designed, age gates undermine civil liberties, reduce safety, and create barriers to internet entry, often at the expense of marginalized groups.",
+        "attr": "Christoph Schmon, Electronic Frontier Foundation"
+      },
+      "quoteAfter": 2,
+      "body": [
+        "The EU Commission has proposed age phased access to social media and video sharing platforms backed by broad age assurance checks. The draft law reserves full access for adults and places younger users in tiered accounts with parental controls. The Electronic Frontier Foundation warns the plan puts services behind age gates and expands intrusive verification for all users.",
+        "Under the proposal platforms deemed risky face a phased access schedule. Children under 13 would have no service accounts. Users from 13 to 15 would hold restricted accounts under tight parental supervision. Users from 15 to 18 would hold autonomous accounts in a safe by design environment. The threshold for risky covers mainstream services that rely on personalized recommender systems or offer uninterrupted content consumption.",
+        "The delay is tied to system wide age verification based on the proposed EU age verification scheme. Parents would create accounts for teenagers and prove parental status in a separate check. Existing accounts could avoid a new check only where a provider can show with a high degree of confidence that the user is above the relevant threshold. The Foundation describes that standard as vague and the process as a compliance burden with privacy costs.",
+        "Safety by design rules would reach beyond social media to video sharing services online games AI companions chatbots and app stores. Providers must make child safe design the default and ease requirements only after age assurance establishes that the user is an adult. The draft addresses addictive features such as infinite scrolling plus safe account settings and greater choice over recommender systems. It also requires contact protections in games reduced exposure to emotional dependency in AI companions and age ratings enforced through app stores. The approach reflects a policy link the Foundation says politicizes fair design work and it doesn&rsquo;t fit the Fediverse well.",
+        "The proposal exempts not for profit encyclopedias scientific repositories and educational services as well as open source software developing and sharing platforms. It provides no general exception for small and medium sized enterprises. The Foundation argues that gap will favor large technology firms with resources to build verification and compliance systems while smaller providers default to privacy unfriendly checks. It notes the phased model at least avoids a blanket ban of the kind a French court recently found unconstitutional and applies different rules by age and service under a risk based test.",
+        "The draft lacks a full impact assessment of alternatives and stakeholder input. Lawmakers are urged to narrow the harmful provisions."
+      ]
+    },
+    {
+      "id": "foot-b-2",
+      "page": 2,
+      "priority": 7,
+      "kicker": "Methods",
+      "sources": [
+        "fce5c94662"
+      ],
+      "headline": "MIT Methodologist Tests How Far Social Science Findings Travel",
+      "deck": "Naoki Egami studies external validity, AI measurement and campaign field experiments.",
+      "pullquote": {
+        "text": "You find out the underlying mathematical problems behind the empirical challenges people face, and solve them optimally.",
+        "attr": "Naoki Egami, MIT"
+      },
+      "quoteAfter": 1,
+      "body": [
+        "Naoki Egami is an MIT political scientist who studies whether research results apply beyond the settings that produced them. He specializes in methodology and in external validity. His portfolio spans campaign field experiments and studies of artificial intelligence tools in research. He joined the Department of Political Science as an associate professor with tenure in 2025. He is also a faculty affiliate of the Statistics and Data Science Center.",
+        "&ldquo;You need both perspectives,&rdquo; Egami says. He describes political methodology as asking questions as a political scientist and solving them as an applied statistician. He says researchers need technical theory and attention to empirical problems. Without theory, solutions stay ad hoc. Without problems, theory misses substance. His approach seeks optimal solutions to mathematical problems behind empirical challenges. &ldquo;You find out the underlying mathematical problems behind the empirical challenges people face, and solve them optimally.&rdquo;",
+        "In statistics, similarity often means population data. In political science, context differs. Egami examines campaign research to show the gap. Researchers sometimes receive permission to run field experiments in active campaigns. Politicians grant access when they expect triumph. Voter behavior in those races can differ from behavior in competitive districts. Findings from those races may not transfer to battlefield races.",
+        "Before the current artificial intelligence interest, Egami began studying AI tools in studies. He asked how accurate they are and how researchers can account for their tendencies. The work helped him build a broad portfolio and win awards. He retains interest in basic questions about politics and in measuring things correctly. He works in parallel agendas and starts new lines of inquiry every few years to learn.",
+        "Egami grew up in Tokyo and attended the University of Tokyo. He was good at math and physics and liked political philosophy. A workshop on U.S. graduate study introduced him to math in political science. He met Kosuke Imai, now at Harvard University, and decided to pursue the field. He spent a year as an exchange student at the University of Michigan. He earned his PhD from Princeton University in 2020.",
+        "At Princeton he worked with Imai, Rafaela Dancygier, Brandon Stewart and others on external validity. He found strong substantive interest when he presented the papers. He joined the faculty at Columbia University after his degree and moved to MIT five years later. He teaches undergraduates and graduate students. He continues to ask how far any single study can travel. He says a study&rsquo;s value lies in knowing where it does not travel."
       ]
     },
     {
       "id": "top-a-2",
       "page": 2,
-      "priority": 7,
-      "kicker": "Robotics",
+      "priority": 6,
+      "kicker": "Drones",
       "sources": [
         "97666bdd7a"
       ],
-      "headline": "Benchmark Tests 29 Models On Drone Decisions",
-      "deck": "PhysAI-Bench holds 10,178 UAV decisions with tool calls and 6G data, with top accuracy at 52.00 percent.",
+      "headline": "Benchmark tests 29 models on drone decisions",
+      "deck": "Top accuracy reaches 52.00 percent on 500 network-constrained decisions.",
       "body": [
-        "PhysAI-Bench evaluates foundation models on agentic decision making for autonomous unmanned aerial vehicles. The benchmark contains 10,178 standardized decision instances extracted from conversational traces of autonomous UAV missions. Each instance preserves mission context and sensor observations alongside Model Context Protocol tool calls and AI-native 6G network conditions. Twenty nine foundation models were tested. GPT-5.3 achieved the highest accuracy at 52.00 percent.",
-        "Each decision instance retains temporal dependencies and physical constraints. It includes Agent-to-Agent interactions and sensor observations. Network data cover latency, packet loss, throughput, edge load and network slicing. Only information preceding each decision is exposed. The design prevents future-event leakage and approximates online decision making.",
-        "The evaluation used a two-stage protocol with model-specific configurations. Twelve combinations of zero-, three-, and five-shot prompting and four temperatures were tested in three runs on a 35-instance, human-verified development set. Each selected configuration was then frozen and evaluated in three runs on a fixed, episode-disjoint set of 500 instances. Few-shot prompting generally improved performance. Temperature had limited influence.",
-        "Existing benchmarks assess physical perception, intuitive physics, embodied navigation and collaborative reasoning. They rarely evaluate the agentic decision making required for reliable autonomy. Autonomous UAV systems must perceive, reason, plan and act in dynamic environments. PhysAI-Bench targets that requirement with standardized instances and preserved context. GPT-5.2 scored 49.40 percent. Grok 4.5 scored 49.07 percent. The results demonstrate that reliable agentic decision making in Physical AI remains an open challenge. The dataset is available at the repository listed by the authors for further evaluation. Standardized extraction preserves mission context across episodes. Temporal dependencies link each decision to prior observations and tool calls. Episode-disjoint testing separates development material from final measurement. The protocol fixes each configuration before final runs to ensure direct comparison. Top accuracy doesn&rsquo;t shift the final finding and the gap persists across all tested systems."
+        "PhysAI-Bench evaluates 29 foundation models on 10,178 standardized decisions from autonomous UAV missions. Each decision includes mission context, sensor observations, physical constraints and AI-native 6G network conditions. Conditions include latency, packet loss, throughput, edge load and network slicing. GPT-5.3 records the highest accuracy at 52.00 percent. The result leaves reliable agentic decision-making unresolved.",
+        "The benchmark exposes only information preceding each decision. The procedure prevents future-event leakage and approximates online decision-making. Evaluation follows a two-stage protocol. First, model-specific configurations are selected from 12 combinations of zero, three and five-shot prompting and four temperatures. Selection uses three runs on a 35-instance human-verified development set. Then each selected configuration is frozen and tested in three runs on a fixed episode-disjoint set of 500 instances.",
+        "GPT-5.3 achieves 52.00 percent accuracy. GPT-5.2 follows at 49.40 percent. Grok 4.5 follows at 49.07 percent. Few-shot prompting generally improves performance. Temperature has limited influence overall. The scores cover perception, reasoning, planning and action under temporal dependencies, Model Context Protocol tool calls, Agent-to-Agent interactions and constrained throughput. The results show reliable agentic decision-making still remains an open challenge.",
+        "Existing benchmarks assess physical perception, intuitive physics, embodied navigation and collaborative reasoning. They rarely evaluate the agentic decision-making required for reliable autonomy. Recent advances in Physical AI have accelerated the use of foundation models in autonomous systems such as unmanned aerial vehicles. Those vehicles must perceive, reason, plan and act in dynamic environments. PhysAI-Bench extracts instances automatically from conversational traces of autonomous UAV missions &mdash; preserving context without exposing later events. Each test preserves mission context, temporal dependencies, physical constraints, sensor observations and edge load. The dataset is available at https://github.com/maferrag/physai-bench. Developers can reproduce the frozen-configuration tests on the 500-instance set. Operators can compare prompting strategies under identical latency and packet loss. The paper reports no deployment. The grass stays uncut still."
       ],
       "art": {
         "type": "photo",
         "src": "assets/img/top-a-2.jpg",
-        "capLabel": "Under review",
-        "caption": "A quadcopter flies above an open field at dusk. PhysAI-Bench evaluates such flights as sequences of mission decisions linked to sensors and network conditions.",
-        "credit": "BLM Oregon &amp; Washington · Public domain",
+        "capLabel": "Field test",
+        "caption": "A small quadcopter holds position above an open grass field. PhysAI-Bench measures whether models can make such flight decisions under latency, packet loss and edge load.",
+        "credit": "U.S. Air Force photo by Senior Airman Amanda Jett · Public domain",
         "wmm": 170,
         "hmm": 60,
         "focusY": 0.4,
@@ -245,166 +316,142 @@
         "feather": 0.35,
         "floor": 0.08
       }
-    },
-    {
-      "id": "top-b-2",
-      "page": 2,
-      "priority": 6,
-      "kicker": "Privacy",
-      "sources": [
-        "137410ca4a"
-      ],
-      "headline": "Chatbot Defaults Keep Intimate Prompts for Training",
-      "deck": "WIRED finds enterprise deletion contracts offer the only strong shield, leaving most users with policy promises and proxy tools.",
-      "pullquote": {
-        "text": "You have this intelligent thing staring back at you, and you’re basically telling it, one question at a time, every possible thing there is to know about your life,",
-        "attr": "Matt Green, Johns Hopkins University"
-      },
-      "quoteAfter": 2,
-      "body": [
-        "ChatGPT, Claude and Gemini collect user prompts by default for storage, training and potential disclosure through legal process. WIRED reports that only paid enterprise and developer agreements provide deletion guarantees beyond policy promises. The report lists owners, partners, contractors, law enforcement and civil litigants as possible recipients of retained records with legal process for access.",
-        "Users treat the tools as therapists, sounding boards and virtual confession booths for health, finances, relationships and insecurities. That pattern creates detailed profiles built one question at a time from material once confined to private messages. WIRED notes that default policies place few restrictions on sharing, sale, further training or handover under court order or agency demand.",
-        "The strongest protection described is zero data retention, known as ZDR. OpenAI, Anthropic and Google offer ZDR in paid enterprise and developer accounts, with immediate deletion of interaction records after processing. WIRED states the option is unavailable to most individual users, who must rely on weaker policy promises not to log conversations.",
-        "Even ZDR includes exceptions for abuse monitoring. Anthropic withholds ZDR from Mythos-class models such as Fable 5.1, citing risks including scamming, hacking and autonomous misbehavior. OpenAI analyzes activity on customer systems before deletion under Private Safety Processing and can alert staff without revealing content. Google logs sanitized Gemini prompts without account identifiers, although identifying details in the prompt itself can still identify a person.",
-        "Consumer alternatives route or shield queries but depend on trust rather than technical guarantees. Proton offers Lumo for private conversation based on a no-log policy rather than end-to-end encryption. Venice.ai and Duck.ai similarly promise no logs while relaying requests to third party models, limiting direct collection by the underlying provider. Duck.ai allows selection of the model, while Venice.ai routes requests automatically without always disclosing the destination.",
-        "The exception built on cryptography is Confer, launched by Signal creator Moxie Marlinspike to prevent server access to conversation content. The design uses technical controls to block surveillance and logging by the service itself, rather than relying on stated policy. WIRED positions the tool among a new group of privacy focused services offering anonymization, proxy routing or mathematical safeguards for users adopting chatbots for sensitive tasks. Stored records remain available to determined parties with legal authority unless deleted under contract. Disclosure includes training, sharing and sale without restriction. Control requires deliberate settings and selective disclosure. Default collection persists unless the user changes options or uses an enterprise agreement with deletion guarantees. Caution remains the most reliable control. The log remembers everything."
-      ]
-    },
-    {
-      "id": "foot-a-2",
-      "page": 2,
-      "priority": 6,
-      "kicker": "Regulation",
-      "sources": [
-        "554f21e561"
-      ],
-      "headline": "EU draft law phases social media access by age",
-      "deck": "Proposal ties safety-by-design defaults to EU age verification scheme.",
-      "pullquote": {
-        "text": "However they’re designed, age gates undermine civil liberties, reduce safety, and create barriers to internet entry, often at the expense of marginalized groups.",
-        "attr": "Christoph Schmon, Electronic Frontier Foundation"
-      },
-      "quoteAfter": 2,
-      "body": [
-        "The European Commission draft Kids Act would phase social media access by age, require safety by design defaults, and expand age assurance across platforms and app stores. The Electronic Frontier Foundation says the plan puts services behind age gates and threatens privacy for all users. The proposal builds on the Digital Services Act and now faces scrutiny from lawmakers.",
-        "Platforms deemed risky would face a three tier system. Children under 13 would have no service accounts. Users from 13 to 15 would have restricted accounts under tight parental supervision. Users from 15 to 18 would have autonomous accounts in a safe by design environment. Risk status turns on personalized recommender systems or uninterrupted content consumption. Full online access is therefore reserved for adults.",
-        "Age delay depends on broad age verification. The system would rely on the EU age verification scheme. Parents would set up accounts for teenagers and prove parental status. Existing accounts would avoid repeat checks only if a provider can establish adult status with a high degree of confidence. Critics call that standard vague and intrusive. The Foundation warns companies will default to privacy unfriendly checks.",
-        "The second pillar applies beyond social media. It covers video sharing, online games, AI companions, chatbots and app stores. Providers must offer child safe design by default. Adult users could receive relaxed settings only after age assurance. Rules address infinite scrolling, account settings and recommender choice. AI services must limit emotional dependency and harmful interactions. Games must add contact protections. App stores would enforce age ratings.",
-        "Exemptions cover nonprofit encyclopedias, scientific repositories, educational services and open source software platforms. No clear exemption covers small and medium sized enterprises. Analysts say compliance costs will favor large technology firms. Decentralized networks such as the Fediverse face poor fit with centralized controls. Very large platforms must file compliance plans before launching new services. The Foundation says age thresholds remain a blunt proxy for maturity and reduce access to information and expression.",
-        "The draft avoids a blanket ban and distinguishes age groups and services. A French court recently rejected undifferentiated bans as unconstitutional. Supporters present the measure as hard law for nonbinding Digital Services Act guidelines on minors. The draft did not receive a full impact assessment with alternative options and stakeholder consultation. Lawmakers are urged to remove the most harmful provisions. The paperwork will be safe by design. Debate now turns to privacy, parental control and enforcement powers. Compliance costs will fall first on users and smaller providers."
-      ]
-    },
-    {
-      "id": "foot-b-2",
-      "page": 2,
-      "priority": 5,
-      "kicker": "Wellbeing",
-      "sources": [
-        "0c2e7bcfb6"
-      ],
-      "headline": "Peer Support AI Improves Unevenly Across Communities",
-      "deck": "Training on the COPES dataset lifts strategy alignment by 50 percent, yet results differ across subreddits and coping strategies.",
-      "body": [
-        "Post-training on the COmmunity-centered Peer Engaged Support dataset lifts strategy alignment by 50 percent for general-purpose models answering mental health queries on Reddit. The study evaluates zero-shot models against versions tuned with SFT and DPO using a three-axis framework centered on community perspectives. Gains in emotion and tone alignment accompany the strategy improvement. The improvement is uneven across subreddits and across requested coping strategies.",
-        "Researchers built COPES to measure lived-experience informed peer support rather than clinical benchmark performance. The framework assesses alignment with community perspectives on support seeking queries. It separates strategy alignment from emotion and tone and a third axis. Zero-shot baselines provide the comparison point for post-trained models.",
-        "The tuned models show stronger match to the coping strategies requested in posts. The average gain reaches the reported 50 percent for general-purpose systems. Emotion and tone move closer to community norms. The shift suggests training on community-driven replies teaches models what kind of help to offer and how to phrase it.",
-        "The gains are not uniform. Alignment improvement differs by subreddit and by requested coping strategy. Some communities see large increases. Others see small changes. Post-training also shifts the distribution of advice. Problem-focused recommendations increase. Emotion-focused strategies decrease.",
-        "Access to professional mental healthcare remains limited. Many individuals turn to Reddit for peer support situated within human lived experience. A significant portion of such queries go unanswered. The gap presents an opportunity for large language models to fill. Models have demonstrated strong performance on clinical benchmarks. Their ability to generate lived-experience informed and community-aligned peer support remains underexplored. COPES addresses that gap with community-driven data and evaluation tied to community perspectives.",
-        "Curating community-driven data improves alignment of responses. Performance remains disparate across distinct sub-communities and specific mental health needs. A model that matches one forum may miss norms in another. A model that handles requests for practical steps may weaken on requests for comfort. The bias toward problem-focused advice matters because peer support often involves acknowledgment and shared experience as well as suggestions. Suppressing emotion-focused strategies changes the texture of replies. It makes them more directive and less communal. The three-axis framework makes the tradeoff visible instead of collapsing quality into a single score. Developers seeking to deploy such systems will need to test by community and by strategy. Aggregate gains conceal local failures. The dataset points toward narrower tuning and closer attention to what each group asks for. The work records progress without claiming uniform coverage. Gaps still remain clear and measurable."
-      ]
     }
   ],
   "boxes": [
     {
-      "id": "chatgpt-retention",
+      "id": "scale-against-result",
       "slot": "side-a",
-      "kind": "text",
-      "title": "Performance Up, Retention Down",
-      "tint": true,
-      "paras": [
-        "<b>ChatGPT-assisted students scored higher.</b> The experiment enrolled 59 undergraduate computer science students. 55 were retained for analysis. Participants completed three introductory C programming tasks. One group used ChatGPT-4.5. The other used conventional web search without generative AI.",
-        "The team measured task performance and self-reported mental effort and difficulty. It recorded pupillary responses and heart rate variability. It tracked ownership. It assessed cued recall immediately and 48 hours later.",
-        "Generative AI can improve programming performance. Successful task completion may not reflect what students retain. The study examined performance, retention, cognitive load and ownership together. Higher performance did not guarantee retention. Ownership was reduced.",
-        "The design was between subjects. Measures included self-reports and physiology. Mental effort and difficulty were self-reported. Pupillary responses and heart rate variability were recorded. Cued recall was tested twice. The second test came 48 hours later.",
-        "The scope was three tasks. The sample was 59 students. The analysis was 55 students. The result is specific. Higher coding scores arrived with lower retention and reduced ownership.",
-        "Task performance was the first axis. Retention was the second. Cognitive load was the third. Ownership was the fourth. Each was measured separately. No single measure stood for learning.",
-        "The machine helped them finish. It did not help them remember."
-      ]
-    },
-    {
-      "id": "evidence-scales",
-      "slot": "side-b",
       "kind": "table",
-      "title": "How much each claim rests on",
-      "caption": "Reported scales for benchmarks, replications and comparisons.",
+      "title": "Scale against result",
+      "caption": "What each effort measured and what it found.",
       "head": [
         "System",
-        "Test",
-        "Scale"
+        "Scale",
+        "Result"
       ],
       "rows": [
         [
           "PhysAI-Bench",
-          "UAV decision instances",
-          "10,178"
+          "10,178 instances",
+          "UAV mission decisions"
         ],
         [
-          "Programming study",
-          "undergraduates enrolled",
-          "59"
+          "Gricea rebuild",
+          "93% of eligible papers",
+          "CUI 2026 configs"
         ],
         [
-          "Programming study",
-          "retained for analysis",
-          "55"
+          "Gricea audit",
+          "96% of papers",
+          "missing info flagged"
         ],
         [
-          "Programming study",
-          "introductory C tasks",
-          "three"
+          "Coding study",
+          "59 students enrolled",
+          "three C tasks"
         ],
         [
-          "Gricea",
-          "eligible CUI 2026 papers",
-          "93%"
+          "Coding study",
+          "55 retained",
+          "recall at 48 hours"
         ],
         [
-          "Gricea",
-          "flagged missing information",
-          "96%"
+          "ChatGPT-4.5 arm",
+          "higher coding score",
+          "against web search"
         ],
         [
-          "Muse launch",
-          "comparison window",
-          "12 days"
+          "COPES",
+          "Reddit peer queries",
+          "lived-experience support"
+        ],
+        [
+          "COPES eval",
+          "three-axis framework",
+          "community alignment"
+        ],
+        [
+          "SocioVerse2",
+          "extends SocioVerse 1.0",
+          "content intervention"
+        ],
+        [
+          "SocioVerse2",
+          "co-evolutionary paradigm",
+          "process control"
+        ],
+        [
+          "Muse mobile",
+          "first 12 days",
+          "beat ChatGPT downloads"
+        ],
+        [
+          "Muse mobile",
+          "US and Canada only",
+          "more daily users"
+        ],
+        [
+          "MIT Reads",
+          "10-year program",
+          "fiction and memoir"
+        ],
+        [
+          "Data Hospital",
+          "approved interventions only",
+          "replayable validation"
+        ],
+        [
+          "EU Kids Act",
+          "age gates",
+          "verification and oversight"
+        ],
+        [
+          "Embodied AI",
+          "updates and migration",
+          "same-agent question"
         ]
+      ]
+    },
+    {
+      "id": "agents-support-replication",
+      "slot": "side-b",
+      "kind": "text",
+      "title": "Agents, support and replication",
+      "tint": true,
+      "paras": [
+        "<b>Social simulation now tests intervention.</b> SocioVerse2 extends SocioVerse 1.0 into a human-AI co-evolutionary paradigm built to give researchers control over content and over process. Earlier platforms verified collective behavior and aligned simulated populations with real societies in cross-sections and used autonomous agents for research. Two requirements remained without systematic support: intervention in the content of a simulation and researcher control over the process that produces it. The new framework addresses both.",
+        "Peer support on Reddit often goes unanswered, and clinical benchmarks do not measure community alignment. The COmmunity-centered Peer Engaged Support dataset addresses lived-experience informed support for mental health queries. A three-axis evaluation framework assesses alignment with community perspectives. Large language models have shown strong performance on clinical benchmarks, but generation of lived-experience informed and community-aligned peer support remains underexplored. The work tests whether fine tuning brings heterogeneous benefits for support generation.",
+        "Conversational AI research remains hard to replicate because systems and study configurations are reported in fragments. Gricea represents studies as configurable and deployable research artifacts that researchers can run and inspect and share and reuse. In a replication study the platform rebuilt configurations for 93 percent of eligible CUI 2026 papers while flagging missing information in 96 percent. Physical AI faces a parallel evaluation gap for agentic decision making in dynamic environments. PhysAI-Bench contains 10,178 standardized decision instances extracted from conversational traces of autonomous UAV missions &mdash; preserving mission context and temporal dependencies and physical constraints. In programming education, 59 undergraduate computer science students completed three introductory C tasks with ChatGPT-4.5 or conventional web search, with 55 retained for analysis. ChatGPT-assisted students achieved higher coding scores, with cued recall measured immediately and 48 hours later alongside mental effort and difficulty and pupillary responses and heart rate variability and ownership.",
+        "Long-term embodied AI undergoes learning and model updates and memory compression and hardware repair and migration across embodiments. For users with sustained relationships the issue is identity continuity and whether the changed system remains the same particular agent. Research points to relational particularity and to identity and migration signals across embodiments and to loss and restoration desire after major updates or platform disruptions. Chatbots have also become therapists and sounding boards and virtual confession booths, with ChatGPT and Claude and Gemini set by default to collect and store highly private data. On mobile, Muse was downloaded more times during its first 12 days than ChatGPT was in the 12 days after its debut in the United States and Canada, with more daily active users, according to estimates from Apptopia. At MIT, the Libraries program MIT Reads marks its 10-year anniversary by shifting focus to fiction and memoir to foster social connection and shared humanity.",
+        "European regulators propose age-based access rules and safety requirements and stronger enforcement under the EU Kids Act, building on the Digital Services Act with safety-by-design measures for minors. The draft would put services behind age gates and expand intrusive age verification. Research data quality work proposes a Data Hospital in which datasets are admitted and contextualized and assessed and modified only through approved interventions and validated and documented and made replayable."
       ]
     }
   ],
   "fillers": [
     {
       "hed": "Simulation",
-      "text": "SocioVerse2 extends SocioVerse into a human-AI co-evolutionary paradigm."
+      "text": "SocioVerse2 extends SocioVerse 1.0 into a human-AI co-evolutionary paradigm for intervention and process control."
     },
     {
       "hed": "Support",
-      "text": "Many individuals turn to online platforms such as Reddit to seek peer support."
-    },
-    {
-      "hed": "Reading",
-      "text": "MIT Reads is shifting its focus to fiction and memoir at its 10-year anniversary."
-    },
-    {
-      "hed": "Identity",
-      "text": "Long-term embodied AI will undergo learning, model updates and migration across embodiments."
-    },
-    {
-      "hed": "Privacy",
-      "text": "ChatGPT, Claude and Gemini have become therapists and sounding boards for millions of people."
+      "text": "Many people seeking mental health peer support on Reddit go unanswered, creating an opening for community-aligned models."
     },
     {
       "hed": "Replication",
-      "text": "Gricea replicated configurations for 93% of eligible CUI 2026 papers and flagged missing information in 96%."
+      "text": "Gricea rebuilt 93 percent of eligible CUI 2026 configurations while flagging missing information in 96 percent."
+    },
+    {
+      "hed": "Drones",
+      "text": "PhysAI-Bench holds 10,178 decision instances from autonomous UAV missions with context and constraints preserved."
+    },
+    {
+      "hed": "Mobile",
+      "text": "Muse exceeded ChatGPT early mobile downloads in its first 12 days in the United States and Canada."
+    },
+    {
+      "hed": "Reading",
+      "text": "MIT Reads marks its 10-year anniversary with a shift to fiction and memoir."
     }
   ]
 }
