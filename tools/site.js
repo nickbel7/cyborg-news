@@ -315,11 +315,24 @@ const page = `<!doctype html>
   /* the sheet on the table: ringed and inverted, so the stack always says
      where you are without you having to read the dates */
   .card.is-current .sheetlet::after{border-width:3px}
-  /* The same grey as the ring, opaque so it covers the newsprint under it
-     cleanly rather than muddying against it. Ink on grey, not paper on
-     black: the mark should name the sheet, not outshout the thumbnails. */
-  .card.is-current .when{background:var(--chip); color:var(--ink); padding-top:6px}
-  .card.is-current .when b{opacity:.55}
+  /* A label is a small plaque set on the sheet, not a bar painted across
+     it: inset from the edges, with a lit top edge, a hairline, and a
+     shadow underneath, so it reads as something resting on the page. The
+     light comes from above, as it does everywhere else on this page. */
+  .card.is-current .when, .card.is-latest .when{
+    left:9px; right:9px; bottom:9px; padding:5px 0 6px;
+    border-radius:7px; color:var(--ink);
+    border:1px solid rgba(20,19,16,.13);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.92),
+      inset 0 -1px 0 rgba(20,19,16,.05),
+      0 1px 1px rgba(20,19,16,.07),
+      0 3px 7px rgba(20,19,16,.11);
+  }
+  /* the sheet on the table is the grey plaque; the newest is a paler one */
+  .card.is-current .when{background:linear-gradient(180deg,#f3f1ed,var(--chip))}
+  .card.is-latest .when{background:linear-gradient(180deg,#ffffff,var(--sheet))}
+  .card.is-current .when b, .card.is-latest .when b{opacity:.5}
   .card.is-current{cursor:default}
   /* the newest, when it is not the one you are on */
   .card.is-latest .when b{color:var(--ink)}
