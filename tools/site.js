@@ -753,27 +753,51 @@ if (ISSUES.length) {
     settle(130);
   }, { passive: false });
 
-  /* dragging works too, for trackpads and touch */
-  let dragging = false, lastY = 0;
+  /* Dragging works too, for trackpads and touch — but the pointer is only
+     captured once the gesture is actually a drag, never on pointerdown.
+     Capturing on pointerdown retargets every later pointer event to the
+     deck, the click included, so the closest('.card') lookup in the
+     handler below saw the deck and returned null: pressing a sheet did
+     nothing at all, and had done nothing since the stack was built. Real
+     press-and-release said so plainly — pointerdown on the IMG, pointerup
+     and click on the deck — while element.click() in a test skips the
+     pointer sequence entirely and never sees it. */
+  const SLOP = 5;                            // px of travel before it counts as a drag
+  let down = null, dragging = false, lastY = 0, travel = 0, afterDrag = false;
+
   $('deck').addEventListener('pointerdown', ev => {
     if (flat()) return;
     clearTimeout(settleTimer);               // a grab cancels a pending settle
-    dragging = true; lastY = ev.clientY; $('deck').setPointerCapture(ev.pointerId);
+    down = ev.pointerId; lastY = ev.clientY; travel = 0; dragging = false;
   });
   $('deck').addEventListener('pointermove', ev => {
-    if (!dragging) return;
+    if (down === null || ev.pointerId !== down) return;
+    /* A pointerup can go missing — the pointer leaves the window, another
+       element takes capture, the tab loses focus mid-gesture. Without this
+       the stack would stay armed and follow the bare cursor afterwards. */
+    if (!ev.buttons) { drop(); return; }
+    travel += Math.abs(ev.clientY - lastY);
+    if (!dragging) {
+      if (travel < SLOP) { lastY = ev.clientY; return; }   // still a click
+      dragging = true;
+      $('deck').setPointerCapture(down);      // now it is a drag, so keep the pointer
+    }
     aimAt(aim - (ev.clientY - lastY) / 90);
     lastY = ev.clientY;
   });
   const drop = () => {
-    if (!dragging) return;
+    if (down === null) return;
+    down = null;
+    if (!dragging) return;                    // a plain click: leave it to the click handler
     dragging = false;
-    settle(0);                               // let go and it lands on a sheet
+    afterDrag = true;                         // the click that follows a drag is not a choice
+    settle(0);                                // let go and it lands on a sheet
   };
   $('deck').addEventListener('pointerup', drop);
   $('deck').addEventListener('pointercancel', drop);
 
   $('deck').addEventListener('click', ev => {
+    if (afterDrag) { afterDrag = false; return; }   // ending a drag over a sheet is not picking it
     const b = ev.target.closest('.card');
     if (!b || !b.dataset.i) return;            // the end plate is not a link
     const i = Number(b.dataset.i);
