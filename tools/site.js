@@ -114,6 +114,39 @@ const editions = (fs.existsSync(ISSUES) ? fs.readdirSync(ISSUES) : [])
     };
   });
 
+/* The stamp that marks the newest issue in the rail: a rubber seal struck
+   across the corner of the sheet, drawn here rather than shipped as an
+   image so it stays sharp at any size and takes its colour from the page.
+   One ink, as a real stamp has — the lettering is the paper showing
+   through the band, not a second colour printed on top.
+
+   The cog edge is a plain alternating-radius polygon; the rounded scallops
+   come from stroking that path in the same colour with a round line join,
+   which costs nothing and saves hand-writing thirty-two arc segments. */
+const STAMP = (() => {
+  const teeth = 16, rO = 41, rI = 36.5;
+  let d = '';
+  for (let k = 0; k < teeth * 2; k++) {
+    const a = (Math.PI * k) / teeth - Math.PI / 2;
+    const r = k % 2 ? rI : rO;
+    d += (k ? 'L' : 'M') + (50 + r * Math.cos(a)).toFixed(2) + ' ' + (50 + r * Math.sin(a)).toFixed(2);
+  }
+  d += 'Z';
+  return '<svg class="stamp" viewBox="0 0 100 100" aria-hidden="true" focusable="false">' +
+    '<g fill="none" stroke="currentColor" stroke-linejoin="round">' +
+      '<path d="' + d + '" fill="currentColor" stroke-width="5"></path>' +
+    '</g>' +
+    /* the two rings are cut out of the disc, so they read as unlinked ink */
+    '<circle cx="50" cy="50" r="31" fill="none" stroke="var(--sheet)" stroke-width="2.4"></circle>' +
+    '<circle cx="50" cy="50" r="26.5" fill="none" stroke="var(--sheet)" stroke-width="2" ' +
+      'stroke-dasharray="2.4 3.1" stroke-linecap="round"></circle>' +
+    '<g transform="rotate(-11 50 50)">' +
+      '<rect x="1.5" y="40.5" width="97" height="19" rx="1.5" fill="currentColor"></rect>' +
+      '<text x="50" y="54.3" text-anchor="middle" fill="var(--sheet)">LATEST</text>' +
+    '</g>' +
+  '</svg>';
+})();
+
 const manifest = editions.map(e => ({
   date: e.date, long: e.long, volume: e.volume, lead: e.lead, kb: e.kb,
   label: stamp(e.date),
@@ -140,6 +173,7 @@ const page = `<!doctype html>
     --go:#141310;             /* the one active control */
     --go-ink:#ffffff;
     --sheet:#fbfaf8;
+    --stamp:#b8392c;          /* the one ink that is not black on this page */
     --rail:210px;             /* the carousel's column */
   }
   *{box-sizing:border-box}
@@ -330,8 +364,18 @@ const page = `<!doctype html>
   }
   .card.is-current .when b{opacity:.55}
   .card.is-current{cursor:default}
-  /* the newest, when it is not the one you are on */
-  .card.is-latest .when b{color:var(--ink)}
+  /* the newest, when it is not the one you are on: struck across the
+     corner of the sheet. Slightly off square and not quite opaque, the way
+     a stamp pressed by hand never lands flat or perfectly inked. */
+  .card .stamp{
+    position:absolute; right:5%; top:4%; width:46%; height:auto;
+    color:var(--stamp); opacity:.88; pointer-events:none;
+    transform:rotate(-9deg); transform-origin:center;
+  }
+  .card .stamp text{
+    font-family:'Libre Franklin',system-ui,sans-serif;
+    font-size:15px; font-weight:800; letter-spacing:.06em;
+  }
   /* the plate that closes the carousel */
   .endcap{cursor:default}
   .endcap .sheetlet{
@@ -577,6 +621,9 @@ ${avatar.sprite ? `    <span class="spriteWin" style="aspect-ratio:${avatar.fram
 <script src="${PDFJS}/pdf.min.js"></script>
 <script>
 const ISSUES = ${JSON.stringify(manifest)};
+/* Built once in node and handed over as a string: the rail is assembled
+   in the browser, so the stamp's markup has to travel with the page. */
+const STAMP = ${JSON.stringify(STAMP)};
 if (ISSUES.length) {
   const $ = id => document.getElementById(id);
   const docs = new Map();            // one fetch per issue, however often it is opened
@@ -697,12 +744,15 @@ if (ISSUES.length) {
         : '<span class="none">PDF</span>';
       const current = i === issue;
       const latest = i === 0 && !current;
-      const tag = current ? '<b>READING</b>' : latest ? '<b>LATEST</b>' : '';
+      /* The stamp says LATEST, so the label under it does not repeat the
+         word — it goes back to being just the date. */
+      const tag = current ? '<b>READING</b>' : '';
       const cls = 'card' + (current ? ' is-current' : '') + (latest ? ' is-latest' : '');
       return '<button class="' + cls + '" type="button" data-i="' + i + '" ' +
         (current ? 'aria-current="true" ' : '') +
         'title="' + (current ? 'Reading — ' : latest ? 'Latest issue — ' : '') + e.long + '">' +
-        '<span class="sheetlet">' + art + '<span class="when">' + tag + e.label + '</span></span>' +
+        '<span class="sheetlet">' + art + (latest ? STAMP : '') +
+        '<span class="when">' + tag + e.label + '</span></span>' +
         '</button>';
     });
     sheets.push('<div class="card endcap"><span class="sheetlet">' +
