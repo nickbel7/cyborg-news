@@ -159,11 +159,10 @@ async function writeFurniture(boxSlots) {
      walks article slots, not boxes, so this is the one place a box gets
      sized at all. */
   const boxBrief = boxSlots.map(s =>
-    `  - "${s.n}" is ${s.h}mm tall — if you write it as kind:"text", that is ` +
-    `about ${budget.boxWords(s)} words (several short paragraphs, not one); ` +
-    `as "table" or "listing", scale the row count the same way, more rows ` +
-    `for a taller slot — but only rows that carry their own weight. A box ` +
-    `that runs short is better than one padded to length.`).join('\n');
+    `  - "${s.n}" is ${s.h}mm tall. It holds about ${budget.boxWords(s)} words as ` +
+    `"text", about ${budget.boxRows(s, 'table')} rows as a "table", or about ` +
+    `${budget.boxRows(s, 'listing')} rows as a "listing". Pick the kind you have ` +
+    `enough real material to fill, and fill it.`).join('\n');
   const names = boxSlots.map(s => s.n);
 
   const user = `Write the standing furniture for this issue.

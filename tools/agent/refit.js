@@ -105,6 +105,12 @@ for (const c of report.clipped || []) {
 const trimmed = (report.trimmed || []).filter(t => /¶/.test(String(t)));
 if (trimmed.length) console.log(`  ${trimmed.length} piece(s) trimmed to fit — normal, left alone`);
 
+/* A short box is a real fault and nothing here can fix it: this loop rewrites
+   articles, and a box has no rewrite path. Say so plainly rather than let the
+   run finish with "the page is set" over a box that is a quarter full. */
+for (const b of report.whiteBox || [])
+  console.log(`  box ${b} short — boxes are written once, not refitted; check the printed page`);
+
 const work = [...jobs.entries()];
 if (!work.length) {
   console.log('  no gaps and no clipping — the page is set');

@@ -65,6 +65,25 @@ function boxWords(slot) {
   return Math.round((body / LINE) * cols * WORDS_PER_LINE);
 }
 
+/* Rows, for the kinds that are made of rows. A words figure is no use to a
+   table: told only "about 505 words", the issue of 22 September set seven
+   rows in a slot that holds about thirty and printed 129mm of empty box.
+
+   Measured off printed issues rather than derived, because a row's height
+   is set by how many lines its cells wrap to, which depends on the measure:
+   a table row is 5.14mm in a 6-unit box and 10.56mm in a 3-unit one — near
+   enough exactly double for half the width, so the row scales inversely
+   with span. A table also gives up 10.8mm to its caption and headings; a
+   listing has no such furniture. */
+const TABLE_ROW_MM = 5.2, TABLE_CHROME_MM = 10.8, LIST_ROW_MM = 8.0;
+
+function boxRows(slot, kind) {
+  const perRow = (kind === 'table' ? TABLE_ROW_MM : LIST_ROW_MM) * (6 / slot.s);
+  const chrome = kind === 'table' ? TABLE_CHROME_MM : 0;
+  const body = Math.max(0, slot.h - BOX_PAD_MM - BOX_HEAD_MM - chrome);
+  return Math.max(1, Math.round(body / perRow));
+}
+
 function planOf(argv) {
   const ids = argv.filter(a => a.includes('/'));
   if (ids.length) return ids;
@@ -113,4 +132,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { slotWords, boxWords, headMM };
+module.exports = { slotWords, boxWords, boxRows, headMM };
