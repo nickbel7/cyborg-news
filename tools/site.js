@@ -318,7 +318,16 @@ const page = `<!doctype html>
   /* The same grey as the ring, opaque so it covers the newsprint under it
      cleanly rather than muddying against it. Ink on grey, not paper on
      black: the mark should name the sheet, not outshout the thumbnails. */
-  .card.is-current .when{background:var(--chip); color:var(--ink); padding-top:6px}
+  /* Held clear of the ring rather than run under it. Full-bleed, the grey
+     bar met the grey stroke along the bottom and both ends, and the two
+     greys stacked into a darker, thicker edge — the ring looked doubled
+     where the label crossed it. Inset by the ring's own width, the stroke
+     frames the label and neither colour sits on the other. The radius is
+     the sheet's 12px less those 3px, so the corner follows the curve. */
+  .card.is-current .when{
+    left:3px; right:3px; bottom:3px; border-radius:0 0 9px 9px;
+    background:var(--chip); color:var(--ink); padding-top:6px;
+  }
   .card.is-current .when b{opacity:.55}
   .card.is-current{cursor:default}
   /* the newest, when it is not the one you are on */
