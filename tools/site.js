@@ -295,6 +295,22 @@ const page = `<!doctype html>
     background:linear-gradient(to top, rgba(251,250,248,.96) 55%, rgba(251,250,248,0));
   }
   .card:hover{filter:brightness(.97)}
+  /* The newest issue, seen from an older one. The rail is what you came
+     from as well as where you are going, so the sheet that takes you back
+     to the current paper is framed and named rather than left to be picked
+     out of a run of dates. It only ever renders here when you are reading
+     something older, since the paper on the table is never in the rail. */
+  .card.is-latest .sheetlet{
+    box-shadow:0 0 0 2.5px var(--ink),
+               0 2px 8px rgba(20,19,16,.10), 0 20px 38px rgba(20,19,16,.14);
+  }
+  .card.is-latest .when{
+    background:var(--ink); color:var(--sheet); padding-top:6px;
+  }
+  .card.is-latest .when b{
+    display:block; font-size:7.5px; font-weight:700;
+    letter-spacing:.18em; opacity:.68; margin-bottom:1px;
+  }
   /* the plate that closes the carousel */
   .endcap{cursor:default}
   .endcap .sheetlet{
@@ -644,17 +660,24 @@ if (ISSUES.length) {
   }
   const queueMobileFocus = () => { if (!mobileRaf) mobileRaf = requestAnimationFrame(mobileFocus); };
 
-  /* The rail is PREVIOUS issues, so the one on the table is not in it. The
-     last plate is the end of the archive: reaching it, or having nothing to
-     show at all, says so rather than leaving a void. */
+  /* The rail is PREVIOUS issues, so the one on the table is not in it —
+     which also means that picking an older paper puts the one you were
+     reading back into the rail, and it is rebuilt on every switch for that
+     reason. The newest issue is marked when it appears, so that the way
+     back to today is a thing you recognise rather than a date you have to
+     know. The last plate is the end of the archive: reaching it, or having
+     nothing to show at all, says so rather than leaving a void. */
   function build() {
     const others = ISSUES.map((e, i) => ({ e, i })).filter(x => x.i !== issue);
     const sheets = others.map(({ e, i }) => {
       const art = e.thumb
         ? '<img src="' + e.thumb + '" alt="" loading="lazy">'
         : '<span class="none">PDF</span>';
-      return '<button class="card" type="button" data-i="' + i + '" title="' + e.long + '">' +
-        '<span class="sheetlet">' + art + '<span class="when">' + e.label + '</span></span>' +
+      const latest = i === 0;
+      const when = latest ? '<b>LATEST</b>' + e.label : e.label;
+      return '<button class="card' + (latest ? ' is-latest' : '') + '" type="button" ' +
+        'data-i="' + i + '" title="' + (latest ? 'Latest issue — ' : '') + e.long + '">' +
+        '<span class="sheetlet">' + art + '<span class="when">' + when + '</span></span>' +
         '</button>';
     });
     sheets.push('<div class="card endcap"><span class="sheetlet">' +
@@ -711,16 +734,30 @@ if (ISSUES.length) {
     if (!running) glide();
   };
 
+  /* A gesture moves the stack continuously, but it comes to rest on a
+     sheet rather than between two of them — the mobile row gets this from
+     scroll-snap and the desktop stack had nothing equivalent, so it
+     settled wherever the wheel happened to stop, half a card down. A wheel
+     arrives as a stream of small deltas with no end event, so the settle
+     is what happens once they stop coming; a drag has a real end. */
+  let settleTimer = null;
+  const settle = ms => {
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(() => aimAt(Math.round(aim)), ms);
+  };
+
   $('deck').addEventListener('wheel', ev => {
     if (flat()) return;
     ev.preventDefault();                     // the rail scrolls, not the page
     aimAt(aim + ev.deltaY / 220);
+    settle(130);
   }, { passive: false });
 
   /* dragging works too, for trackpads and touch */
   let dragging = false, lastY = 0;
   $('deck').addEventListener('pointerdown', ev => {
     if (flat()) return;
+    clearTimeout(settleTimer);               // a grab cancels a pending settle
     dragging = true; lastY = ev.clientY; $('deck').setPointerCapture(ev.pointerId);
   });
   $('deck').addEventListener('pointermove', ev => {
@@ -728,7 +765,11 @@ if (ISSUES.length) {
     aimAt(aim - (ev.clientY - lastY) / 90);
     lastY = ev.clientY;
   });
-  const drop = () => { dragging = false; };
+  const drop = () => {
+    if (!dragging) return;
+    dragging = false;
+    settle(0);                               // let go and it lands on a sheet
+  };
   $('deck').addEventListener('pointerup', drop);
   $('deck').addEventListener('pointercancel', drop);
 
