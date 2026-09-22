@@ -315,8 +315,11 @@ const page = `<!doctype html>
   /* the sheet on the table: ringed and inverted, so the stack always says
      where you are without you having to read the dates */
   .card.is-current .sheetlet::after{border-width:3px}
-  .card.is-current .when{background:var(--ink); color:var(--sheet); padding-top:6px}
-  .card.is-current .when b{opacity:.72}
+  /* The same grey as the ring, opaque so it covers the newsprint under it
+     cleanly rather than muddying against it. Ink on grey, not paper on
+     black: the mark should name the sheet, not outshout the thumbnails. */
+  .card.is-current .when{background:var(--chip); color:var(--ink); padding-top:6px}
+  .card.is-current .when b{opacity:.55}
   .card.is-current{cursor:default}
   /* the newest, when it is not the one you are on */
   .card.is-latest .when b{color:var(--ink)}
