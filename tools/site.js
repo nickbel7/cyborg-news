@@ -300,17 +300,26 @@ const page = `<!doctype html>
      to the current paper is framed and named rather than left to be picked
      out of a run of dates. It only ever renders here when you are reading
      something older, since the paper on the table is never in the rail. */
-  .card.is-latest .sheetlet{
-    box-shadow:0 0 0 2.5px var(--ink),
-               0 2px 8px rgba(20,19,16,.10), 0 20px 38px rgba(20,19,16,.14);
+  /* The ring is drawn inside the sheet, not hung around it. The deck clips
+     to its own box, and the front card sits flush against the deck's top
+     edge, so a ring cast outward by a box-shadow lost its top stroke. An
+     inset border cannot be clipped by an ancestor whatever the overflow. */
+  .card .sheetlet::after{
+    content:''; position:absolute; inset:0; border-radius:12px;
+    border:0 solid var(--ink); pointer-events:none;
   }
-  .card.is-latest .when{
-    background:var(--ink); color:var(--sheet); padding-top:6px;
-  }
-  .card.is-latest .when b{
+  .card .when b{
     display:block; font-size:7.5px; font-weight:700;
     letter-spacing:.18em; opacity:.68; margin-bottom:1px;
   }
+  /* the sheet on the table: ringed and inverted, so the stack always says
+     where you are without you having to read the dates */
+  .card.is-current .sheetlet::after{border-width:3px}
+  .card.is-current .when{background:var(--ink); color:var(--sheet); padding-top:6px}
+  .card.is-current .when b{opacity:.72}
+  .card.is-current{cursor:default}
+  /* the newest, when it is not the one you are on */
+  .card.is-latest .when b{color:var(--ink)}
   /* the plate that closes the carousel */
   .endcap{cursor:default}
   .endcap .sheetlet{
@@ -660,32 +669,40 @@ if (ISSUES.length) {
   }
   const queueMobileFocus = () => { if (!mobileRaf) mobileRaf = requestAnimationFrame(mobileFocus); };
 
-  /* The rail is PREVIOUS issues, so the one on the table is not in it —
-     which also means that picking an older paper puts the one you were
-     reading back into the rail, and it is rebuilt on every switch for that
-     reason. The newest issue is marked when it appears, so that the way
-     back to today is a thing you recognise rather than a date you have to
-     know. The last plate is the end of the archive: reaching it, or having
-     nothing to show at all, says so rather than leaving a void. */
+  /* Every issue is in the rail, with the one on the table marked rather
+     than removed. It used to be dropped from the rail, which meant the
+     membership changed on every switch: the stack rebuilt, every sheet
+     below moved up a place, and the scroll position had to be thrown away
+     because the indices no longer meant the same thing. Keeping the list
+     fixed and marking the current sheet instead costs one card and makes
+     the rail stable — it stays where you left it, and it says which sheet
+     you are on. The last plate is the end of the archive: reaching it, or
+     having nothing to show at all, says so rather than leaving a void. */
   function build() {
-    const others = ISSUES.map((e, i) => ({ e, i })).filter(x => x.i !== issue);
-    const sheets = others.map(({ e, i }) => {
+    const sheets = ISSUES.map((e, i) => {
       const art = e.thumb
         ? '<img src="' + e.thumb + '" alt="" loading="lazy">'
         : '<span class="none">PDF</span>';
-      const latest = i === 0;
-      const when = latest ? '<b>LATEST</b>' + e.label : e.label;
-      return '<button class="card' + (latest ? ' is-latest' : '') + '" type="button" ' +
-        'data-i="' + i + '" title="' + (latest ? 'Latest issue — ' : '') + e.long + '">' +
-        '<span class="sheetlet">' + art + '<span class="when">' + when + '</span></span>' +
+      const current = i === issue;
+      const latest = i === 0 && !current;
+      const tag = current ? '<b>READING</b>' : latest ? '<b>LATEST</b>' : '';
+      const cls = 'card' + (current ? ' is-current' : '') + (latest ? ' is-latest' : '');
+      return '<button class="' + cls + '" type="button" data-i="' + i + '" ' +
+        (current ? 'aria-current="true" ' : '') +
+        'title="' + (current ? 'Reading — ' : latest ? 'Latest issue — ' : '') + e.long + '">' +
+        '<span class="sheetlet">' + art + '<span class="when">' + tag + e.label + '</span></span>' +
         '</button>';
     });
     sheets.push('<div class="card endcap"><span class="sheetlet">' +
       '<span class="endtext">SORRY,<br>WE RAN OUT</span></span></div>');
-    $('deck').innerHTML = sheets.join('');
-    cards = [].slice.call($('deck').querySelectorAll('.card'));
-    focus = 0; aim = 0;
-    $('deck').scrollLeft = 0;                 // a rebuilt row starts at its own beginning
+    /* The rail keeps its place across a rebuild. The list is the same
+       length and in the same order every time, so a position still means
+       the same sheet afterwards. */
+    const deck = $('deck');
+    const keepScroll = deck.scrollLeft;
+    deck.innerHTML = sheets.join('');
+    cards = [].slice.call(deck.querySelectorAll('.card'));
+    deck.scrollLeft = keepScroll;
     queueMobileFocus();
   }
 
@@ -730,7 +747,7 @@ if (ISSUES.length) {
     requestAnimationFrame(step);
   }
   const aimAt = v => {
-    aim = Math.max(0, Math.min(ISSUES.length - 1, v));
+    aim = Math.max(0, Math.min(Math.max(0, cards.length - 1), v));
     if (!running) glide();
   };
 
