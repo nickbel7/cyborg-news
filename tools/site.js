@@ -738,7 +738,13 @@ if (ISSUES.length) {
      you are on. The last plate is the end of the archive: reaching it, or
      having nothing to show at all, says so rather than leaving a void. */
   function build() {
-    const sheets = ISSUES.map((e, i) => {
+    /* While the newest issue is the one on display, it is left out of the
+       rail altogether: a stamped sheet sitting directly under a full-size
+       copy of itself is just clutter, and in that state the rail is purely
+       what its heading says it is — previous issues. Pick an older paper
+       and it returns, stamped, as the way back. */
+    const shown = ISSUES.map((e, i) => ({ e, i })).filter(x => !(x.i === 0 && issue === 0));
+    const sheets = shown.map(({ e, i }) => {
       const art = e.thumb
         ? '<img src="' + e.thumb + '" alt="" loading="lazy">'
         : '<span class="none">PDF</span>';
@@ -765,6 +771,11 @@ if (ISSUES.length) {
     deck.innerHTML = sheets.join('');
     cards = [].slice.call(deck.querySelectorAll('.card'));
     deck.scrollLeft = keepScroll;
+    /* The rail is one card shorter while the newest sheet is on display,
+       so a position held from the longer state has to come back in range. */
+    const last = Math.max(0, cards.length - 1);
+    focus = Math.min(focus, last);
+    aim = Math.min(aim, last);
     queueMobileFocus();
   }
 
@@ -892,8 +903,13 @@ if (ISSUES.length) {
      row's own smooth scroll on a phone. Not a reset — it moves to the sheet
      you chose rather than back to the beginning. */
   function bringToFront(i) {
+    /* Found by the issue it carries, not by its place in the array: the
+       two stop agreeing the moment a sheet is left out of the rail, and
+       indexing by position would travel to the neighbour instead. */
+    const idx = cards.findIndex(c => Number(c.dataset.i) === i);
+    if (idx < 0) { aimAt(0); return; }   // not in the rail — it is the sheet now on display
     if (flat()) {
-      const deck = $('deck'), c = cards[i];
+      const deck = $('deck'), c = cards[idx];
       if (!c) return;
       /* Measured between the two rectangles rather than from offsetLeft:
          the cards are static in the row, so their offsetParent is not the
@@ -904,7 +920,7 @@ if (ISSUES.length) {
       deck.scrollTo({ left: Math.max(0, deck.scrollLeft + shift), behavior: 'smooth' });
       return;
     }
-    aimAt(i);
+    aimAt(idx);
   }
 
   $('deck').addEventListener('scroll', queueMobileFocus, { passive: true });
