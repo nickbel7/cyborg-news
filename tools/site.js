@@ -306,7 +306,7 @@ const page = `<!doctype html>
      inset border cannot be clipped by an ancestor whatever the overflow. */
   .card .sheetlet::after{
     content:''; position:absolute; inset:0; border-radius:12px;
-    border:0 solid var(--ink); pointer-events:none;
+    border:0 solid rgba(20,19,16,.22); pointer-events:none;
   }
   .card .when b{
     display:block; font-size:7.5px; font-weight:700;
@@ -820,8 +820,30 @@ if (ISSUES.length) {
     const i = Number(b.dataset.i);
     if (i === issue) return;
     issue = i; page = 1;
-    build(); layout(); paint();                // the rail's membership changed
+    build(); layout(); paint();   // lay the new cards out before anything animates
+    bringToFront(i);              // then the sheet you chose travels to the front
   });
+
+  /* Picking a sheet from halfway down the stack leaves it halfway down the
+     stack, marked but not obviously the one now on the table. So the rail
+     travels to it: the same eased glide the wheel uses on desktop, and the
+     row's own smooth scroll on a phone. Not a reset — it moves to the sheet
+     you chose rather than back to the beginning. */
+  function bringToFront(i) {
+    if (flat()) {
+      const deck = $('deck'), c = cards[i];
+      if (!c) return;
+      /* Measured between the two rectangles rather than from offsetLeft:
+         the cards are static in the row, so their offsetParent is not the
+         deck and offsetLeft is in the wrong coordinate space — it read
+         31px out. A rect difference is origin-independent. 20px is the
+         row's leading inset, which is also where scroll-snap aligns. */
+      const shift = c.getBoundingClientRect().left - deck.getBoundingClientRect().left - 20;
+      deck.scrollTo({ left: Math.max(0, deck.scrollLeft + shift), behavior: 'smooth' });
+      return;
+    }
+    aimAt(i);
+  }
 
   $('deck').addEventListener('scroll', queueMobileFocus, { passive: true });
 
