@@ -295,7 +295,11 @@
       article._slot = slot;
       article._page = page.index;
     });
-    page.boxPlaced.forEach(({ slot, box }) => put(slot, renderBox(box)).dataset.role = 'box');
+    page.boxPlaced.forEach(({ slot, box }) => {
+      const el = put(slot, renderBox(box));
+      el.dataset.role = 'box';
+      el.dataset.box = box.id || slot.n;     // so a short box can be named in the report
+    });
     page._jumpSlots = page.tpl.slots.filter(s => s.accepts === 'jump').map(slot => {
       const s = put(slot, null, 'jump-slot');
       s.dataset.capacity = slot.capacity || 1;
@@ -525,7 +529,7 @@
     root.innerHTML = '';
     plan.pages.forEach(p => buildPage(p, data, root));
 
-    const report = { pages: plan.pages.length, jumps: [], trimmed: [], white: [], dropped: [], fillers: [], plates: [], plateFit: [], clipped: [] };
+    const report = { pages: plan.pages.length, jumps: [], trimmed: [], white: [], whiteBox: [], dropped: [], fillers: [], plates: [], plateFit: [], clipped: [] };
     const report0 = report;
     const fillers = (data.fillers || []).slice();
 
@@ -619,6 +623,20 @@
       if (!body) return;
       const mm = whiteMM(body);
       if (mm > 14) report.white.push(`${s.querySelector('[data-article]')?.dataset.article} ~${Math.round(mm)}mm`);
+    });
+
+    /* Boxes were left out of this sweep until now, which is why a box could
+       print a quarter full for three issues running and no pass of the fit
+       loop ever mentioned it. A box is written once from an estimate and
+       never measured, so when the estimate was wrong the page simply carried
+       the hole — 129mm of it on 22 September. Reported separately from the
+       article gaps: refit rewrites articles, and nothing yet rewrites a box,
+       so this is a note to a person rather than an instruction to the loop. */
+    root.querySelectorAll('.slot[data-role="box"]').forEach(s => {
+      const hold = s.querySelector('.boxed > :last-child');
+      if (!hold) return;
+      const mm = whiteMM(hold);
+      if (mm > 20) report.whiteBox.push(`${s.dataset.box} ~${Math.round(mm)}mm`);
     });
 
     if (opts && opts.onReport) opts.onReport(report);
