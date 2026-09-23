@@ -114,6 +114,39 @@ const editions = (fs.existsSync(ISSUES) ? fs.readdirSync(ISSUES) : [])
     };
   });
 
+/* The stamp that marks the newest issue in the rail: a rubber seal struck
+   across the corner of the sheet, drawn here rather than shipped as an
+   image so it stays sharp at any size and takes its colour from the page.
+   One ink, as a real stamp has — the lettering is the paper showing
+   through the band, not a second colour printed on top.
+
+   The cog edge is a plain alternating-radius polygon; the rounded scallops
+   come from stroking that path in the same colour with a round line join,
+   which costs nothing and saves hand-writing thirty-two arc segments. */
+const STAMP = (() => {
+  const teeth = 16, rO = 41, rI = 36.5;
+  let d = '';
+  for (let k = 0; k < teeth * 2; k++) {
+    const a = (Math.PI * k) / teeth - Math.PI / 2;
+    const r = k % 2 ? rI : rO;
+    d += (k ? 'L' : 'M') + (50 + r * Math.cos(a)).toFixed(2) + ' ' + (50 + r * Math.sin(a)).toFixed(2);
+  }
+  d += 'Z';
+  return '<svg class="stamp" viewBox="0 0 100 100" aria-hidden="true" focusable="false">' +
+    '<g fill="none" stroke="currentColor" stroke-linejoin="round">' +
+      '<path d="' + d + '" fill="currentColor" stroke-width="5"></path>' +
+    '</g>' +
+    /* the two rings are cut out of the disc, so they read as unlinked ink */
+    '<circle cx="50" cy="50" r="31" fill="none" stroke="var(--sheet)" stroke-width="2.4"></circle>' +
+    '<circle cx="50" cy="50" r="26.5" fill="none" stroke="var(--sheet)" stroke-width="2" ' +
+      'stroke-dasharray="2.4 3.1" stroke-linecap="round"></circle>' +
+    '<g transform="rotate(-11 50 50)">' +
+      '<rect x="1.5" y="40.5" width="97" height="19" rx="1.5" fill="currentColor"></rect>' +
+      '<text x="50" y="54.3" text-anchor="middle" fill="var(--sheet)">LATEST</text>' +
+    '</g>' +
+  '</svg>';
+})();
+
 const manifest = editions.map(e => ({
   date: e.date, long: e.long, volume: e.volume, lead: e.lead, kb: e.kb,
   label: stamp(e.date),
@@ -140,6 +173,7 @@ const page = `<!doctype html>
     --go:#141310;             /* the one active control */
     --go-ink:#ffffff;
     --sheet:#fbfaf8;
+    --stamp:#b8392c;          /* the one ink that is not black on this page */
     --rail:210px;             /* the carousel's column */
   }
   *{box-sizing:border-box}
@@ -295,6 +329,53 @@ const page = `<!doctype html>
     background:linear-gradient(to top, rgba(251,250,248,.96) 55%, rgba(251,250,248,0));
   }
   .card:hover{filter:brightness(.97)}
+  /* The newest issue, seen from an older one. The rail is what you came
+     from as well as where you are going, so the sheet that takes you back
+     to the current paper is framed and named rather than left to be picked
+     out of a run of dates. It only ever renders here when you are reading
+     something older, since the paper on the table is never in the rail. */
+  /* The ring is drawn inside the sheet, not hung around it. The deck clips
+     to its own box, and the front card sits flush against the deck's top
+     edge, so a ring cast outward by a box-shadow lost its top stroke. An
+     inset border cannot be clipped by an ancestor whatever the overflow. */
+  .card .sheetlet::after{
+    content:''; position:absolute; inset:0; border-radius:12px;
+    border:0 solid rgba(20,19,16,.22); pointer-events:none;
+  }
+  .card .when b{
+    display:block; font-size:7.5px; font-weight:700;
+    letter-spacing:.18em; opacity:.68; margin-bottom:1px;
+  }
+  /* the sheet on the table: ringed and inverted, so the stack always says
+     where you are without you having to read the dates */
+  .card.is-current .sheetlet::after{border-width:3px}
+  /* The same grey as the ring, opaque so it covers the newsprint under it
+     cleanly rather than muddying against it. Ink on grey, not paper on
+     black: the mark should name the sheet, not outshout the thumbnails. */
+  /* Held clear of the ring rather than run under it. Full-bleed, the grey
+     bar met the grey stroke along the bottom and both ends, and the two
+     greys stacked into a darker, thicker edge — the ring looked doubled
+     where the label crossed it. Inset by the ring's own width, the stroke
+     frames the label and neither colour sits on the other. The radius is
+     the sheet's 12px less those 3px, so the corner follows the curve. */
+  .card.is-current .when{
+    left:3px; right:3px; bottom:3px; border-radius:0 0 9px 9px;
+    background:var(--chip); color:var(--ink); padding-top:6px;
+  }
+  .card.is-current .when b{opacity:.55}
+  .card.is-current{cursor:default}
+  /* the newest, when it is not the one you are on: struck across the
+     corner of the sheet. Slightly off square and not quite opaque, the way
+     a stamp pressed by hand never lands flat or perfectly inked. */
+  .card .stamp{
+    position:absolute; right:5%; top:4%; width:46%; height:auto;
+    color:var(--stamp); opacity:.88; pointer-events:none;
+    transform:rotate(-9deg); transform-origin:center;
+  }
+  .card .stamp text{
+    font-family:'Libre Franklin',system-ui,sans-serif;
+    font-size:15px; font-weight:800; letter-spacing:.06em;
+  }
   /* the plate that closes the carousel */
   .endcap{cursor:default}
   .endcap .sheetlet{
@@ -540,6 +621,9 @@ ${avatar.sprite ? `    <span class="spriteWin" style="aspect-ratio:${avatar.fram
 <script src="${PDFJS}/pdf.min.js"></script>
 <script>
 const ISSUES = ${JSON.stringify(manifest)};
+/* Built once in node and handed over as a string: the rail is assembled
+   in the browser, so the stamp's markup has to travel with the page. */
+const STAMP = ${JSON.stringify(STAMP)};
 if (ISSUES.length) {
   const $ = id => document.getElementById(id);
   const docs = new Map();            // one fetch per issue, however often it is opened
@@ -644,25 +728,54 @@ if (ISSUES.length) {
   }
   const queueMobileFocus = () => { if (!mobileRaf) mobileRaf = requestAnimationFrame(mobileFocus); };
 
-  /* The rail is PREVIOUS issues, so the one on the table is not in it. The
-     last plate is the end of the archive: reaching it, or having nothing to
-     show at all, says so rather than leaving a void. */
+  /* Every issue is in the rail, with the one on the table marked rather
+     than removed. It used to be dropped from the rail, which meant the
+     membership changed on every switch: the stack rebuilt, every sheet
+     below moved up a place, and the scroll position had to be thrown away
+     because the indices no longer meant the same thing. Keeping the list
+     fixed and marking the current sheet instead costs one card and makes
+     the rail stable — it stays where you left it, and it says which sheet
+     you are on. The last plate is the end of the archive: reaching it, or
+     having nothing to show at all, says so rather than leaving a void. */
   function build() {
-    const others = ISSUES.map((e, i) => ({ e, i })).filter(x => x.i !== issue);
-    const sheets = others.map(({ e, i }) => {
+    /* While the newest issue is the one on display, it is left out of the
+       rail altogether: a stamped sheet sitting directly under a full-size
+       copy of itself is just clutter, and in that state the rail is purely
+       what its heading says it is — previous issues. Pick an older paper
+       and it returns, stamped, as the way back. */
+    const shown = ISSUES.map((e, i) => ({ e, i })).filter(x => !(x.i === 0 && issue === 0));
+    const sheets = shown.map(({ e, i }) => {
       const art = e.thumb
         ? '<img src="' + e.thumb + '" alt="" loading="lazy">'
         : '<span class="none">PDF</span>';
-      return '<button class="card" type="button" data-i="' + i + '" title="' + e.long + '">' +
-        '<span class="sheetlet">' + art + '<span class="when">' + e.label + '</span></span>' +
+      const current = i === issue;
+      const latest = i === 0 && !current;
+      /* The stamp says LATEST, so the label under it does not repeat the
+         word — it goes back to being just the date. */
+      const tag = current ? '<b>READING</b>' : '';
+      const cls = 'card' + (current ? ' is-current' : '') + (latest ? ' is-latest' : '');
+      return '<button class="' + cls + '" type="button" data-i="' + i + '" ' +
+        (current ? 'aria-current="true" ' : '') +
+        'title="' + (current ? 'Reading — ' : latest ? 'Latest issue — ' : '') + e.long + '">' +
+        '<span class="sheetlet">' + art + (latest ? STAMP : '') +
+        '<span class="when">' + tag + e.label + '</span></span>' +
         '</button>';
     });
     sheets.push('<div class="card endcap"><span class="sheetlet">' +
       '<span class="endtext">SORRY,<br>WE RAN OUT</span></span></div>');
-    $('deck').innerHTML = sheets.join('');
-    cards = [].slice.call($('deck').querySelectorAll('.card'));
-    focus = 0; aim = 0;
-    $('deck').scrollLeft = 0;                 // a rebuilt row starts at its own beginning
+    /* The rail keeps its place across a rebuild. The list is the same
+       length and in the same order every time, so a position still means
+       the same sheet afterwards. */
+    const deck = $('deck');
+    const keepScroll = deck.scrollLeft;
+    deck.innerHTML = sheets.join('');
+    cards = [].slice.call(deck.querySelectorAll('.card'));
+    deck.scrollLeft = keepScroll;
+    /* The rail is one card shorter while the newest sheet is on display,
+       so a position held from the longer state has to come back in range. */
+    const last = Math.max(0, cards.length - 1);
+    focus = Math.min(focus, last);
+    aim = Math.min(aim, last);
     queueMobileFocus();
   }
 
@@ -707,39 +820,108 @@ if (ISSUES.length) {
     requestAnimationFrame(step);
   }
   const aimAt = v => {
-    aim = Math.max(0, Math.min(ISSUES.length - 1, v));
+    aim = Math.max(0, Math.min(Math.max(0, cards.length - 1), v));
     if (!running) glide();
+  };
+
+  /* A gesture moves the stack continuously, but it comes to rest on a
+     sheet rather than between two of them — the mobile row gets this from
+     scroll-snap and the desktop stack had nothing equivalent, so it
+     settled wherever the wheel happened to stop, half a card down. A wheel
+     arrives as a stream of small deltas with no end event, so the settle
+     is what happens once they stop coming; a drag has a real end. */
+  let settleTimer = null;
+  const settle = ms => {
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(() => aimAt(Math.round(aim)), ms);
   };
 
   $('deck').addEventListener('wheel', ev => {
     if (flat()) return;
     ev.preventDefault();                     // the rail scrolls, not the page
     aimAt(aim + ev.deltaY / 220);
+    settle(130);
   }, { passive: false });
 
-  /* dragging works too, for trackpads and touch */
-  let dragging = false, lastY = 0;
+  /* Dragging works too, for trackpads and touch — but the pointer is only
+     captured once the gesture is actually a drag, never on pointerdown.
+     Capturing on pointerdown retargets every later pointer event to the
+     deck, the click included, so the closest('.card') lookup in the
+     handler below saw the deck and returned null: pressing a sheet did
+     nothing at all, and had done nothing since the stack was built. Real
+     press-and-release said so plainly — pointerdown on the IMG, pointerup
+     and click on the deck — while element.click() in a test skips the
+     pointer sequence entirely and never sees it. */
+  const SLOP = 5;                            // px of travel before it counts as a drag
+  let down = null, dragging = false, lastY = 0, travel = 0, afterDrag = false;
+
   $('deck').addEventListener('pointerdown', ev => {
     if (flat()) return;
-    dragging = true; lastY = ev.clientY; $('deck').setPointerCapture(ev.pointerId);
+    clearTimeout(settleTimer);               // a grab cancels a pending settle
+    down = ev.pointerId; lastY = ev.clientY; travel = 0; dragging = false;
   });
   $('deck').addEventListener('pointermove', ev => {
-    if (!dragging) return;
+    if (down === null || ev.pointerId !== down) return;
+    /* A pointerup can go missing — the pointer leaves the window, another
+       element takes capture, the tab loses focus mid-gesture. Without this
+       the stack would stay armed and follow the bare cursor afterwards. */
+    if (!ev.buttons) { drop(); return; }
+    travel += Math.abs(ev.clientY - lastY);
+    if (!dragging) {
+      if (travel < SLOP) { lastY = ev.clientY; return; }   // still a click
+      dragging = true;
+      $('deck').setPointerCapture(down);      // now it is a drag, so keep the pointer
+    }
     aimAt(aim - (ev.clientY - lastY) / 90);
     lastY = ev.clientY;
   });
-  const drop = () => { dragging = false; };
+  const drop = () => {
+    if (down === null) return;
+    down = null;
+    if (!dragging) return;                    // a plain click: leave it to the click handler
+    dragging = false;
+    afterDrag = true;                         // the click that follows a drag is not a choice
+    settle(0);                                // let go and it lands on a sheet
+  };
   $('deck').addEventListener('pointerup', drop);
   $('deck').addEventListener('pointercancel', drop);
 
   $('deck').addEventListener('click', ev => {
+    if (afterDrag) { afterDrag = false; return; }   // ending a drag over a sheet is not picking it
     const b = ev.target.closest('.card');
     if (!b || !b.dataset.i) return;            // the end plate is not a link
     const i = Number(b.dataset.i);
     if (i === issue) return;
     issue = i; page = 1;
-    build(); layout(); paint();                // the rail's membership changed
+    build(); layout(); paint();   // lay the new cards out before anything animates
+    bringToFront(i);              // then the sheet you chose travels to the front
   });
+
+  /* Picking a sheet from halfway down the stack leaves it halfway down the
+     stack, marked but not obviously the one now on the table. So the rail
+     travels to it: the same eased glide the wheel uses on desktop, and the
+     row's own smooth scroll on a phone. Not a reset — it moves to the sheet
+     you chose rather than back to the beginning. */
+  function bringToFront(i) {
+    /* Found by the issue it carries, not by its place in the array: the
+       two stop agreeing the moment a sheet is left out of the rail, and
+       indexing by position would travel to the neighbour instead. */
+    const idx = cards.findIndex(c => Number(c.dataset.i) === i);
+    if (idx < 0) { aimAt(0); return; }   // not in the rail — it is the sheet now on display
+    if (flat()) {
+      const deck = $('deck'), c = cards[idx];
+      if (!c) return;
+      /* Measured between the two rectangles rather than from offsetLeft:
+         the cards are static in the row, so their offsetParent is not the
+         deck and offsetLeft is in the wrong coordinate space — it read
+         31px out. A rect difference is origin-independent. 20px is the
+         row's leading inset, which is also where scroll-snap aligns. */
+      const shift = c.getBoundingClientRect().left - deck.getBoundingClientRect().left - 20;
+      deck.scrollTo({ left: Math.max(0, deck.scrollLeft + shift), behavior: 'smooth' });
+      return;
+    }
+    aimAt(idx);
+  }
 
   $('deck').addEventListener('scroll', queueMobileFocus, { passive: true });
 
