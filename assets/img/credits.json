@@ -15,26 +15,26 @@
     "artist": "George Glover"
   },
   "lead-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Datacenter_Server_Racks_(22370909788).jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Keep_in_touch_(35168590506).jpg",
     "licence": "CC BY 2.0",
-    "artist": "Carl Lender from Sunrise, USA",
-    "title": "File:Datacenter Server Racks (22370909788).jpg",
-    "width": 6000,
-    "height": 4000,
-    "query": "data center server racks",
+    "artist": "Gauthier DELECROIX - 郭天 from Qingdao, China",
+    "title": "File:Keep in touch (35168590506).jpg",
+    "width": 5184,
+    "height": 2916,
+    "query": "teenagers using smartphones",
     "used_for": "lead-2",
-    "fetched": "2026-09-16"
+    "fetched": "2026-09-27"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Old_St._Louis_County_Courthouse,_Gateway_Arch_National_Park,_St._Louis,_MO_-_53058077310.jpg",
-    "licence": "CC BY-SA 2.0",
-    "artist": "w_lemay",
-    "title": "File:Old St. Louis County Courthouse, Gateway Arch National Park, St. Louis, MO - 53058077310.jpg",
-    "width": 4032,
-    "height": 3024,
-    "query": "federal courthouse exterior stone columns",
+    "source": "https://commons.wikimedia.org/wiki/File:LOOKING_SOUTH_ALONG_EXTERIOR_WEST_SCARP_FROM_THE_NORTHWEST_-_Fort_Adams,_Newport_Neck,_Newport,_Newport_County,_RI_HABS_RI,3-NEWP,54-7.tif",
+    "licence": "Public domain",
+    "artist": "Jack Boucher",
+    "title": "File:LOOKING SOUTH ALONG EXTERIOR WEST SCARP FROM THE NORTHWEST - Fort Adams, Newport Neck, Newport, Newport County, RI HABS RI,3-NEWP,54-7.tif",
+    "width": 5000,
+    "height": 3565,
+    "query": "Pentagon building exterior",
     "used_for": "lead-1",
-    "fetched": "2026-09-22"
+    "fetched": "2026-09-27"
   },
   "top-a-2.jpg": {
     "source": "https://commons.wikimedia.org/wiki/File:TF-99_at_the_Forefront-_Testing_New_Technologies_for_Operational_Readiness_(9102648).jpg",
