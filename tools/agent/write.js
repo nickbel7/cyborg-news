@@ -281,7 +281,6 @@ async function main() {
       site: 'NEWSPAPER.CYBORGLAB.ORG',
       price: 'FREE TO HUMANS',
       dateline_long: LONG, dateline_short: SHORT,
-      volume: 'VOL. II', number: '',
       pages: templates.length,
       plan: templates.map(t => t.id),
       sections: ['', furniture.section2 || 'Minds & Machines'],
