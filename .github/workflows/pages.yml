@@ -13,6 +13,8 @@ on:
     paths:
       - 'issues/**'
       - 'assets/avatar/**'
+      - 'assets/favicon*'
+      - 'assets/apple-touch-icon.png'
       - 'tools/site.js'
       - '.github/workflows/pages.yml'
   # A commit pushed by the build job uses GITHUB_TOKEN, and commits made with

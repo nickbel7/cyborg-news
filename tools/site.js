@@ -160,6 +160,9 @@ const page = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CYBORG NEWS</title>
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="A printed newspaper for the lab, set weekly from the week's reporting on AI, cognition and human-machine systems.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Libre+Franklin:wght@500;600&display=swap">
@@ -1112,6 +1115,14 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'issues'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), page);
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');   // keep Pages off Jekyll
+/* The tab icon. The SVG is the icon; the PNGs are rendered from it once and
+   committed, for browsers that still will not take an SVG favicon and for
+   the iOS home screen, which wants a 180px bitmap. Rendered ahead of time
+   rather than here because the Pages runner has no SVG rasteriser. */
+for (const f of ['favicon.svg', 'favicon-32.png', 'apple-touch-icon.png']) {
+  const from = path.join(ROOT, 'assets', f);
+  if (fs.existsSync(from)) fs.copyFileSync(from, path.join(OUT, f));
+}
 /* Pages is published here from an Actions artifact, not a branch, and an
    artifact-based deployment does not carry the custom domain the way a
    branch-based one does — the domain has to travel with the build output
