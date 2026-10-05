@@ -15,26 +15,26 @@
     "artist": "George Glover"
   },
   "lead-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Keep_in_touch_(35168590506).jpg",
-    "licence": "CC BY 2.0",
-    "artist": "Gauthier DELECROIX - 郭天 from Qingdao, China",
-    "title": "File:Keep in touch (35168590506).jpg",
-    "width": 5184,
-    "height": 2916,
-    "query": "teenagers using smartphones",
+    "source": "https://commons.wikimedia.org/wiki/File:A_NURSE_HELPS_AN_ELDERLY_PATIENT_LEAVE_LOUISVILLE_MEMORIAL_HOSPITAL._A_LIQUID_CHLORINE_BARGE_ON_THE_OHIO_RIVER_HAD..._-_NARA_-_543906.tif",
+    "licence": "Public domain",
+    "artist": "Bill Strode",
+    "title": "File:A NURSE HELPS AN ELDERLY PATIENT LEAVE LOUISVILLE MEMORIAL HOSPITAL. A LIQUID CHLORINE BARGE ON THE OHIO RIVER HAD... - NARA - 543906.tif",
+    "width": 3000,
+    "height": 2039,
+    "query": "elderly patient",
     "used_for": "lead-2",
-    "fetched": "2026-09-27"
+    "fetched": "2026-10-05"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:LOOKING_SOUTH_ALONG_EXTERIOR_WEST_SCARP_FROM_THE_NORTHWEST_-_Fort_Adams,_Newport_Neck,_Newport,_Newport_County,_RI_HABS_RI,3-NEWP,54-7.tif",
-    "licence": "Public domain",
-    "artist": "Jack Boucher",
-    "title": "File:LOOKING SOUTH ALONG EXTERIOR WEST SCARP FROM THE NORTHWEST - Fort Adams, Newport Neck, Newport, Newport County, RI HABS RI,3-NEWP,54-7.tif",
-    "width": 5000,
-    "height": 3565,
-    "query": "Pentagon building exterior",
+    "source": "https://commons.wikimedia.org/wiki/File:DFC_1941_Traffic_police_officer_on_a_motorcycle_checks_paperwork_beside_a_car_at_a_nighttime_roadside_stop.jpg",
+    "licence": "CC BY-SA 4.0",
+    "artist": "PattayaPatrol",
+    "title": "File:DFC 1941 Traffic police officer on a motorcycle checks paperwork beside a car at a nighttime roadside stop.jpg",
+    "width": 5568,
+    "height": 3712,
+    "query": "police car roadside",
     "used_for": "lead-1",
-    "fetched": "2026-09-27"
+    "fetched": "2026-10-05"
   },
   "top-a-2.jpg": {
     "source": "https://commons.wikimedia.org/wiki/File:TF-99_at_the_Forefront-_Testing_New_Technologies_for_Operational_Readiness_(9102648).jpg",
