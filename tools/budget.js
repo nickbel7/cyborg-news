@@ -59,10 +59,17 @@ function slotWords(slot) {
 const BOX_HEAD_MM = 6;      // box-head title line, its rule, and the margin below it
 const BOX_PAD_MM = 4.8;     // .boxed padding, top and bottom
 
+/* The article figures assume justified, hyphenated columns. Box prose is set
+   ragged-right in one wide measure with a bold opening clause, and holds
+   noticeably less: measured on the issue of 5 October, a 56mm six-unit box
+   printed 95 words full, and 74 words in nine of its eleven lines, against
+   129 predicted. Written to the uncorrected figure, both boxes overran. */
+const BOX_PROSE_FILL = 0.72;
+
 function boxWords(slot) {
   const cols = slot.s / 3;                          // fractional: one wide column, not several
   const body = Math.max(0, slot.h - BOX_PAD_MM - BOX_HEAD_MM);
-  return Math.round((body / LINE) * cols * WORDS_PER_LINE);
+  return Math.round((body / LINE) * cols * WORDS_PER_LINE * BOX_PROSE_FILL);
 }
 
 /* Rows, for the kinds that are made of rows. A words figure is no use to a
