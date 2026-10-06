@@ -118,8 +118,7 @@
       <div class="logo"><img src="assets/logo-inline.svg" alt="${esc(issue.name)}"></div>
       <div class="folio-line">
         <b>${esc(issue.site || '')}</b>
-        <span class="center">${[issue.dateline_long, issue.volume, issue.number]
-          .filter(Boolean).map(esc).join(' &nbsp;·&nbsp; ')}</span>
+        <span class="center">${esc(issue.dateline_long || '')}</span>
         <b>${esc(issue.price || '')}</b>
       </div>`;
     return n;
@@ -457,10 +456,35 @@
     const hold = box.lastElementChild;
     if (!hold) return 0;
     let cut = 0, guard = 0;
+    const over = () => hold.scrollHeight > hold.clientHeight + 1;
+
+    /* Prose is trimmed a sentence at a time and is never trimmed to
+       nothing. It used to lose a whole paragraph per step, the same as a
+       table loses a row — which is fine for rows and ruinous for prose: a
+       box written as one paragraph a line too long lost that paragraph and
+       printed as a title over an empty panel. Two boxes in the issue of
+       5 October went out that way, 131 and 128 words of checked copy cut
+       to none. A paragraph gives up its last sentence first; it is removed
+       only once another paragraph remains above it; and the last sentence
+       of the last paragraph stays whatever happens, because a line clipped
+       is a smaller fault than a box with nothing in it. */
+    const prose = hold.querySelector('.body');
+    if (prose) {
+      while (over() && guard++ < 200) {
+        const p = prose.lastElementChild;
+        if (!p) break;
+        const sent = splitSentences(p.innerHTML);
+        if (sent.length > 1) { p.innerHTML = sent.slice(0, -1).join(' '); cut++; continue; }
+        if (prose.children.length > 1) { p.remove(); cut++; continue; }
+        break;
+      }
+      return cut;
+    }
+
     const droppable = () => hold.querySelector(
-      'tbody tr:last-child, .listing .row:last-child, .stats .stat:last-child, .body p:last-child')
+      'tbody tr:last-child, .listing .row:last-child, .stats .stat:last-child')
       || hold.querySelector(':scope > .colophon');   // the source note goes last
-    while (hold.scrollHeight > hold.clientHeight + 1 && guard++ < 40) {
+    while (over() && guard++ < 40) {
       const d = droppable();
       if (!d) break;
       d.remove(); cut++;

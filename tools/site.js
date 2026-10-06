@@ -107,7 +107,6 @@ const editions = (fs.existsSync(ISSUES) ? fs.readdirSync(ISSUES) : [])
     return {
       date: d,
       long: issue?.issue?.dateline_long || longDate(d),
-      volume: issue?.issue?.volume || '',
       lead: arts[0]?.headline || null,
       hasThumb: fs.existsSync(path.join(dir, 'thumb.webp')),
       kb: Math.round(fs.statSync(path.join(dir, 'paper.pdf')).size / 1024)
@@ -148,7 +147,7 @@ const STAMP = (() => {
 })();
 
 const manifest = editions.map(e => ({
-  date: e.date, long: e.long, volume: e.volume, lead: e.lead, kb: e.kb,
+  date: e.date, long: e.long, lead: e.lead, kb: e.kb,
   label: stamp(e.date),
   pdf: `issues/${e.date}/paper.pdf`,
   thumb: e.hasThumb ? `issues/${e.date}/thumb.webp` : null
