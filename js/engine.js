@@ -118,8 +118,7 @@
       <div class="logo"><img src="assets/logo-inline.svg" alt="${esc(issue.name)}"></div>
       <div class="folio-line">
         <b>${esc(issue.site || '')}</b>
-        <span class="center">${[issue.dateline_long, issue.volume, issue.number]
-          .filter(Boolean).map(esc).join(' &nbsp;·&nbsp; ')}</span>
+        <span class="center">${esc(issue.dateline_long || '')}</span>
         <b>${esc(issue.price || '')}</b>
       </div>`;
     return n;
