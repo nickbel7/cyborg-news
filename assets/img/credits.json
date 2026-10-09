@@ -26,15 +26,16 @@
     "fetched": "2026-10-09"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:MIT_Media_Lab.jpg",
-    "licence": "CC BY-SA 3.0",
-    "artist": "Madcoverboy",
-    "title": "File:MIT Media Lab.jpg",
-    "width": 3879,
-    "height": 2586,
-    "query": "pinned by title",
+    "source": "https://impactbench.media.mit.edu/",
+    "licence": "No restrictions: used with the permission of the ImpactBench team",
+    "artist": "ImpactBench team, MIT Media Lab",
+    "title": "The ImpactBench wheel over the project’s meadow artwork, recoloured for one-ink print (see issues/2026-10-09/plate-compose.py)",
+    "width": 2400,
+    "height": 848,
+    "query": "permission",
     "used_for": "lead-1",
-    "fetched": "2026-10-09"
+    "fetched": "2026-10-09",
+    "permission": "Stated in conversation on 2026-10-09 by a member of the lab: the paper has full rights to use the graphic. No separate licence is published on the site."
   },
   "top-a-2.jpg": {
     "source": "https://commons.wikimedia.org/wiki/File:TF-99_at_the_Forefront-_Testing_New_Technologies_for_Operational_Readiness_(9102648).jpg",

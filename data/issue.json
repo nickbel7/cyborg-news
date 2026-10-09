@@ -148,8 +148,8 @@
       ],
       "art": {
         "type": "photo",
-        "capLabel": "On file",
-        "caption": "The MIT Media Lab building in Cambridge, Massachusetts.",
+        "capLabel": "The wheel",
+        "caption": "The ImpactBench wheel: the three domains on the inner ring, the 14 subareas around it, shaded dark for lower pass rates and light for higher.",
         "wmm": 170,
         "hmm": 60,
         "focusY": 0.4,
@@ -158,7 +158,7 @@
         "feather": 0.35,
         "floor": 0.08,
         "src": "assets/img/lead-1.jpg",
-        "credit": "Madcoverboy · CC BY-SA 3.0"
+        "credit": "ImpactBench · used with permission"
       }
     },
     {
