@@ -136,7 +136,7 @@
         "text": "We’ve set out to build a rigorous, independent measure of how AI shapes human psychology—not just what it outputs, but what it does to our thinking, our autonomy, and our wellbeing",
         "attr": "Juliana Schroeder, UC Berkeley Haas"
       },
-      "quoteAfter": 2,
+      "quoteAfter": 1,
       "body": [
         "Researchers led by the MIT Media Lab&rsquo;s Advancing Humans with AI program have released ImpactBench, an open benchmark that measures what AI models do to the people who use them. UC Berkeley Haas, USC Marshall&rsquo;s Neely Center and the Psychology of Technology Institute collaborated.",
         "The first release tests ten models in 48,540 multi-turn conversations with simulated adult and teen users, across more than 800 metrics and 26 benchmarks spanning physical, psychological and social impact.",
@@ -144,6 +144,7 @@
         "Each benchmark begins as an open submission from a clinician, educator, legal scholar or community advocate.",
         "The platform is public. ImpactBench says models are evaluated by researchers and not by the companies that build them.",
         "Pattie Maes, a professor at MIT and co-lead of the AHA program, said the fixation on existential risk distracts from established ones. &ldquo;We are actively losing our critical thinking ability and autonomy, and that is where our focus must urgently shift,&rdquo; Maes said.",
+        "Researchers, domain experts and organizations are invited to use the platform, suggest new benchmarks, validate existing ones and help shape how results are presented.",
         "The team calls the first results early signals, not final judgments on any system&rsquo;s safety."
       ],
       "art": {
