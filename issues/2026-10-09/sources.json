@@ -91,5 +91,18 @@
       "words": 673,
       "used_by": []
     }
-  ]
+  ],
+  "artwork": [
+    {
+      "used_for": "lead-1",
+      "what": "the wheel",
+      "url": "https://impactbench.media.mit.edu/_app/immutable/assets/image%2025.png.C9b0hvh2.webp"
+    },
+    {
+      "used_for": "lead-1",
+      "what": "the meadow",
+      "url": "https://impactbench.media.mit.edu/_app/immutable/assets/homepage-meadow.jpg.B7tTFQf5.webp"
+    }
+  ],
+  "artwork_basis": "Used with the permission of the ImpactBench team, stated by a lab member on 2026-10-09. Recipe: plate-compose.py"
 }
