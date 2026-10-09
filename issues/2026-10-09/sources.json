@@ -1,0 +1,95 @@
+{
+  "edition": "ImpactBench special edition",
+  "date": "2026-10-09",
+  "note": "The pages this edition was written from. Full text is not kept in the repository; every quotation was checked against it by tools/agent/gate.js before printing.",
+  "fetched": "2026-10-09",
+  "sources": [
+    {
+      "id": "4271d090ce",
+      "title": "MIT | ImpactBench",
+      "site": "impactbench.media.mit.edu",
+      "url": "https://impactbench.media.mit.edu/",
+      "published": null,
+      "words": 859,
+      "used_by": [
+        "lead-1",
+        "third-1",
+        "lead-2",
+        "mid-b-2"
+      ]
+    },
+    {
+      "id": "48c3971664",
+      "title": "Project Overview ‹ Open Submission: Open Benchmark for the Human Impact of AI (AI Impact Bench) – MIT Media Lab",
+      "site": "MIT Media Lab",
+      "url": "https://media.mit.edu/projects/the-open-benchmark-for-the-human-impact-of-ai/overview",
+      "published": null,
+      "words": 547,
+      "used_by": [
+        "mid-c-2"
+      ]
+    },
+    {
+      "id": "6e0445befc",
+      "title": "Open Benchmark of AI Impact on Humans= A Wellness Wheel for the AI Age",
+      "site": "AI Advisory Boards",
+      "url": "https://aiadvisoryboards.wordpress.com/2026/05/03/open-benchmark-of-ai-impact-on-humans-a-wellness-wheel-for-the-ai-age",
+      "published": "2026-05-03T15:53:47+00:00",
+      "words": 226,
+      "used_by": []
+    },
+    {
+      "id": "7fbeafa72f",
+      "title": "Researchers Launch AI Nutrition Labels, A New Tool Measuring AI’s Impact on Human Wellbeing – MIT Media Lab",
+      "site": "MIT Media Lab",
+      "url": "https://media.mit.edu/posts/researchers-launch-ai",
+      "published": null,
+      "words": 667,
+      "used_by": [
+        "lead-1",
+        "third-1",
+        "lead-2",
+        "mid-b-2"
+      ]
+    },
+    {
+      "id": "839abdf7ba",
+      "title": "Researchers launch new tool measuring AI’s impact on human wellbeing - Haas News | UC Berkeley Haas",
+      "site": "Haas News | UC Berkeley Haas",
+      "url": "https://newsroom.haas.berkeley.edu/research/researchers-launch-new-tool-measuring-ais-impact-on-human-wellbeing",
+      "published": "2026-10-07T18:43:04+00:00",
+      "words": 441,
+      "used_by": [
+        "lead-1",
+        "lead-2"
+      ]
+    },
+    {
+      "id": "bde516a0b3",
+      "title": "MIT | ImpactBench",
+      "site": "impactbench.media.mit.edu",
+      "url": "https://impactbench.media.mit.edu/about",
+      "published": null,
+      "words": 987,
+      "used_by": [
+        "lead-1",
+        "second-1",
+        "third-1",
+        "fourth-1",
+        "lead-2",
+        "second-2",
+        "mid-a-2",
+        "mid-c-2"
+      ]
+    },
+    {
+      "id": "f74a0b05b9",
+      "title": "Group Overview ‹ Cyborg Psychology – MIT Media Lab",
+      "site": "MIT Media Lab",
+      "url": "https://media.mit.edu/groups/cyborg-psychology/overview",
+      "published": null,
+      "words": 673,
+      "used_by": []
+    }
+  ]
+}

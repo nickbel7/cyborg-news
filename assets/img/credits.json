@@ -15,26 +15,26 @@
     "artist": "George Glover"
   },
   "lead-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:A_NURSE_HELPS_AN_ELDERLY_PATIENT_LEAVE_LOUISVILLE_MEMORIAL_HOSPITAL._A_LIQUID_CHLORINE_BARGE_ON_THE_OHIO_RIVER_HAD..._-_NARA_-_543906.tif",
-    "licence": "Public domain",
-    "artist": "Bill Strode",
-    "title": "File:A NURSE HELPS AN ELDERLY PATIENT LEAVE LOUISVILLE MEMORIAL HOSPITAL. A LIQUID CHLORINE BARGE ON THE OHIO RIVER HAD... - NARA - 543906.tif",
-    "width": 3000,
-    "height": 2039,
-    "query": "elderly patient",
+    "source": "https://commons.wikimedia.org/wiki/File:Nutrition_Facts_label_with_94%25_saturated_fat_per_serving.jpg",
+    "licence": "CC0",
+    "artist": "B137",
+    "title": "File:Nutrition Facts label with 94% saturated fat per serving.jpg",
+    "width": 2560,
+    "height": 1920,
+    "query": "pinned by title",
     "used_for": "lead-2",
-    "fetched": "2026-10-05"
+    "fetched": "2026-10-09"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:DFC_1941_Traffic_police_officer_on_a_motorcycle_checks_paperwork_beside_a_car_at_a_nighttime_roadside_stop.jpg",
-    "licence": "CC BY-SA 4.0",
-    "artist": "PattayaPatrol",
-    "title": "File:DFC 1941 Traffic police officer on a motorcycle checks paperwork beside a car at a nighttime roadside stop.jpg",
-    "width": 5568,
-    "height": 3712,
-    "query": "police car roadside",
+    "source": "https://commons.wikimedia.org/wiki/File:MIT_Media_Lab.jpg",
+    "licence": "CC BY-SA 3.0",
+    "artist": "Madcoverboy",
+    "title": "File:MIT Media Lab.jpg",
+    "width": 3879,
+    "height": 2586,
+    "query": "pinned by title",
     "used_for": "lead-1",
-    "fetched": "2026-10-05"
+    "fetched": "2026-10-09"
   },
   "top-a-2.jpg": {
     "source": "https://commons.wikimedia.org/wiki/File:TF-99_at_the_Forefront-_Testing_New_Technologies_for_Operational_Readiness_(9102648).jpg",
