@@ -39,7 +39,14 @@ const strip = h => h
 
 const text = h => h.replace(/<[^>]+>/g, ' ')
   .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&#39;|&rsquo;/g, "'")
-  .replace(/&quot;|&ldquo;|&rdquo;/g, '"').replace(/&mdash;/g, '—').replace(/&[a-z]+;/gi, ' ')
+  .replace(/&quot;|&ldquo;|&rdquo;/g, '"').replace(/&mdash;/g, '—')
+  /* WordPress sites write curly quotes and apostrophes as numeric entities
+     (&#8217; &#8221;). Left alone they sit in the middle of the text a model
+     writes from — "Marshall&#8217;s Neely Center" — and the final generic
+     rule below turns the ones it does catch into spaces. */
+  .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(+n))
+  .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+  .replace(/&[a-z]+;/gi, ' ')
   .replace(/\s+/g, ' ').trim();
 
 function meta(html, names) {
