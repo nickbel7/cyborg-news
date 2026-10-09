@@ -325,8 +325,8 @@ const page = `<!doctype html>
               font-size:9px; letter-spacing:.12em; color:var(--chip-ink)}
   /* the date rides the bottom edge, which stays visible as cards recede */
   .card .when{
-    position:absolute; left:0; right:0; bottom:0; padding:14px 0 7px;
-    font-size:9px; font-weight:600; letter-spacing:.13em; color:var(--ink);
+    position:absolute; left:0; right:0; bottom:0; padding:18px 0 9px;
+    font-size:12px; font-weight:600; letter-spacing:.1em; color:var(--ink);
     text-align:center;
     background:linear-gradient(to top, rgba(251,250,248,.96) 55%, rgba(251,250,248,0));
   }
@@ -345,8 +345,8 @@ const page = `<!doctype html>
     border:0 solid rgba(20,19,16,.22); pointer-events:none;
   }
   .card .when b{
-    display:block; font-size:7.5px; font-weight:700;
-    letter-spacing:.18em; opacity:.68; margin-bottom:1px;
+    display:block; font-size:9.5px; font-weight:700;
+    letter-spacing:.16em; opacity:.68; margin-bottom:2px;
   }
   /* the sheet on the table: ringed and inverted, so the stack always says
      where you are without you having to read the dates */
@@ -461,6 +461,8 @@ const page = `<!doctype html>
       scrollbar-width:none;
     }
     .deck::-webkit-scrollbar{display:none}
+    .card .when{font-size:15px; padding:24px 0 12px}
+    .card .when b{font-size:11px}
     .card{
       position:static; flex:0 0 auto; scroll-snap-align:start;
       transform-origin:center center;
