@@ -69,14 +69,40 @@ function abstractOf(html) {
   return block ? text(block[1]).replace(/^abstract:?\s*/i, '') : null;
 }
 
-// prefer a real article container; otherwise the biggest block of paragraphs
+/* The prose in a block: its paragraphs of real length, and every blockquote.
+   A blockquote is kept at any length because a quotation is the one kind of
+   short text the verbatim gate has to be able to find in the source — "Without
+   a nutrition label, we can't make intelligent legislative choices." is ten
+   words and would otherwise be dropped as navigation. */
+const proseOf = scope => [...scope.matchAll(/<(p|blockquote)\b[^>]*>([\s\S]*?)<\/\1>/gi)]
+  .map(m => ({ kind: m[1].toLowerCase(), t: text(m[2]) }))
+  .filter(x => x.kind === 'blockquote' ? x.t.split(' ').length >= 5 : x.t.split(' ').length > 12)
+  .map(x => x.t);
+
+/* Choose the story, not the first container. A page is full of <article> and
+   <main> elements — related-post cards, teasers, a pinned item — and the first
+   one in the markup is often one of those. Two announcements read for the
+   special edition of 9 October came back as 36 and 6 words — the second a
+   66KB page with four <article> elements, the first of which held six words
+   — and went to the planner as "thin". The largest block by prose is the
+   story; a page with no container at all is read whole, as before.
+
+   The paragraph pattern needs \b for the same reason: <p[^>]*> also matches
+   <path> and <picture>, and lazily swept everything up to the next </p> into
+   one "paragraph" — on a Verge story, the headline, the byline and a "Most
+   Popular" panel, in the middle of the article text a model then wrote from. */
 function body(html) {
   const clean = strip(html);
-  const art = clean.match(/<article[\s\S]*?<\/article>/i) || clean.match(/<main[\s\S]*?<\/main>/i);
-  const scope = art ? art[0] : clean;
-  const paras = [...scope.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
-    .map(m => text(m[1])).filter(p => p.split(' ').length > 12);
-  const joined = paras.join('\n\n');
+  const blocks = [...clean.matchAll(/<(article|main)\b[\s\S]*?<\/\1>/gi)].map(m => m[0]);
+  const weight = b => proseOf(b).join('\n\n').length;
+  let scope = blocks.length ? blocks.reduce((a, b) => weight(b) > weight(a) ? b : a) : clean;
+  /* ...unless the containers are only fragments of the page. The ImpactBench
+     home page keeps its statements of support in a carousel outside any
+     <article>, and the cards that are <article>s held 65 words between them.
+     When the best block carries less than half of the prose on the page, the
+     page is not organised around it, so the page is read whole. */
+  if (blocks.length && weight(scope) < proseOf(clean).join('\n\n').length * 0.5) scope = clean;
+  const joined = proseOf(scope).join('\n\n');
   const scraped = (joined.length > 400 ? joined : text(scope)).slice(0, 7000);
 
   /* Keep what was scraped only when it is plainly a longer piece of writing
