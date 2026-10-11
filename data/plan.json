@@ -1,189 +1,179 @@
 {
-  "date": "2026-10-09",
-  "shape": "cover/a3-lead + inside/a3-lead",
-  "rationale": "A special edition on the launch of ImpactBench: the launch and its results on page one, the label, the method, its validation, its supporters and its origins on page two.",
+  "shape": "cover/a3-lead + inside/a3-grid",
+  "rationale": "This issue centers on safeguards failing under pressure, from teens in crisis to cities stonewalling surveillance oversight to compliance models ignoring their own rules. Small-model cost wins and new visual interfaces show capability advancing even as oversight lags.",
   "assignments": [
     {
       "slot": "lead",
       "page": 1,
       "source_ids": [
-        "839abdf7ba",
-        "7fbeafa72f",
-        "4271d090ce",
-        "bde516a0b3"
+        "610b12eb50"
       ],
-      "kicker": "ImpactBench",
-      "angle": "MIT Media Lab and partners release an open benchmark, and a consumer label built from it, after 48,540 simulated conversations.",
-      "words": 191,
+      "kicker": "Teen Safety",
+      "angle": "Reports Common Sense Media rated ChatGPT for Teens an unacceptable risk after finding engagement cues persist even in mental-health crises despite August safeguards.",
+      "words": 299,
       "priority": 10,
       "photo": {
-        "subject": "The ImpactBench wheel over the project’s meadow artwork",
-        "search": "",
-        "why": "It is the project’s own emblem: the domains and subareas it measures, shaded by pass rate."
+        "subject": "a teenager sitting alone on a bed at night looking at a glowing laptop",
+        "search": "teenager bedroom laptop night",
+        "why": "shows the private teen chatbot use where crisis engagement risks occur"
       }
-    },
-    {
-      "slot": "second",
-      "page": 1,
-      "source_ids": [
-        "bde516a0b3"
-      ],
-      "kicker": "The Gap",
-      "angle": "ImpactBench starts from a gap in how AI is tested, and in who builds the tests.",
-      "words": 124,
-      "priority": 6
     },
     {
       "slot": "third",
       "page": 1,
       "source_ids": [
-        "bde516a0b3",
-        "4271d090ce",
-        "7fbeafa72f"
+        "49ad808382",
+        "c6e4d168f7"
       ],
-      "kicker": "Findings",
-      "angle": "ImpactBench's first release finds a gap of more than 15 points, widest for psychological outcomes, with learning and agency weakest.",
-      "words": 316,
+      "kicker": "Surveillance",
+      "angle": "Reports Texas fee obstruction and Florida's highway-only ban leave a nearly 10,000-camera Flock network largely unchecked amid bipartisan backlash.",
+      "words": 413,
       "priority": 9
     },
     {
       "slot": "fourth",
       "page": 1,
       "source_ids": [
-        "bde516a0b3"
+        "4a32ff51ed"
       ],
-      "kicker": "Conversations",
-      "angle": "ImpactBench tests whole conversations, and reports where failures build turn by turn and where teen scenarios differ.",
-      "words": 200,
-      "priority": 8
-    },
-    {
-      "slot": "lead",
-      "page": 2,
-      "source_ids": [
-        "4271d090ce",
-        "bde516a0b3",
-        "839abdf7ba",
-        "7fbeafa72f"
-      ],
-      "kicker": "The Label",
-      "angle": "The AI Nutrition Label condenses more than 800 metrics into a profile a parent or a teacher can read at a glance.",
-      "words": 300,
-      "priority": 9,
-      "photo": {
-        "subject": "A nutrition facts label on a food package",
-        "search": "Nutrition Facts label saturated fat per serving",
-        "why": "The AI Nutrition Label is modeled on food nutrition labels."
-      }
-    },
-    {
-      "slot": "second",
-      "page": 2,
-      "source_ids": [
-        "bde516a0b3"
-      ],
-      "kicker": "Method",
-      "angle": "Clinicians and educators propose behaviors to measure, and a six-step pipeline turns each into simulated conversations.",
-      "words": 278,
+      "kicker": "Product Launch",
+      "angle": "Reports OpenAI's Intelligent UI with a new GPT-6 model adds interactive visuals like buttons, calculators and editable charts to ease learning complex topics.",
+      "words": 295,
       "priority": 7
     },
     {
-      "slot": "mid-a",
-      "page": 2,
+      "slot": "second",
+      "page": 1,
       "source_ids": [
-        "bde516a0b3"
+        "7600c75026"
       ],
-      "kicker": "Validation",
-      "angle": "ImpactBench publishes its own validation figures, including where agreement among experts was low.",
-      "words": 181,
+      "kicker": "Copyright",
+      "angle": "Reports DistroKid confirmed quietly removing artists' tracks after UMG's September AI-slop lawsuit, catching non-AI songs without notice.",
+      "words": 235,
       "priority": 6
     },
     {
-      "slot": "mid-b",
+      "slot": "top-b",
       "page": 2,
       "source_ids": [
-        "4271d090ce",
-        "7fbeafa72f"
+        "2ad7c40cba"
       ],
-      "kicker": "Policy",
-      "angle": "Statements on the ImpactBench site point to the EU AI Act and to the lack of shared success metrics.",
-      "words": 153,
+      "kicker": "Compliance",
+      "angle": "Reports across five models and 20 regulatory domains verdicts barely shift when rules are deleted, swapped or negated, with the guard model at 51% versus 90-92% for general models.",
+      "words": 415,
+      "priority": 8
+    },
+    {
+      "slot": "foot-a",
+      "page": 2,
+      "source_ids": [
+        "7b0d73d382"
+      ],
+      "kicker": "Small Models",
+      "angle": "Reports a deployed 0.8B fine-tuned Qwen3.5 beats prompted GPT-5.4 and GPT-5.6 on grammar annotation while cutting serving cost about 16 times.",
+      "words": 413,
+      "priority": 6
+    },
+    {
+      "slot": "foot-b",
+      "page": 2,
+      "source_ids": [
+        "77b6279569"
+      ],
+      "kicker": "Human-AI",
+      "angle": "Reports 110 novices doing clinical extraction drifted toward over-reliance when given explanations, with higher self-assessed understanding linked to more selective use.",
+      "words": 413,
       "priority": 5
     },
     {
-      "slot": "mid-c",
+      "slot": "top-a",
       "page": 2,
       "source_ids": [
-        "bde516a0b3",
-        "48c3971664"
+        "b093d378b7"
       ],
-      "kicker": "Origins",
-      "angle": "Eighty experts from more than 40 institutions met at MIT; a team of 20 is named on the benchmark.",
-      "words": 154,
-      "priority": 5
+      "kicker": "Neuroscience",
+      "angle": "Reports validated faces plus a 30-person lab show labels, not actual AI or human source, drive N2 and P3 responses and alter visual exploration.",
+      "words": 301,
+      "priority": 5,
+      "photo": {
+        "subject": "a young adult wearing an EEG cap in a lab looking at a monitor while a researcher adjusts electrodes",
+        "search": "EEG cap lab participant",
+        "why": "illustrates the lab setup that measured how AI labels shape face evaluation"
+      }
     }
   ],
   "rail": [
     {
-      "source_id": "4271d090ce",
+      "source_id": "0b24193fdf",
       "group": "In brief",
-      "lead": "Open and independent",
-      "point": "ImpactBench says models are evaluated by researchers and not by the companies that build them."
+      "lead": "Emotional comic storyboards",
+      "point": "A 25-person study of EmoToon found AI help improved emotional expression and exploration but reduced creative ownership."
     },
     {
-      "source_id": "4271d090ce",
+      "source_id": "1fb8a61e94",
       "group": "In brief",
-      "lead": "Three audiences",
-      "point": "The platform offers views for the public, for industry and for researchers."
+      "lead": "Cheap political text classifier",
+      "point": "JEV matched GPT-6 Luna and Qwen3.8-27B on seven political-science replications with better calibration at far lower cost."
     },
     {
-      "source_id": "bde516a0b3",
+      "source_id": "2920f5373c",
+      "group": "Also noted",
+      "lead": "Local 3D part control",
+      "point": "SpaceFlow lets users set per-part geometric control and conditions appearance per segment to limit cross-part leakage."
+    },
+    {
+      "source_id": "36f9791b81",
+      "group": "Also noted",
+      "lead": "Drivers fix AI friction",
+      "point": "A ride-pooling case study identified four practices drivers use to smooth algorithmic decisions that clash with rider expectations."
+    },
+    {
+      "source_id": "4165451422",
       "group": "In brief",
-      "lead": "Typos on purpose",
-      "point": "Simulated users’ messages include typos and autocorrect artifacts to mirror authentic use."
+      "lead": "Two-week emotional agent",
+      "point": "Nineteen participants over 1,093 sessions showed valence estimates at MAE 1.20 (r=.68) with largest gains from negative starts."
     },
     {
-      "source_id": "bde516a0b3",
+      "source_id": "4fd5155ca8",
+      "group": "Also noted",
+      "lead": "Belief predicts AI companionship",
+      "point": "Agentic mind perception predicted eudaimonic potential and experiential perception predicted co-presence, moderated by meaning in life."
+    },
+    {
+      "source_id": "54a283d7c7",
       "group": "In brief",
-      "lead": "Creativity scores well",
-      "point": "Creativity passed 80.5 percent of positive metrics, one of the common strengths."
+      "lead": "No abusing Claude",
+      "point": "Anthropic's updated policy bans prolonged verbal abuse, election interference, weapons software and surveillance uses."
     },
     {
-      "source_id": "bde516a0b3",
+      "source_id": "9092036839",
       "group": "In brief",
-      "lead": "No single winner",
-      "point": "ImpactBench does not name a single best model and imposes no single weighting."
+      "lead": "Reddit tracks AI harms",
+      "point": "Mining 5.7 million posts yielded 575,000 harm posts and a 12-category taxonomy surfacing agentic privacy breaches and companion grief."
     },
     {
-      "source_id": "bde516a0b3",
+      "source_id": "d4c5062e8e",
       "group": "Also noted",
-      "lead": "Stress tests, not usage",
-      "point": "Scores describe behavior under controlled stress tests, not how often it occurs in ordinary use."
+      "lead": "Previewing generative reshoots",
+      "point": "An AR previsualization flags hallucination risk so filmmakers can adjust moves or shoot pickups before leaving the set."
     },
     {
-      "source_id": "bde516a0b3",
+      "source_id": "e726b14e08",
       "group": "Also noted",
-      "lead": "Medicine without oversight",
-      "point": "Models offered diagnoses and recommended medication without clinician oversight."
-    },
-    {
-      "source_id": "bde516a0b3",
-      "group": "Also noted",
-      "lead": "Red to green",
-      "point": "The headline view scores each area from red, consistently undermines, to green, consistently supports."
-    },
-    {
-      "source_id": "f74a0b05b9",
-      "group": "Also noted",
-      "lead": "Cyborg Psychology",
-      "point": "The Media Lab’s Cyborg Psychology group lists emotional dependence on AI companions among its research subjects."
-    },
-    {
-      "source_id": "4271d090ce",
-      "group": "Also noted",
-      "lead": "Experts can volunteer",
-      "point": "Domain experts can share their expertise to be invited to review a metric in an area they know best."
+      "lead": "Students judge AI eight ways",
+      "point": "Analysis found seven task stages and eight evaluative lenses beyond accuracy, including fit, practicality and ethics."
     }
   ],
-  "rejected": []
+  "rejected": [
+    {
+      "source_id": "a35ed318f7",
+      "why": "fundraising appeal for donor-advised funds with no reportable facts or research"
+    },
+    {
+      "source_id": "ad7ea0af95",
+      "why": "93-word stub describing a system without specific data, participants or results to write from"
+    }
+  ],
+  "date": "2026-10-11",
+  "pool_size": 21
 }

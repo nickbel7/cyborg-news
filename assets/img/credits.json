@@ -26,26 +26,25 @@
     "fetched": "2026-10-09"
   },
   "lead-1.jpg": {
-    "source": "https://impactbench.media.mit.edu/",
-    "licence": "No restrictions: used with the permission of the ImpactBench team",
-    "artist": "ImpactBench team, MIT Media Lab",
-    "title": "The ImpactBench wheel over the project’s meadow artwork, recoloured for one-ink print (see issues/2026-10-09/plate-compose.py)",
-    "width": 2400,
-    "height": 848,
-    "query": "permission",
+    "source": "https://commons.wikimedia.org/wiki/File:Budapest,_Hung%C3%A1ria_k%C3%B6r%C3%BAt,_szovjet_panelh%C3%A1zak,_27.jpg",
+    "licence": "CC BY-SA 4.0",
+    "artist": "Random photos 1989",
+    "title": "File:Budapest, Hungária körút, szovjet panelházak, 27.jpg",
+    "width": 5408,
+    "height": 3680,
+    "query": "teenager bedroom",
     "used_for": "lead-1",
-    "fetched": "2026-10-09",
-    "permission": "Stated in conversation on 2026-10-09 by a member of the lab: the paper has full rights to use the graphic. No separate licence is published on the site."
+    "fetched": "2026-10-11"
   },
   "top-a-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:TF-99_at_the_Forefront-_Testing_New_Technologies_for_Operational_Readiness_(9102648).jpg",
-    "licence": "Public domain",
-    "artist": "U.S. Air Force photo by Senior Airman Amanda Jett",
-    "title": "File:TF-99 at the Forefront- Testing New Technologies for Operational Readiness (9102648).jpg",
-    "width": 7506,
-    "height": 4914,
-    "query": "quadcopter drone flying field",
+    "source": "https://commons.wikimedia.org/wiki/File:EEG_Recording_Cap.jpg",
+    "licence": "CC BY 2.0",
+    "artist": "Chris Hope",
+    "title": "File:EEG Recording Cap.jpg",
+    "width": 5184,
+    "height": 3456,
+    "query": "EEG cap",
     "used_for": "top-a-2",
-    "fetched": "2026-09-22"
+    "fetched": "2026-10-11"
   }
 }
