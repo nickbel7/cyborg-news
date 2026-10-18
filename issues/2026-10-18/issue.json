@@ -1,0 +1,438 @@
+{
+  "issue": {
+    "name": "CYBORG NEWS",
+    "left_ear": "MIT · CAMBRIDGE, MASS.",
+    "right_ear": "INTERNAL EDITION · NOT FOR CIRCULATION",
+    "site": "NEWSPAPER.CYBORGLAB.ORG",
+    "price": "FREE TO HUMANS",
+    "dateline_long": "SUNDAY, OCTOBER 18, 2026",
+    "dateline_short": "Sun, Oct 18, 2026",
+    "pages": 2,
+    "plan": [
+      "cover/a3-lead",
+      "inside/a3-lead"
+    ],
+    "sections": [
+      "",
+      "Humans & Machines"
+    ],
+    "written_by": "muse-spark-1.3-contributor"
+  },
+  "ticker": [
+    {
+      "k": "BEE FRONTIER",
+      "v": "$74.99",
+      "d": "wrist or pinned",
+      "dir": "flat"
+    },
+    {
+      "k": "BEE RANGE",
+      "v": "$75",
+      "d": "two new devices",
+      "dir": "flat"
+    },
+    {
+      "k": "PLAUD NOTE",
+      "v": "$159",
+      "d": "competitor device",
+      "dir": "up"
+    },
+    {
+      "k": "NOTE PRO",
+      "v": "$189",
+      "d": "competitor device",
+      "dir": "up"
+    },
+    {
+      "k": "POCKET AI",
+      "v": "$129",
+      "d": "competitor device",
+      "dir": "down"
+    },
+    {
+      "k": "GPT-4",
+      "v": "GPT-4",
+      "d": "stigma Study 1",
+      "dir": "flat"
+    },
+    {
+      "k": "GPT-5",
+      "v": "GPT-5",
+      "d": "stigma Study 2",
+      "dir": "flat"
+    }
+  ],
+  "rail": {
+    "title": "What's",
+    "title2": "News",
+    "groups": [
+      {
+        "label": "In brief",
+        "items": [
+          {
+            "lead": "Wellbeing benchmark suite",
+            "text": "ImpactBench offers 809 expert-grounded metrics and tested ten frontier LLMs in 48,540 teen and adult conversations."
+          },
+          {
+            "lead": "Haptic tabletop authoring",
+            "text": "TouchTwin turns phone scans into editable haptic scenes, lifting realism from 4.0 to 5.6/7 after 6.6 minutes of edits in an N=12 study."
+          },
+          {
+            "lead": "AI slang without memory",
+            "text": "MoltBook agents show about 2x semantic drift and non-significant autocorrelation compared with Reddit and PTT humans."
+          },
+          {
+            "lead": "Gendered stigma gap",
+            "text": "GPT-4 and GPT-5 depict men as most socially distant and least open to help-seeking versus 76,406-person human data."
+          },
+          {
+            "lead": "What AI leaves behind",
+            "text": "Residual Human States framework with four cases shows assisted success does not predict later unaided bias and persistence."
+          }
+        ]
+      },
+      {
+        "label": "Also noted",
+        "items": [
+          {
+            "lead": "Timely agent intervention",
+            "text": "StepSafe trains step-level guards to continue, ask, or stop as evidence accumulates rather than judging whole trajectories."
+          },
+          {
+            "lead": "Meme provenance tracker",
+            "text": "MemeTrace traces origin, spread and risk for 100 real memes and beats a VLM baseline on unsafe detection."
+          },
+          {
+            "lead": "Explanations for decisions",
+            "text": "HD-RL tuned Qwen explanations lifted human AI-text detection from 51.3% to 63.7% accuracy in a randomized trial."
+          },
+          {
+            "lead": "Uncertainty in scheduling",
+            "text": "An explainable nurse-scheduling prototype co-designed with experts was evaluated with eye-tracking and questionnaires."
+          },
+          {
+            "lead": "Drone versus ground monitoring",
+            "text": "An N=18 cross-platform study finds aerial hazard monitoring lowers situational awareness and raises workload versus ground."
+          }
+        ]
+      }
+    ]
+  },
+  "articles": [
+    {
+      "id": "lead-1",
+      "page": 1,
+      "priority": 10,
+      "kicker": "AI Safety",
+      "sources": [
+        "64950daaf5"
+      ],
+      "headline": "Newer Google OpenAI models fail explicit image blocks",
+      "deck": "White Circle finds ChatGPT Images 2.5 and Nano Banana 2.1 are significantly more breakable than prior versions using public tools and API calls.",
+      "pullquote": {
+        "text": "You don’t need to have frontier models to break defenses of a frontier model, which is very interesting",
+        "attr": "Denis Shilov, White Circle"
+      },
+      "quoteAfter": 1,
+      "body": [
+        "White Circle tested ChatGPT Images 2.5 and Nano Banana 2.1 with iterative prompt attacks. Both systems proved significantly more breakable than earlier versions. The tests used the same method as prior evaluations of explicit image blocks. The result links increased image capability to weaker blocks on sexual content. Findings center on source controls.",
+        "Earlier tests covered DALL·E 3, Nano Banana 2, and GPT-Image-2. About 13 percent of attack prompts produced confirmed explicit images on DALL·E 3. The rate was under 10 percent for Nano Banana 2 and about 3 percent for GPT-Image-2. White Circle described the newer pair as significantly more breakable than those versions. Neither Google nor OpenAI responded to Ars for comment on the flaws.",
+        "Researchers called the method Red-teaming via Iterative Strategy Evolution. One model generates jailbreak prompts and a second model judges the output. The attacking model was a public Qwen3-32B version with safety training removed. The judge model was Gemini 2.5 Flash. The team sought patterns that transfer across prompts and models. It plans to open-source the pipeline and present the work at NeurIPS 2026.",
+        "White Circle is a public benefit corporation supported by senior leaders and researchers from Anthropic, DeepMind, Hugging Face, and OpenAI. CEO Denis Shilov created it after posting a widely shared universal jailbreak in October 2024. The group shared the recent image results with frontier labs through mutual contacts. It reports early talks with government officials on required third-party testing. A Google co-authored July study of users in the United States, Australia, and the United Kingdom found fake sexual images often move in text and direct messages or sit in private clouds. That study named the source tools as the most critical intervention point. Midjourney was excluded for lack of a public API for controlled benchmarking according to the researchers."
+      ],
+      "art": {
+        "type": "photo",
+        "src": "assets/img/lead-1.jpg",
+        "capLabel": "Under review",
+        "caption": "A young woman sits on a couch at home holding a smartphone face-down and looking away, upset. Researchers say fake sexual images often circulate in private messages where they are hard to detect.",
+        "credit": "Nenad Stojkovic · CC BY 2.0",
+        "wmm": 170,
+        "hmm": 60,
+        "focusY": 0.4,
+        "contrast": 1.04,
+        "gain": 0.66,
+        "feather": 0.35,
+        "floor": 0.08
+      }
+    },
+    {
+      "id": "third-1",
+      "page": 1,
+      "priority": 9,
+      "kicker": "Platform Power",
+      "sources": [
+        "3c203c9854"
+      ],
+      "headline": "Meta forces businesses to allow AI scraping",
+      "deck": "New commercial terms taking effect October 30 offer no opt-out except leaving Meta services.",
+      "pullquote": {
+        "text": "this is a remarkable provision to bury in [the] terms of service, given that this would give Meta access to material that would likely cost many millions of dollars in a licensing market.",
+        "attr": "Matt Topic, Loevy & Loevy"
+      },
+      "quoteAfter": 2,
+      "body": [
+        "Meta will require business accounts to permit automated crawling of linked websites for training and product development under commercial terms taking effect October 30. Businesses receive no opt-out. The terms state that accounts unwilling to grant access should stop using Meta services. The change covers domains associated with products or services and content reached through use of Meta products. Legal experts warn the language could let Meta avoid licensing fees.",
+        "Ars Technica reported the update on October 16 after Nieman Lab described its scope for publishers. The new language authorizes automated software including scrapers, bots, robots, spiders, crawlers and user agents. It also authorizes creation of test credentials to access indexed pages and periodic updates. Current commercial terms contain no reference to test credentials. Experts said that addition could permit access beyond public pages including paywalled material for some businesses.",
+        "Meta describes the revision as streamlining provisions from advertising and catalog policies into one document. A spokesperson said language around crawling was previously scattered and the update consolidates it in one place. Ars Technica compared prior policies and found broader provisions and fresh language. Prior ad terms limited crawling to content provided for ads. The new terms extend use to developing, improving, researching, training and maintaining all company Meta products.",
+        "Meta said it has no plans to use the terms to ignore robots.txt instructions blocking scraping on news sites. Content owners can still manage access using robots.txt. A spokesperson said there is no change to how Meta uses web crawlers. News organizations question whether that position holds if courts find training on articles is fair use. They warn the terms could support overriding robots.txt and scraping articles for model training.",
+        "Publishers face exposure because most operate at least one business account. News organizations are contesting unlicensed training in court in litigation involving OpenAI over fair use. Legal experts said courts may not enforce the Meta terms. They said the terms could support arguments for scraping news sites to train AI products. Experts compared the structure to tying, citing past Google practice linking search indexing to AI Overviews scraping permission rules.",
+        "Meta recently began charging users to post links on its platforms. Nieman Lab noted the sequence creates a path to collect payment for link distribution and claim permission to scrape linked material. One concern is deployment of publisher material on Meta platforms in competition with publishers. Businesses that object have one option under the terms. They can discontinue use of Meta commercial services."
+      ]
+    },
+    {
+      "id": "fourth-1",
+      "page": 1,
+      "priority": 7,
+      "kicker": "Gadgets",
+      "sources": [
+        "cc07996f6b"
+      ],
+      "headline": "Bee sells $74.99 talk-to-task wearable pin",
+      "deck": "The $99.99 Eclipse sticks to a phone back, and both send summaries and tasks to Alexa and calendar apps.",
+      "body": [
+        "Bee has introduced two personal devices for turning conversation into notes and tasks. The $74.99 Frontier wears on the wrist or pins to clothes. The $99.99 Eclipse attaches magnetically to the back of a smartphone. The Frontier is available now on Amazon and the Eclipse will be available soon thereafter.",
+        "Both devices take notes from everyday talk and produce summaries, recaps and actionable to-dos. A discussion about meeting friends can become a calendar invite with agreed date and time. The same system can take lecture notes or record a care plan discussed with a doctor. Each device has one button and an indicator light for summarizing.",
+        "Summaries and recaps are free with 14 days of memory. A $11.99 per month Bee Pro subscription adds unlimited conversation summaries and integrations with Amazon.com, Alexa+ and third-party applications. Pro also adds suggested to-dos, daily memories, a personal chat assistant and conversation templates. The devices work with Gmail, Google Calendar and Microsoft Outlook to draft emails, set up meetings and surface action items.",
+        "Audio is processed in real time and then deleted under a private computing security architecture. No raw audio is stored. Transcripts are encrypted with keys the device creates and controls. Connection to Alexa is optional and uses Echo Voice ID to identify the speaker. Transcripts and summaries can be deleted at any time. Users can order from Amazon.com or ask Alexa for insights, summaries and to-dos hands-free. Photos can be uploaded and Apple HealthKit can be connected. The Frontier comes in Onyx, Lavender and Sage with IP67 water resistance, up to seven days of battery life, USB-C charging and dual microphones with advanced noise filtering. The Eclipse comes in Silver, Midnight, Honey and Blush. A redesigned mobile app and a new desktop app support both devices."
+      ]
+    },
+    {
+      "id": "second-1",
+      "page": 1,
+      "priority": 7,
+      "kicker": "Campus",
+      "sources": [
+        "8ad1969e4f"
+      ],
+      "headline": "Lincoln Laboratory Hosts Emerging Biotechnology Commission",
+      "deck": "Sept. 3 roadshow stop links Massachusetts bioindustrial ecosystem to national biodefense effort.",
+      "pullquote": {
+        "text": "It will bring together industry, academia, and government to transform ideas into scalable biological products, supporting a secure and competitive bioindustrial future.",
+        "attr": "Edward Wack, Lincoln Laboratory"
+      },
+      "quoteAfter": 1,
+      "body": [
+        "MIT Lincoln Laboratory hosted the National Security Commission on Emerging Biotechnology on Sept. 3 for a stop on its national roadshow. The meeting convened state organizations, defense centers, universities, technology companies and business executives to discuss how the Massachusetts biotechnology ecosystem can strengthen national biodefense capabilities. The commission is in the final year of a three year mandate to study security implications and recommend policy to sustain United States leadership.",
+        "In April 2025 the 11 member bipartisan and bicameral commission released a report calling for a minimum of 15 billion dollars in federal investment over five years. The report stated that China is investing aggressively to dominate the field. Massachusetts has identified biotechnology as a priority technology area under its Strategic Hub for Innovation, Exchange, and Leadership in Defense initiative. The initiative launched in October 2025 with 47 million dollars of initial aligned investment and includes the BioNexus program to develop biotechnology and biomanufacturing solutions for the United States Army Combat Capabilities Development Command.",
+        "The planned Biotechnology Scale up Hub for Innovation, Economic Development, Labor Training, and Defense in Worcester would provide 200,000 square feet of biomanufacturing space. The facility would offer shared equipment, infrastructure and secure laboratory space to bridge early stage discovery and defense scale production. A coalition including Massachusetts Biomedical Initiatives, Worcester Polytechnic Institute, Bio Base Europe Pilot Plant and Lincoln Laboratory has signed a memorandum of understanding to formalize the partnership."
+      ]
+    },
+    {
+      "id": "lead-2",
+      "page": 2,
+      "priority": 9,
+      "kicker": "Free Speech",
+      "sources": [
+        "3906419378"
+      ],
+      "headline": "Judge Allows Union Lawsuit Over AI Visa Surveillance",
+      "deck": "Southern District of New York rejects dismissal bid in First Amendment case against State and Homeland Security.",
+      "pullquote": {
+        "text": "No one should have to choose between speaking freely and protecting their immigration status.",
+        "attr": "Lisa Femia, Electronic Frontier Foundation"
+      },
+      "quoteAfter": 2,
+      "body": [
+        "A federal judge has allowed a lawsuit over AI surveillance of visa and green card holders to move forward. Judge Alvin K. Hellerstein of the Southern District of New York denied the motion to dismiss. Three labor unions allege that the Departments of State and Homeland Security violate the First Amendment and the Administrative Procedure Act by monitoring online speech to punish criticism of the Trump administration and support for Palestine.",
+        "Since taking power the Trump administration has used AI and other automated tools to broadly surveil social media and online speech of noncitizens in the United States. Targets include criticism of the Trump administration and support for Palestine or criticism of Israel. Targets also include rationalizing or making light of the murder of Charlie Kirk and views described as hostile to American culture and founding principles and traditional American views and way of life.",
+        "High ranking officials have paired surveillance with public threats to punish noncitizens for online speech followed by viewpoint driven enforcement actions. The complaint describes a significant chilling effect for noncitizens and for families and coworkers and friends. Plaintiffs are the United Auto Workers and the Communications Workers of America and the American Federation of Teachers. They are represented by the Electronic Frontier Foundation and Muslim Advocates and the Media Freedom & Information Access Clinic.",
+        "The government moved to dismiss for lack of court power and lack of standing. It cited three provisions of the Immigration and Nationality Act that restrict review of immigration matters. The court rejected each provision. Relying on Ozturk v. Hyde in the Second Circuit it held that the zipper clause bars only challenges to a particular individual removal proceeding. A challenge to the constitutionality of the surveillance program itself may proceed even if surveillance might affect a future proceeding.",
+        "The court held that a second restriction does not apply because the suit challenges a policy collateral to any active removal proceedings. A third restriction limits only the kind of relief available and does not prevent blocking an unlawful program that suppresses free speech. On standing the court found concrete injuries that were objectively reasonable and not only subjectively felt. It found organizational standing based on harm to the unions and associational standing based on harm to members.",
+        "Members stepped back from leadership roles and stopped participating in union activities online and in person and removed names from webpages and avoided bargaining surveys. The court rejected the claim that the retreat was an overreaction because pro union views are not targeted. It said the test is whether conduct would deter a person of ordinary firmness from protected activity. Monitoring is indiscriminate and members cannot reliably predict capture while organizing often occurs alongside pro Palestine and anti ICE activism on campuses."
+      ],
+      "art": {
+        "type": "photo",
+        "src": "assets/img/lead-2.jpg",
+        "capLabel": "Moving forward",
+        "caption": "Protesters holding free speech signs gather on the steps outside a federal courthouse as the lawsuit challenging surveillance of noncitizens moves forward.",
+        "credit": "Dorpat, Paul · Public domain",
+        "wmm": 170,
+        "hmm": 60,
+        "focusY": 0.4,
+        "contrast": 1.04,
+        "gain": 0.66,
+        "feather": 0.35,
+        "floor": 0.08
+      }
+    },
+    {
+      "id": "second-2",
+      "page": 2,
+      "priority": 8,
+      "kicker": "Work",
+      "sources": [
+        "fd376d40da"
+      ],
+      "headline": "Reliable AI Erodes Human Oversight Drexel Researcher Warns",
+      "deck": "Murugan Anandarajan calls the decay of unused judgment latent risk and urges firms to test whether staff can still intervene.",
+      "pullquote": {
+        "text": "Which human capabilities does an organization still depend on, and will they be there when needed?",
+        "attr": "Murugan Anandarajan, Drexel University"
+      },
+      "quoteAfter": 2,
+      "body": [
+        "A Drexel University researcher warns that reliable artificial intelligence creates latent risk for organizations as human overseers lose practice at independent judgment. Murugan Anandarajan, professor of management information systems, argues that staff may grow less prepared to intervene during rare failures while remaining responsible for outcomes. The system performs. The watcher dulls. The failure still belongs to the watcher. The danger builds quietly while accuracy looks strong month after month.",
+        "Anandarajan defines latent risk as the possibility that people lose capabilities their organizations still depend on them to exercise. Performance measures such as accuracy and productivity can remain strong while readiness to override a recommendation weakens unnoticed. The organization still expects a backstop. It has little cause to check whether that backstop holds. Decline hides behind success. The numbers reassure and the skill fades quietly.",
+        "The better the system becomes, the more human work changes from doing to overseeing. An employee who once analyzed a problem and reached a decision now reviews a recommendation. The task looks lighter. It is not. The judgments left to people occur less often and involve harder cases where experience and independent thought matter most. People practice less precisely when the stakes rise each year.",
+        "The concern builds on older automation research. Studies of automation bias show people can miss problems or follow automated recommendations even when other evidence suggests they should not. Cognitive psychologist Lisanne Bainbridge described the ironies of automation more than four decades ago. Later studies identified the out-of-the-loop performance problem. Reduced involvement leaves people less ready to act. Authority, responsibility and capability begin to separate while the employee remains answerable. Control shrinks without any formal change.",
+        "Accounting firm Deloitte is redesigning graduate audit training as artificial intelligence absorbs manual work once done by junior auditors. The firm uses simulations to preserve judgment for complex assignments. Anandarajan says organizations must decide which capabilities still matter and maintain them deliberately. Override counts alone reveal little, because fewer interventions can signal accuracy rather than dependence. Leaders must track which decisions migrated to software, which duties stayed with staff, and whether practice matches formal roles.",
+        "Overseeing a system is not the same as exercising independent judgment. Anandarajan suggests occasionally asking employees to decide without first seeing the recommendation. The exercise tests whether the human backstop will work when needed. Governance must revisit the intended division of labor and compare it with actual behavior. Roles drift as tools improve. The audit trail looks clean until the day someone must act alone. That day usually arrives without warning."
+      ]
+    },
+    {
+      "id": "mid-a-2",
+      "page": 2,
+      "priority": 6,
+      "kicker": "Supply Chains",
+      "sources": [
+        "e2eb449edb"
+      ],
+      "headline": "Sustainability Commitment Hits Record Despite Tariff Pullback",
+      "deck": "MIT survey of 1,810 professionals finds 68 percent delayed, scaled back or abandoned sustainability strategies as tariff uncertainty increased emissions.",
+      "pullquote": {
+        "text": "What comes next is harder: converting commitment into accountability, operational integration into strategic decision-making, and incremental decarbonization into genuine transition.",
+        "attr": "Sreedevi Rajagopalan, MIT Sustainable Supply Chain Lab"
+      },
+      "quoteAfter": 1,
+      "body": [
+        "The 2026 State of Supply Chain Sustainability Report surveyed 1,810 supply chain professionals across 91 countries. Eighty-three percent rate sustainability as important or very important to long-term business success. The figure is the highest in the seven-year history of the report from the MIT Sustainable Supply Chain Lab. Sixty-eight percent report tariff uncertainty compelled them to delay, scale back, or abandon sustainability strategies. Nearly one-third report tariff-related disruptions increased operational emissions.",
+        "Fifty-nine percent report stronger commitment following United States policy shifts that deprioritize environmental concerns. External pressure compounds internal gaps. Among companies with stated sustainability goals, only fifty-one percent have a formal cross-functional sustainability team. Only thirty-three percent place oversight at board level. Where teams exist, sustainability is frequently or always built into decisions fifty-seven percent of the time. Where responsibility sits in a single function, the share drops to thirteen percent. More than eight in ten respondents across North America, Europe, and Asia agree geopolitical conflict is reducing effectiveness of climate action.",
+        "Sustainability sits deepest in daily operations. Transportation and logistics lead at thirty-nine percent, followed by procurement at thirty-five percent, warehousing at thirty-four percent, and product design at thirty-three percent. Integration fades in capital investment, network design, and supply chain risk planning. Seventy-eight percent of North American organizations use AI for sustainability, and eighty-seven percent of adopters report positive impact. Yet only fifty-three percent of mature agentic AI users report reduced total greenhouse gas emissions. Joint supplier programs for Scope 3 rose from thirty-one to fifty-eight percent. Accountability keeps records."
+      ]
+    },
+    {
+      "id": "mid-b-2",
+      "page": 2,
+      "priority": 6,
+      "kicker": "Brain Health",
+      "sources": [
+        "f0c7225697"
+      ],
+      "headline": "Brain visual bias predicts later depression",
+      "deck": "Model links overreliance on prior expectations during angry face viewing to risk four years before symptoms.",
+      "body": [
+        "A computational model of visual perception predicts vulnerability to depression up to four years before symptoms appear. The model quantifies overreliance on abstract expectations when the visual cortex encodes angry faces. The work analyzed brain scans from adolescents at age nineteen and forecast emotional symptoms at age twenty-three. The study was published in Science Advances.",
+        "Researchers analyzed functional magnetic resonance imaging scans from 1,332 nineteen-year-old participants in the IMAGEN cohort. Participants viewed short video clips of faces transitioning from neutral expressions to angry ones. A machine learning algorithm extracted a visual code for each visual cortex. Codes separated into efficient and inefficient noisy processing. Adolescents with inefficient codes reported higher anxiety and low mood on clinical questionnaires.",
+        "To explain the pattern the team built a deep neural network with separate visual and conceptual pathways. The conceptual pathway regulated the visual pathway during learning of facial expressions. Intermediate regulation produced optimal recognition. Excessive regulation caused misclassification of neutral faces as angry or sad and matched noisy human codes. The team quantified overregularization for each participant at age nineteen and tested prediction in 725 participants followed to age twenty-three. The marker forecast high emotional symptoms among those with no symptoms at baseline and outperformed demographics and basic activation measures. The marker linked to genetic risk for major depressive disorder and polygenic risk for depression but not to risk for alcohol use disorder or eating disorders. Han Lu and Qiang Luo are researchers at Shenzhen University and Fudan University respectively. The visual error comes early."
+      ]
+    },
+    {
+      "id": "mid-c-2",
+      "page": 2,
+      "priority": 5,
+      "kicker": "Privacy",
+      "sources": [
+        "979e9694bf"
+      ],
+      "headline": "EFF Asks Court to Require ALPR Warrants",
+      "deck": "Petition covers Milwaukee, Racine, Kenosha and Green Bay on behalf of Wisconsin Council of Churches and a Green Bay pastor.",
+      "pullquote": {
+        "text": "We all deserve to be free of warrantless mass surveillance.",
+        "attr": "Andrew Crocker, Electronic Frontier Foundation"
+      },
+      "quoteAfter": 2,
+      "body": [
+        "The Electronic Frontier Foundation and the ACLU of Wisconsin have petitioned the Wisconsin Supreme Court to require a warrant for retrospective searches of license plate reader databases in Milwaukee, Racine, Kenosha and Green Bay. The petition argues the state constitution bars police from querying stored Automated License Plate Reader records without individualized suspicion approved by a court. It was filed on behalf of the Wisconsin Council of Churches and an individual pastor in Green Bay.",
+        "Automated License Plate Readers record the movements of large numbers of drivers seeking medical care, attending religious services, attending 12-step recovery meetings, participating in protests, attending political meetings and engaging in other sensitive activities. Law enforcement agencies collect, store, share and aggregate the data, then search it to trace past movements of individuals and communities. The filing states such retrospective tracking would have been prohibitively costly before the technology.",
+        "Religious organizations face heightened exposure because their work includes worship gatherings, pastoral care, confidential counseling and community support. Visitors to houses of worship risk police monitoring of prayer, addiction counseling and domestic violence survivor meetings. The case follows SIREN v. San Jose as a second challenge to warrantless license plate searches. Earlier this month a federal court in Oklahoma ruled the systems are a type of indiscriminate mass surveillance and suppressed evidence from a warrantless search. The petition asks Wisconsin justices to adopt the same limit. Plate numbers stay in storage until someone decides to look. The request is for a warrant before the lookup. Records wait quietly."
+      ]
+    }
+  ],
+  "boxes": [
+    {
+      "id": "observation-scale",
+      "slot": "box-a",
+      "kind": "table",
+      "title": "How Long, How Many",
+      "caption": "Observation windows and sample sizes reported in sources.",
+      "head": [
+        "Group",
+        "Window / Sample",
+        "Focus"
+      ],
+      "rows": [
+        [
+          "MoltBook agents",
+          "8 weeks",
+          "lexical persistence"
+        ],
+        [
+          "Reddit humans",
+          "8 weeks",
+          "matched window"
+        ],
+        [
+          "PTT humans",
+          "19 years",
+          "Chinese BBS"
+        ],
+        [
+          "TouchTwin test",
+          "12 participants",
+          "haptic scenes"
+        ],
+        [
+          "Hazard monitors",
+          "Eighteen participants",
+          "six conditions"
+        ],
+        [
+          "Supply chain survey",
+          "1,810 professionals",
+          "91 countries"
+        ],
+        [
+          "ALPR search areas",
+          "four cities",
+          "Wisconsin drivers"
+        ]
+      ]
+    },
+    {
+      "id": "speech-surveillance",
+      "slot": "box-b",
+      "kind": "text",
+      "title": "Speech and Surveillance",
+      "tint": true,
+      "paras": [
+        "<b>Three unions sued over online speech surveillance.</b> The case challenges mass surveillance of online speech tied to immigration status. A federal district court denied the government motion to dismiss. The case can move forward. In Wisconsin, EFF and the ACLU of Wisconsin asked the state Supreme Court to require a warrant for retrospective ALPR searches. The request covers Milwaukee, Racine, Kenosha and Green Bay &mdash; four cities. Separately, Meta will update commercial terms on October 30. Business accounts must allow training on linked website content, not just social media posts. Businesses cannot opt out."
+      ]
+    },
+    {
+      "id": "bodies-interfaces",
+      "slot": "box-c",
+      "kind": "text",
+      "title": "Bodies and Interfaces",
+      "tint": true,
+      "paras": [
+        "<b>Twelve people tested editable haptic scenes.</b> TouchTwin turns phone scans of tabletop scenes into editable haptic scenes. AI proposes material regions. Users revise through language and spatial edits. Automatic drafts were scored with physical reference objects present. Nurse scheduling assigns nurses to shifts under working-time limits and qualification requirements. AI forecasts staffing needs and advises on shift scheduling. Eighteen participants completed six conditions with three interface modalities in hazard monitoring &mdash; ground and aerial vehicles. A computational model linked prior expectations about angry faces to depression risk up to four years before symptoms."
+      ]
+    }
+  ],
+  "fillers": [
+    {
+      "hed": "Surveillance",
+      "text": "Three major labor unions sued to stop mass surveillance of online speech."
+    },
+    {
+      "hed": "Crawling",
+      "text": "Meta will require business accounts to allow training on linked website content on October 30."
+    },
+    {
+      "hed": "Provenance",
+      "text": "MemeTrace traces where a meme originates and how it spreads."
+    },
+    {
+      "hed": "Supply",
+      "text": "1,810 professionals across 91 countries were surveyed on supply chain sustainability."
+    },
+    {
+      "hed": "Haptics",
+      "text": "TouchTwin turns phone scans of tabletop scenes into editable haptic scenes."
+    },
+    {
+      "hed": "Depression",
+      "text": "Reliance on prior expectations for facial expressions predicted depression risk up to four years before symptoms."
+    }
+  ]
+}
