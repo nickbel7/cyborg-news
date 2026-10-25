@@ -26,25 +26,25 @@
     "fetched": "2026-10-18"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Upset_depressed_mature_middle_aged_woman_in_panic_holding_head_in_hands_at_home._(51519940332).jpg",
-    "licence": "CC BY 2.0",
-    "artist": "Nenad Stojkovic",
-    "title": "File:Upset depressed mature middle aged woman in panic holding head in hands at home. (51519940332).jpg",
-    "width": 7360,
-    "height": 4912,
-    "query": "upset woman holding",
+    "source": "https://commons.wikimedia.org/wiki/File:Modern_Ou_Clay_Sculpture_(16920026778).jpg",
+    "licence": "CC0",
+    "artist": "Gary Todd from Xinzheng, China",
+    "title": "File:Modern Ou Clay Sculpture (16920026778).jpg",
+    "width": 4752,
+    "height": 3168,
+    "query": "Hangzhou modern",
     "used_for": "lead-1",
-    "fetched": "2026-10-18"
+    "fetched": "2026-10-25"
   },
   "top-a-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:EEG_Recording_Cap.jpg",
-    "licence": "CC BY 2.0",
-    "artist": "Chris Hope",
-    "title": "File:EEG Recording Cap.jpg",
-    "width": 5184,
-    "height": 3456,
-    "query": "EEG cap",
+    "source": "https://commons.wikimedia.org/wiki/File:HK_%E5%B1%AF%E9%96%80%E9%86%AB%E9%99%A2_Tuen_Mun_Hospital_ground_floor_Pharmacy_service_counter_window_n_waiting_room_plastic_seats_July_2016_DSC.jpg",
+    "licence": "CC BY-SA 4.0",
+    "artist": "YipshaiukOWL",
+    "title": "File:HK 屯門醫院 Tuen Mun Hospital ground floor Pharmacy service counter window n waiting room plastic seats July 2016 DSC.jpg",
+    "width": 3648,
+    "height": 2736,
+    "query": "hospital waiting room chairs night",
     "used_for": "top-a-2",
-    "fetched": "2026-10-11"
+    "fetched": "2026-10-25"
   }
 }

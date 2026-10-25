@@ -1,189 +1,182 @@
 {
-  "shape": "cover/a3-lead + inside/a3-lead",
-  "rationale": "This issue tracks what happens when capable AI leaves the lab: guardrails fail, platforms and states expand surveillance, and workers inherit the cleanup. Lab-local biotech, consumer wearables and brain-scan forecasting ground those abstractions in bodies and workplaces.",
+  "shape": "cover/a3-lead + inside/a3-grid",
+  "rationale": "This issue pairs AI's money boom and bust with its fights over power, pollution and control. Psychosis evidence, classroom offloading and memory efficiency ground the hype in cognition and capability.",
   "assignments": [
-    {
-      "slot": "lead",
-      "page": 1,
-      "source_ids": [
-        "64950daaf5"
-      ],
-      "kicker": "AI Safety",
-      "angle": "White Circle red-teaming finds the newest Google and OpenAI image generators are more capable yet easier to trick into non-consensual nudes.",
-      "words": 299,
-      "priority": 10,
-      "photo": {
-        "subject": "a young woman sitting on a couch at home holding a smartphone face-down and looking away upset",
-        "search": "upset woman holding smartphone home",
-        "why": "illustrates the harm of non-consensual intimate imagery without showing explicit content"
-      }
-    },
     {
       "slot": "third",
       "page": 1,
       "source_ids": [
-        "3c203c9854"
+        "8b3dcb15f7"
       ],
-      "kicker": "Platform Power",
-      "angle": "Meta's Oct. 30 commercial TOS forces business accounts to let its bots crawl linked websites for AI training with no opt-out.",
+      "kicker": "Policy",
+      "angle": "reports a judge rejected Trump's claim the EPA can dismiss Clean Air Act suits at will, leaving SpaceXAI facing the Memphis Colossus turbine pollution case",
       "words": 413,
       "priority": 9
+    },
+    {
+      "slot": "lead",
+      "page": 1,
+      "source_ids": [
+        "2bef5e1553"
+      ],
+      "kicker": "Industry",
+      "angle": "reports DeepSeek raised about $15B days after U.S. civilian agencies were ordered to remove its tech, funding infrastructure and open models despite restrictions",
+      "words": 299,
+      "priority": 10,
+      "photo": {
+        "subject": "the exterior of a modern glass office tower in Hangzhou with pedestrians on the sidewalk",
+        "search": "Hangzhou modern office towers daytime",
+        "why": "the Hangzhou-based lab at the center of the funding story"
+      }
     },
     {
       "slot": "fourth",
       "page": 1,
       "source_ids": [
-        "cc07996f6b"
+        "904cad10c7"
       ],
-      "kicker": "Gadgets",
-      "angle": "Amazon's Bee launches the $74.99 Frontier wrist-pin and $99.99 Eclipse phone-back notetaker to turn everyday talk into to-dos.",
+      "kicker": "Models",
+      "angle": "reports four-bit n-gram embedding tables save about 75% of table memory while preserving over 99% of the validation-loss gain",
       "words": 295,
-      "priority": 7
+      "priority": 6
     },
     {
       "slot": "second",
       "page": 1,
       "source_ids": [
-        "8ad1969e4f"
+        "4516a12ec7"
       ],
-      "kicker": "Campus",
-      "angle": "Lincoln Laboratory hosted the federal biotech commission Sept. 3 to link Massachusetts' bioindustrial ecosystem to biodefense.",
+      "kicker": "Learning",
+      "angle": "reports 153 proof students with early AI access gained 2.56 points on homework but saw no exam gain, with heavier chatbot use tied to lower exams",
       "words": 235,
-      "priority": 7
+      "priority": 5
     },
     {
-      "slot": "lead",
+      "slot": "top-b",
       "page": 2,
       "source_ids": [
-        "3906419378"
+        "481a13f86b"
       ],
-      "kicker": "Free Speech",
-      "angle": "A federal judge let the EFF-union lawsuit over AI surveillance of visa holders for anti-Trump and pro-Palestine speech move forward.",
-      "words": 380,
-      "priority": 9,
-      "photo": {
-        "subject": "protesters holding free-speech signs gathered on the steps outside a federal courthouse",
-        "search": "protest outside federal courthouse",
-        "why": "shows the public free-speech stakes of the immigration social-media surveillance lawsuit"
-      }
-    },
-    {
-      "slot": "second",
-      "page": 2,
-      "source_ids": [
-        "fd376d40da"
-      ],
-      "kicker": "Work",
-      "angle": "A Drexel researcher warns reliable AI creates latent risk as overseers lose practice for the rare moment they must intervene.",
-      "words": 421,
+      "kicker": "Surveillance",
+      "angle": "details how AI advances and national sharing turned ALPR cameras into a tracking network and lays out EFF's state agenda to curb it",
+      "words": 415,
       "priority": 8
     },
     {
-      "slot": "mid-a",
+      "slot": "foot-a",
       "page": 2,
       "source_ids": [
-        "e2eb449edb"
+        "dbe76530e9"
       ],
-      "kicker": "Supply Chains",
-      "angle": "MIT's survey of 1,810 professionals finds a record 83% call sustainability vital yet 68% retrenched under tariff uncertainty.",
-      "words": 252,
+      "kicker": "Shutdowns",
+      "angle": "surveys the AI graveyard from Relay to Character.ai bankruptcy, with about 42% of corporate AI initiatives abandoned",
+      "words": 413,
+      "priority": 7
+    },
+    {
+      "slot": "foot-b",
+      "page": 2,
+      "source_ids": [
+        "f03786deef"
+      ],
+      "kicker": "Safety",
+      "angle": "argues the kill-switch metaphor misleads because modern models are distributed infrastructure, not a single machine to switch off",
+      "words": 413,
       "priority": 6
     },
     {
-      "slot": "mid-b",
+      "slot": "top-a",
       "page": 2,
       "source_ids": [
-        "f0c7225697"
+        "91f4cf7291"
       ],
-      "kicker": "Brain Health",
-      "angle": "A Science Advances model finds over-reliance on priors when seeing angry faces predicts depression up to four years early.",
-      "words": 252,
-      "priority": 6
-    },
-    {
-      "slot": "mid-c",
-      "page": 2,
-      "source_ids": [
-        "979e9694bf"
-      ],
-      "kicker": "Privacy",
-      "angle": "EFF and ACLU ask Wisconsin's Supreme Court to require a warrant for retrospective ALPR tracking in four cities.",
-      "words": 252,
-      "priority": 5
+      "kicker": "Mental health",
+      "angle": "reports a JAMA Psychiatry records review finds chatbot-associated worsening of psychosis is rare but real and concentrated in first-episode patients",
+      "words": 301,
+      "priority": 7,
+      "photo": {
+        "subject": "a young adult alone looking at a smartphone in a hospital waiting room",
+        "search": "hospital waiting room chairs night",
+        "why": "the clinical setting where first-episode psychosis and chatbot-validated delusions were observed"
+      }
     }
   ],
   "rail": [
     {
-      "source_id": "4f901f846b",
+      "source_id": "042ad8cb4a",
       "group": "In brief",
-      "lead": "Wellbeing benchmark suite",
-      "point": "ImpactBench offers 809 expert-grounded metrics and tested ten frontier LLMs in 48,540 teen and adult conversations."
+      "lead": "Predicted lane change early",
+      "point": "CARLA tests show knowledge-graph prediction anticipates lane changes 3-4 seconds early and avoids the collision seen with reactive braking."
     },
     {
-      "source_id": "744e342c08",
+      "source_id": "0575c84def",
       "group": "In brief",
-      "lead": "Haptic tabletop authoring",
-      "point": "TouchTwin turns phone scans into editable haptic scenes, lifting realism from 4.0 to 5.6/7 after 6.6 minutes of edits in an N=12 study."
+      "lead": "Mental health posts shifted",
+      "point": "Analysis of 824K tweets finds post-acquisition drops in affective and social language with more high-intimacy suicide-related disclosures."
     },
     {
-      "source_id": "90c0f0452a",
+      "source_id": "1dc4e5cc11",
       "group": "In brief",
-      "lead": "AI slang without memory",
-      "point": "MoltBook agents show about 2x semantic drift and non-significant autocorrelation compared with Reddit and PTT humans."
+      "lead": "Quantum holds privacy utility",
+      "point": "Capacity-matched tests find quantum models lead classical models by up to 0.104 ROC AUC on three clinical cohorts under differential privacy."
     },
     {
-      "source_id": "928b665996",
+      "source_id": "2bbafbbcdb",
+      "group": "Also noted",
+      "lead": "Few teachers report AI policy",
+      "point": "Survey micro-data show only 34.5% of teachers report a school AI policy alongside a browser platform for K-12 security literacy."
+    },
+    {
+      "source_id": "341b27f0e9",
+      "group": "Also noted",
+      "lead": "10,003 indirect distress prompts",
+      "point": "VEILED-SH benchmark spanning counselor chat to triage finds proxy alignment varies across five systems and practitioner-calibrated profiles."
+    },
+    {
+      "source_id": "36bf7e3f95",
       "group": "In brief",
-      "lead": "Gendered stigma gap",
-      "point": "GPT-4 and GPT-5 depict men as most socially distant and least open to help-seeking versus 76,406-person human data."
+      "lead": "LLMs score therapy fidelity",
+      "point": "Three open-weight models with evidence-first reasoning automate fidelity ratings and distinguish CBT from non-CBT in an independent RCT."
     },
     {
-      "source_id": "9cd93f8152",
+      "source_id": "8f469c53b9",
       "group": "In brief",
-      "lead": "What AI leaves behind",
-      "point": "Residual Human States framework with four cases shows assisted success does not predict later unaided bias and persistence."
+      "lead": "LLMs miss individual trades",
+      "point": "Longitudinal study of 80 paper-traders finds no LLM beats a recent-activity baseline for predicting trade occurrence or asset picks."
     },
     {
-      "source_id": "069ceb1b3c",
+      "source_id": "9af4e47298",
       "group": "Also noted",
-      "lead": "Timely agent intervention",
-      "point": "StepSafe trains step-level guards to continue, ask, or stop as evidence accumulates rather than judging whole trajectories."
+      "lead": "Bank dashboard for EU Act",
+      "point": "VERA dashboard scores four open-weight models on twelve measurable EU AI Act requirements plus evaluation energy use."
     },
     {
-      "source_id": "3ae4224e9d",
+      "source_id": "9b332f0380",
       "group": "Also noted",
-      "lead": "Meme provenance tracker",
-      "point": "MemeTrace traces origin, spread and risk for 100 real memes and beats a VLM baseline on unsafe detection."
+      "lead": "Seven-agent library search",
+      "point": "Scriptorium built a multi-human multi-AI library interface with full activity transparency and seven role-specialized agents."
     },
     {
-      "source_id": "a1064fd3e6",
+      "source_id": "c636a83199",
       "group": "Also noted",
-      "lead": "Explanations for decisions",
-      "point": "HD-RL tuned Qwen explanations lifted human AI-text detection from 51.3% to 63.7% accuracy in a randomized trial."
-    },
-    {
-      "source_id": "d1b99ce6ad",
-      "group": "Also noted",
-      "lead": "Uncertainty in scheduling",
-      "point": "An explainable nurse-scheduling prototype co-designed with experts was evaluated with eye-tracking and questionnaires."
-    },
-    {
-      "source_id": "f288476dd9",
-      "group": "Also noted",
-      "lead": "Drone versus ground monitoring",
-      "point": "An N=18 cross-platform study finds aerial hazard monitoring lowers situational awareness and raises workload versus ground."
+      "lead": "Minow on democracy, AI",
+      "point": "Harvard scholar Martha Minow told MIT's Compton Lecture that AI undermines democracy but could also reinforce governance."
     }
   ],
   "rejected": [
     {
-      "source_id": "4f1af1f3fe",
-      "why": "sociology chapter review with no data, experiment or findings to report from"
+      "source_id": "8bee4fccb2",
+      "why": "conceptual essay on affective viscosity with no data or findings"
     },
     {
-      "source_id": "af74f3403a",
-      "why": "framework proposal with no evaluation, numbers or deployment to write from"
+      "source_id": "e1bee76450",
+      "why": "theoretical framework on job design with no empirical results"
+    },
+    {
+      "source_id": "e7064d7cab",
+      "why": "workflow proposal for contestable metadata with no evaluation"
     }
   ],
-  "date": "2026-10-18",
+  "date": "2026-10-25",
   "pool_size": 21
 }
