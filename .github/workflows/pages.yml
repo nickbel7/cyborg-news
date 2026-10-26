@@ -16,6 +16,7 @@ on:
       - 'assets/favicon*'
       - 'assets/apple-touch-icon.png'
       - 'tools/site.js'
+      - 'tools/about.html'
       - '.github/workflows/pages.yml'
   # A commit pushed by the build job uses GITHUB_TOKEN, and commits made with
   # that token deliberately do not trigger further workflows — so the Sunday
