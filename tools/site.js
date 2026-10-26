@@ -1128,7 +1128,7 @@ fs.mkdirSync(path.join(OUT, 'issues'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), page);
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');   // keep Pages off Jekyll
 
-/* The About page: tools/about.html is a finished page with five holes in it, filled here with
+/* The About page: tools/about.html is a finished page with four holes in it, filled here with
    things only the build knows. Kept as its own file so that its markup, styles and script are
    written as plain HTML rather than inside a template literal, where one stray backtick in a
    comment breaks the whole build. */
@@ -1145,7 +1145,7 @@ fs.writeFileSync(path.join(OUT, '.nojekyll'), '');   // keep Pages off Jekyll
     ? 'Read the issue of ' + new Date(manifest[0].date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
     : 'Open the reader';
   const about = fs.readFileSync(path.join(__dirname, 'about.html'), 'utf8')
-    .replace('{{LOGO_SVG_INLINE}}', () => svg).replace('{{LOGO_SVG}}', () => svg)
+    .replace('{{LOGO_SVG}}', () => svg)
     .replace('{{AVATAR_KEYFRAMES}}', () => (motion ? motion.keyframes : ''))
     .replace('{{PORTRAIT}}', () => portrait).replace('{{CTA_LABEL}}', () => label);
   fs.mkdirSync(path.join(OUT, 'about'), { recursive: true });
