@@ -201,6 +201,14 @@ const page = `<!doctype html>
 
   /* the masthead date, set in the newspaper's own display face */
   .dateline{text-align:center; flex:0 0 auto; max-width:92vw}
+  /* a quiet way to the About page: text only, like the dateline, top right */
+  .aboutlink{
+    position:fixed; z-index:6; top:21px; right:26px;
+    font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--muted); text-decoration:none; padding:6px 2px; line-height:1;
+    transition:color .2s;
+  }
+  .aboutlink:hover, .aboutlink:focus-visible{color:var(--ink)}
   .dateline .day{
     font-family:'Playfair Display',Georgia,serif; font-weight:700;
     font-size:clamp(15px,2.1vw,21px); letter-spacing:.02em; margin:0;
@@ -539,6 +547,7 @@ const page = `<!doctype html>
   .greeter .bubble .shut svg{width:11px; height:11px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round}
 
   @media (max-width:1000px){
+    .aboutlink{position:static; display:block; text-align:center; padding:4px 0 96px; font-size:11px}
     .greeter{left:34px; bottom:12px; gap:8px}
     .greeter .portrait{width:104px; border-radius:11px}
     .greeter .bubble{max-width:200px; font-size:12px; padding:9px 26px 9px 12px}
@@ -596,6 +605,8 @@ ${manifest.length ? `<main class="room">
   <h2>PREVIOUS ISSUES</h2>
   <div class="deck" id="deck"></div>
 </nav>` : `<main class="room"><p class="empty-state">No issue has printed yet. The first one is set on Sunday.</p></main>`}
+
+<a class="aboutlink" href="about/">About</a>
 
 ${hasAvatar ? `<aside class="greeter" id="greeter" aria-label="Greeter">
   <div class="bubble" id="greeterBubble" role="status" aria-live="polite">
@@ -1116,6 +1127,30 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'issues'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), page);
 fs.writeFileSync(path.join(OUT, '.nojekyll'), '');   // keep Pages off Jekyll
+
+/* The About page: tools/about.html is a finished page with four holes in it, filled here with
+   things only the build knows. Kept as its own file so that its markup, styles and script are
+   written as plain HTML rather than inside a template literal, where one stray backtick in a
+   comment breaks the whole build. */
+{
+  const svg = fs.readFileSync(path.join(ROOT, 'assets', 'logo-inline.svg'), 'utf8')
+    .replace(/<title>[\s\S]*?<\/title>/, '').replace(/ role="img" aria-label="[^"]*"/, '')
+    .replace('<svg ', '<svg aria-hidden="true" focusable="false" ')
+    .replace('fill="#000"', 'fill="currentColor"').replace(/\n/g, '');
+  const portrait = avatar.sprite
+    ? '<div class="portrait" aria-hidden="true"><span class="spriteWin" style="aspect-ratio:' + avatar.frameW + '/' + avatar.frameH +
+      '"><img src="../avatar/' + avatar.sprite + '" alt="" style="animation:' + motion.animation + '"></span></div>'
+    : '';
+  const label = manifest.length
+    ? 'Read the issue of ' + new Date(manifest[0].date + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
+    : 'Open the reader';
+  const about = fs.readFileSync(path.join(__dirname, 'about.html'), 'utf8')
+    .replace('{{LOGO_SVG}}', () => svg)
+    .replace('{{AVATAR_KEYFRAMES}}', () => (motion ? motion.keyframes : ''))
+    .replace('{{PORTRAIT}}', () => portrait).replace('{{CTA_LABEL}}', () => label);
+  fs.mkdirSync(path.join(OUT, 'about'), { recursive: true });
+  fs.writeFileSync(path.join(OUT, 'about', 'index.html'), about);
+}
 /* The tab icon. The SVG is the icon; the PNGs are rendered from it once and
    committed, for browsers that still will not take an SVG favicon and for
    the iOS home screen, which wants a 180px bitmap. Rendered ahead of time

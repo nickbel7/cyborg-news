@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — CYBORG NEWS</title>
+<meta name="description" content="Why a research lab made a weekly newspaper, and how each issue is made, checked and printed.">
+<meta name="color-scheme" content="dark">
+<script>
+  /* decided before first paint, so nothing flashes in and then out */
+  (function () {
+    var d = document.documentElement, still = /[?&]still\b/.test(location.search) ||
+      (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    d.className = d.className.replace('nojs', '').trim();
+    if (still) d.className += ' still';
+  })();
+</script>
+<meta name="theme-color" content="#0a0b0a">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600&display=swap">
+<style>
+  /* One face: Libre Franklin, the reader's own text face, set at a few weights. */
+  :root{
+    --bg:#0a0b0a;               /* the black of the printed banner */
+    --card:#141514;
+    --card-2:#1b1c1b;
+    --ink:#ecebe6;              /* headlines, and anything lit */
+    --body:#a4a39d;             /* running text */
+    --dim:#7b7b76;              /* large text not yet reached; 4.6:1 on the ground */
+    --dim-s:#8d8d87;            /* the same idea for 11-13px labels, where it needs more */
+    --line:#262725;
+    --paper:#f2f1ee;           /* the reader's wall, used for chips and the portrait tile */
+    --stamp:#d9503f;            /* the one ink that is not black: the LATEST stamp's red */
+    --col:728px;
+    --sans:'Libre Franklin',system-ui,-apple-system,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:dark; background:var(--bg); scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--body);
+    font-family:var(--sans); font-size:17px; line-height:1.58; font-weight:400;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  a{color:var(--ink); text-underline-offset:3px; text-decoration-thickness:1px; text-decoration-color:#55554f}
+  a:hover{text-decoration-color:var(--ink)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--ink); outline-offset:4px; border-radius:4px}
+  ::selection{background:var(--ink); color:var(--bg)}
+
+  /* the wordmark stays at the top, and the page fades out underneath it as it scrolls */
+  .top{
+    position:fixed; z-index:20; left:0; right:0; top:0; height:104px; pointer-events:none;
+    background:linear-gradient(to bottom, var(--bg) 66%, rgba(10,11,10,0));
+  }
+  .top .mark{
+    pointer-events:auto; position:absolute; left:50%; top:30px; transform:translateX(-50%);
+    display:block; color:var(--ink); line-height:0;
+  }
+  .top svg{display:block; height:17px; width:auto}
+  .back{
+    position:absolute; pointer-events:auto; left:max(24px, calc(50% - var(--col) / 2 + 24px)); top:29px;
+    font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--dim-s); text-decoration:none; line-height:19px;
+  }
+  .back:hover{color:var(--ink)}
+  @media (max-width:760px){ .back{display:none} }
+
+  .col{max-width:var(--col); margin:0 auto; padding:0 24px}
+
+  /* ---- hero ---------------------------------------------------------------- */
+  .hero{padding-top:clamp(124px, 19vh, 190px); padding-bottom:28px}
+  .vh{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}   /* the page's h1, for screen readers */
+  /* with no headline the first paragraph opens the page, so it is set a size up */
+  .lede p:first-child{font-size:clamp(19px, 2.4vw, 22px); line-height:1.5; color:var(--ink); letter-spacing:-.005em}
+  .lede p{margin:0 0 1.25em}
+
+  /* ---- sections ------------------------------------------------------------- */
+  section{padding-top:clamp(56px, 9vh, 92px)}
+  h2{
+    margin:0 0 20px; font-family:var(--sans); font-weight:600; font-size:clamp(23px, 3.2vw, 27px);
+    line-height:1.2; letter-spacing:-.015em; color:var(--ink); text-wrap:balance;
+  }
+  section p{margin:0 0 1.2em}
+  section > :last-child{margin-bottom:0}
+  .lede p, section > p{max-width:66ch}
+  .lede p:last-child{margin-bottom:0}
+  .small{font-size:14.5px; color:#8f8f89; line-height:1.55}
+  strong{color:var(--ink); font-weight:600}
+
+  /* a label, in the paper's own kicker style */
+  .chip{
+    display:inline-block; padding:4px 10px 4px; border-radius:999px; background:var(--paper); color:var(--bg);
+    font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; line-height:1.4;
+  }
+
+  /* ---- cards ---------------------------------------------------------------- */
+  .card{background:var(--card); border-radius:22px; padding:26px 26px 24px}
+  .card + .card{margin-top:10px}
+
+  /* ---- the pipeline ----------------------------------------------------------- */
+  .pipe{margin:34px 0 0; position:relative}
+  .stages{list-style:none; margin:0; padding:0}
+  .pipe::before, .pipe .fill{
+    content:''; position:absolute; left:6px; top:12px; width:2px; border-radius:2px;
+  }
+  .pipe::before{bottom:12px; background:var(--line)}
+  /* no transition on the fill: the scroll is the animation, and a delay here made the line trail the nodes */
+  .pipe .fill{height:var(--fill, 0px); background:linear-gradient(to bottom, #6f6e69, var(--ink)); box-shadow:0 0 5px rgba(236,235,230,.16)}
+  .pipe .fill::after{        /* the page travelling down the line */
+    content:''; position:absolute; left:50%; bottom:-7px; width:12px; height:15px; margin-left:-6px;
+    background:var(--ink); clip-path:polygon(0 0, 62% 0, 100% 28%, 100% 100%, 0 100%);   /* a page with its corner turned */
+    opacity:var(--head, 0); transition:opacity .3s;
+  }
+  .stages{counter-reset:st}
+  .stage{position:relative; padding:0 0 38px 44px; color:var(--dim); transition:color .45s; counter-increment:st}
+  .kick{display:block; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--dim-s); transition:color .45s}
+  .kick::before{content:counter(st, decimal-leading-zero); margin-right:12px; opacity:.7}
+  .stage.on .kick{color:var(--body)}
+  .stage.current .kick{color:var(--ink)}
+  .stage:last-child{padding-bottom:6px}
+  .stage .node{
+    position:absolute; left:0; top:6px; width:14px; height:14px; border-radius:50%;
+    background:var(--bg); box-shadow:inset 0 0 0 2px #3a3b39; transition:box-shadow .4s, background .4s;
+  }
+  .stage h3{margin:8px 0 6px; font-family:var(--sans); font-weight:600; font-size:19px; line-height:1.25; color:inherit; transition:color .45s}
+  .stage p{margin:0; font-size:16px; line-height:1.55; color:inherit}
+  .stage.on{color:var(--body)}
+  .stage.on h3{color:var(--ink)}
+  .stage.on .node{background:var(--ink); box-shadow:inset 0 0 0 2px var(--ink)}
+  .stage.current .node{box-shadow:inset 0 0 0 2px var(--ink), 0 0 0 5px rgba(236,235,230,.12)}
+
+  /* ---- the week ----------------------------------------------------------------- */
+  .week{margin-top:26px; position:relative; overflow:hidden}
+  .week .days{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px; text-align:center}
+  .week .day{padding-top:2px}
+  .week .day span{display:block; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--dim-s); margin-bottom:10px}
+  .week .col-dots{height:66px; display:flex; flex-direction:column-reverse; align-items:center; gap:4px}
+  .week .dot{
+    width:10px; height:13px; border-radius:2px 4px 2px 2px; background:#3a3b39;      /* a page, like the one on the line above */
+    transform:translateY(-16px); opacity:0;
+    transition:transform .5s cubic-bezier(.3,.7,.2,1), opacity .4s, background .45s;
+  }
+  .week.go .dot{transform:none; opacity:1; transition-delay:calc(var(--i) * 70ms + var(--d) * 240ms), calc(var(--i) * 70ms + var(--d) * 240ms), 0s}
+  .week.set .dot{background:var(--paper); transition-delay:0s, 0s, calc(var(--d) * 90ms)}
+  /* they settle onto the bar and stay as ghosts of the week, so the card never ends on an empty box */
+  .week.fall .dot{transform:translateY(12px); opacity:.2; transition:transform .55s cubic-bezier(.5,0,.9,.4) calc(var(--d) * 90ms + var(--i) * 40ms), opacity .4s ease-in calc(var(--d) * 90ms + var(--i) * 40ms + .25s)}
+  .week .bar{margin-top:14px; height:6px; border-radius:6px; background:#242523; position:relative}
+  .week .bar i{position:absolute; inset:0; border-radius:6px; transform:scaleX(0); transform-origin:left; background:#7b7b76; transition:transform 1.5s cubic-bezier(.3,.6,.2,1) .2s, background .6s, box-shadow .5s}
+  .week.go .bar i{transform:scaleX(1)}
+  .week.fall .bar i{background:var(--paper); box-shadow:0 0 0 2px var(--paper); transition-delay:0s, .5s, .5s}   /* the bar thickens as the pages land on it */
+  .week .legend{display:flex; justify-content:space-between; gap:14px; margin-top:12px; font-size:13.5px; color:var(--dim-s); line-height:1.4}
+  .week .legend b{color:var(--ink); font-weight:600}
+  .week.set .legend .end{color:var(--body)}
+
+  /* ---- sign-off --------------------------------------------------------------- */
+  .note{display:flex; gap:20px; align-items:center; margin-top:0}
+  .portrait{flex:0 0 auto; width:84px; line-height:0}
+  .portrait .spriteWin{display:block; width:84px; overflow:hidden}
+  .portrait .spriteWin img{display:block; height:100%; width:auto; max-width:none}
+  {{AVATAR_KEYFRAMES}}
+  .sign{font-family:var(--sans); font-weight:600; font-size:20px; letter-spacing:-.01em; color:var(--ink); line-height:1.25; margin:0 0 2px}
+  .role{font-size:14.5px; color:var(--body); line-height:1.45; margin:0}
+
+  .cta{margin-top:48px; display:flex; flex-wrap:wrap; gap:14px 22px; align-items:center}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; padding:13px 22px 13px; border-radius:999px; background:var(--paper); color:var(--bg);
+    text-decoration:none; font-weight:600; font-size:15.5px; line-height:1.2; transition:transform .25s cubic-bezier(.3,.7,.2,1), background .25s;
+  }
+  .btn:hover{transform:translateY(-2px); background:#fff}
+  .btn svg{width:16px; height:16px; transition:transform .25s}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn svg path{fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+  .cta a.plain{font-size:15px}
+
+  footer{margin:clamp(70px, 12vh, 120px) auto 0; padding:30px 24px 52px; max-width:var(--col); position:relative; display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim-s)}
+  footer::before{content:''; position:absolute; left:24px; right:24px; top:0; height:1px; background:var(--line)}
+  footer a{color:var(--dim-s); text-decoration:none}
+  footer a:hover{color:var(--ink)}
+
+  /* ---- motion --------------------------------------------------------------------- */
+  .rv{opacity:0; transform:translateY(16px); transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1; transform:none}
+  /* If scripts do not run, nothing stays hidden. */
+  .nojs .rv{opacity:1; transform:none}
+  .nojs .stage{color:var(--body)} .nojs .stage h3{color:var(--ink)} .nojs .stage .node{background:var(--ink)}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .rv{opacity:1; transform:none; transition:none}
+    .pipe .fill, .pipe .fill::after, .stage, .stage *, .week *{transition:none !important}
+    .portrait .spriteWin img{animation:none !important}
+    .btn, .btn svg{transition:none}
+  }
+  html.still .rv{opacity:1; transform:none; transition:none}
+  html.still .pipe .fill, html.still .pipe .fill::after, html.still .stage, html.still .stage *, html.still .week *{transition:none !important}
+  html.still .portrait .spriteWin img{animation:none !important}
+</style>
+</head>
+<body>
+<div class="top"><a class="mark" href="../" aria-label="Cyborg News, back to the latest issue">{{LOGO_SVG}}</a><a class="back" href="../">← Latest issue</a></div>
+
+<main>
+  <div class="col hero">
+<h1 class="vh">About Cyborg News</h1>
+    <div class="lede rv">
+      <p>In the lab we passed around links: to events, to news, to things worth knowing about. Some of us read them. Not everyone did. We wanted a more tangible way to meet the week&rsquo;s news.</p>
+      <p>So the news now has a body. Cyborg News is a two-page newspaper, set every week from the week&rsquo;s reporting and made to be printed on A3. You can hold it, fold it, and hand it to the person next to you.</p>
+      <p>Nobody sets the type by hand. A script gathers the stories, a language model drafts them, and ordinary code fits them to the page, checks them, and prints them.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <section class="rv">
+      <h2>What&rsquo;s in it?</h2>
+      <p>A lead story with a photograph, a handful of others, a column of one-line briefs, and standing boxes for tables and notes. Every issue has a date on it and a place in the archive, so last month&rsquo;s paper is still there.</p>
+      <p>It follows the lab&rsquo;s own questions: how people and AI shape each other, what using AI does to us psychologically, AI and wellbeing, wearables and embodied computing, and a small beat for the industry. News from the Media Lab counts like any other source.</p>
+    </section>
+
+    <section class="rv">
+      <h2>How does it work?</h2>
+      <p>Every Sunday evening, Boston time, one run takes the paper from nothing to a finished PDF. A language model is asked specific questions at set points: what to cover, what to write. Ordinary code does everything else, and it has the last word.</p>
+
+      <div class="pipe" id="pipe">
+        <span class="fill" aria-hidden="true"></span>
+        <ol class="stages">
+        <li class="stage"><span class="node"></span>
+          <span class="kick">Collect</span>
+          <h3>Look back over the week</h3>
+          <p>Reads a fixed set of news, research and policy feeds for the past seven days, and sorts every item by theme so that no single source can fill the paper.</p></li>
+        <li class="stage"><span class="node"></span>
+          <span class="kick">Read</span>
+          <h3>Open every link</h3>
+          <p>Fetches each page and pulls out the article text, or the abstract when it is a paper. A link it cannot read is recorded as a failure and never guessed at.</p></li>
+        <li class="stage"><span class="node"></span>
+          <span class="kick">Choose</span>
+          <h3>Play editor</h3>
+          <p>A model picks the stories, the lead, and which ones earn a photograph, knowing exactly how many words each column holds.</p></li>
+        <li class="stage"><span class="node"></span>
+          <span class="kick">Write</span>
+          <h3>Write each story on its own</h3>
+          <p>Each article is written from its own sources only, to the length of its column, with the most important facts first so that the end can be cut.</p></li>
+        <li class="stage"><span class="node"></span>
+          <span class="kick">Illustrate</span>
+          <h3>Find a photograph that is allowed</h3>
+          <p>Searches Wikimedia Commons for a picture under a Creative Commons or public-domain licence, and keeps the licence on record for the credit line.</p></li>
+        <li class="stage"><span class="node"></span>
+          <span class="kick">Set</span>
+          <h3>Fit it to the page</h3>
+          <p>Typesets both pages, measures where a column ran short or long, and asks for a rewrite until the type fills the space.</p></li>
+        <li class="stage"><span class="node"></span>
+          <span class="kick">Print</span>
+          <h3>Put it on paper</h3>
+          <p>Renders the A3 PDF, files it with its sources and plan, and publishes it here. Print it, fold it, pass it on.</p></li>
+        </ol>
+      </div>
+
+      <p class="small" style="margin-top:34px">Each issue is checked before it is printed for invented quotations, unlicensed pictures and claims about the lab. That cannot make every sentence true. The paper summarises other people&rsquo;s reporting; it does no reporting of its own.</p>
+    </section>
+
+    <section class="rv">
+      <h2>When does it come out?</h2>
+      <p>On Sunday evening the run looks back over the previous seven days and sets the paper, so that it is there when Monday starts.</p>
+      <div class="card week" id="week" aria-label="The week: seven days of stories are gathered into one paper on Sunday evening">
+        <div class="days" id="days"></div>
+        <div class="bar"><i></i></div>
+        <div class="legend"><span>The past seven days</span><span class="end"><b>Sunday evening</b> — set and printed</span></div>
+      </div>
+    </section>
+
+    <section class="rv">
+      <h2>Why paper?</h2>
+      <p>A link is easy to skip. A page on a table is not, and it travels: it gets folded into a bag, left on a desk, handed over with &ldquo;have you seen this?&rdquo;. The newspaper is a way of making the week&rsquo;s news something you can pick up.</p>
+    </section>
+
+    <section class="rv">
+      <div class="note">
+        {{PORTRAIT}}
+        <div>
+          <p class="sign">Nikos Bellos</p>
+          <p class="role">MIT Media Lab</p>
+        </div>
+      </div>
+      <div class="cta">
+        <a class="btn" href="../">{{CTA_LABEL}}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="plain" href="https://github.com/nickbel7/cyborg-news">Read the code</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <span>Cyborg News &middot; Free to humans</span>
+  <span><a href="../">The latest issue</a></span>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var still = root.classList.contains('still');
+
+  /* sections arrive as they are scrolled to */
+  var rv = [].slice.call(document.querySelectorAll('.rv'));
+  if (still || !('IntersectionObserver' in window)) rv.forEach(function (e) { e.classList.add('in'); });
+  else {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    rv.forEach(function (e) { io.observe(e); });
+  }
+
+  /* the pipeline: a line fills as the reader moves down it, and each stage is lit when the line reaches it */
+  var pipe = document.getElementById('pipe');
+  var stages = [].slice.call(pipe.querySelectorAll('.stage'));
+  var queued = false;
+  function paintPipe() {
+    queued = false;
+    var pr = pipe.getBoundingClientRect(), line = window.innerHeight * 0.62;
+    var centres = stages.map(function (s) { var n = s.querySelector('.node').getBoundingClientRect(); return n.top + n.height / 2; });
+    var reach = -1;
+    stages.forEach(function (s, i) { var on = centres[i] < line; s.classList.toggle('on', on); if (on) reach = i; });
+    stages.forEach(function (s, i) { s.classList.toggle('current', i === reach); });
+    var h = 0, t = 0;
+    if (reach >= 0) {
+      var from = centres[reach], to = reach + 1 < stages.length ? centres[reach + 1] : from;
+      t = to > from ? Math.max(0, Math.min(1, (line - from) / (to - from))) : 0;
+      h = (from + t * (to - from)) - pr.top - 12;
+    }
+    pipe.style.setProperty('--fill', Math.max(0, Math.min(pr.height - 24, h)) + 'px');
+    // the page is only seen between nodes, so it never sits on top of one and hides it
+    pipe.style.setProperty('--head', reach >= 0 && reach < stages.length - 1 ? Math.max(0, Math.min(1, t * 6, (1 - t) * 6)) : 0);
+  }
+  function queue() { if (!queued) { queued = true; requestAnimationFrame(paintPipe); } }
+  addEventListener('scroll', queue, { passive: true });
+  addEventListener('resize', queue);
+  queue();
+
+  /* the week: seven days of stories drop into place, then the bar fills and they turn to paper */
+  var days = document.getElementById('days'), week = document.getElementById('week');
+  var names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], counts = [2, 3, 2, 4, 3, 2, 3];
+  names.forEach(function (n, d) {
+    var c = document.createElement('div'); c.className = 'day';
+    var label = document.createElement('span'); label.textContent = n; c.appendChild(label);
+    var col = document.createElement('div'); col.className = 'col-dots';
+    for (var i = 0; i < counts[d]; i++) {
+      var dot = document.createElement('i'); dot.className = 'dot';
+      dot.style.setProperty('--i', i); dot.style.setProperty('--d', d); col.appendChild(dot);
+    }
+    c.appendChild(col); days.appendChild(c);
+  });
+  /* the dots arrive, turn to paper, then drop into the bar as the paper is set; with reduced motion they simply stay */
+  function playWeek() {
+    week.classList.add('go');
+    if (still) { week.classList.add('set'); return; }
+    setTimeout(function () { week.classList.add('set'); }, 2300);
+    setTimeout(function () { week.classList.add('fall'); }, 3300);
+  }
+  if (still || !('IntersectionObserver' in window)) playWeek();
+  else {
+    var wio = new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) { playWeek(); wio.disconnect(); }
+    }, { threshold: 0.45 });
+    wio.observe(week);
+  }
+})();
+</script>
+</body>
+</html>
