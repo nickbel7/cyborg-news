@@ -1,15 +1,15 @@
 {
   "shape": "cover/a3-lead + inside/a3-grid",
-  "rationale": "This issue pairs AI's money boom and bust with its fights over power, pollution and control. Psychosis evidence, classroom offloading and memory efficiency ground the hype in cognition and capability.",
+  "rationale": "This issue follows AI power into the physical world — chips, turbines, data centers and courts — while testing what it does to minds, bodies and votes. The mix balances Washington money and law with lab work on hearing, elections and health to avoid a single-story paper.",
   "assignments": [
     {
       "slot": "third",
       "page": 1,
       "source_ids": [
-        "8b3dcb15f7"
+        "fdc6e1d8e3"
       ],
-      "kicker": "Policy",
-      "angle": "reports a judge rejected Trump's claim the EPA can dismiss Clean Air Act suits at will, leaving SpaceXAI facing the Memphis Colossus turbine pollution case",
+      "kicker": "Senate Race",
+      "angle": "Maine's fight over AI data-center water, power bills and jobs has become the deciding issue in the battle for the Senate.",
       "words": 413,
       "priority": 9
     },
@@ -17,37 +17,37 @@
       "slot": "lead",
       "page": 1,
       "source_ids": [
-        "2bef5e1553"
+        "4f4bed045a"
       ],
-      "kicker": "Industry",
-      "angle": "reports DeepSeek raised about $15B days after U.S. civilian agencies were ordered to remove its tech, funding infrastructure and open models despite restrictions",
+      "kicker": "White House",
+      "angle": "Trump was briefed a year ago that Beijing had direct access to Jensen Huang through a Singapore cloud executive and did nothing to protect Nvidia's stock.",
       "words": 299,
       "priority": 10,
       "photo": {
-        "subject": "the exterior of a modern glass office tower in Hangzhou with pedestrians on the sidewalk",
-        "search": "Hangzhou modern office towers daytime",
-        "why": "the Hangzhou-based lab at the center of the funding story"
+        "subject": "the exterior of the White House at dusk with a reporter holding a microphone in the foreground",
+        "search": "White House exterior evening press",
+        "why": "the story is about a presidential intelligence briefing and White House protection of Nvidia"
       }
     },
     {
       "slot": "fourth",
       "page": 1,
       "source_ids": [
-        "904cad10c7"
+        "e07dacdb45"
       ],
-      "kicker": "Models",
-      "angle": "reports four-bit n-gram embedding tables save about 75% of table memory while preserving over 99% of the validation-loss gain",
+      "kicker": "Courts",
+      "angle": "A federal judge refused to dismiss the NAACP suit accusing xAI of running 35 gas turbines at Colossus without Clean Air Act permits.",
       "words": 295,
-      "priority": 6
+      "priority": 7
     },
     {
       "slot": "second",
       "page": 1,
       "source_ids": [
-        "4516a12ec7"
+        "c10fef6ec8"
       ],
-      "kicker": "Learning",
-      "angle": "reports 153 proof students with early AI access gained 2.56 points on homework but saw no exam gain, with heavier chatbot use tied to lower exams",
+      "kicker": "Money",
+      "angle": "OpenAI cut its latest raise target from $30 billion to $20 billion after securing only $11 billion amid Wall Street AI-spending fears.",
       "words": 235,
       "priority": 5
     },
@@ -55,10 +55,10 @@
       "slot": "top-b",
       "page": 2,
       "source_ids": [
-        "481a13f86b"
+        "9e57b3c7cb"
       ],
-      "kicker": "Surveillance",
-      "angle": "details how AI advances and national sharing turned ALPR cameras into a tracking network and lays out EFF's state agenda to curb it",
+      "kicker": "Machine Hearing",
+      "angle": "Paris Smaragdis is building machines that locate crashes and failing drills by hearing better than humans.",
       "words": 415,
       "priority": 8
     },
@@ -66,117 +66,137 @@
       "slot": "foot-a",
       "page": 2,
       "source_ids": [
-        "dbe76530e9"
+        "226d6d5c25"
       ],
-      "kicker": "Shutdowns",
-      "angle": "surveys the AI graveyard from Relay to Character.ai bankruptcy, with about 42% of corporate AI initiatives abandoned",
+      "kicker": "Midterms",
+      "angle": "MIT's LLM Election Observatory tracks in real time how chatbots answer 2026 midterm questions and whether they sway voters.",
       "words": 413,
-      "priority": 7
+      "priority": 8
     },
     {
       "slot": "foot-b",
       "page": 2,
       "source_ids": [
-        "f03786deef"
+        "6df06c4ce6"
       ],
-      "kicker": "Safety",
-      "angle": "argues the kill-switch metaphor misleads because modern models are distributed infrastructure, not a single machine to switch off",
+      "kicker": "Wellbeing",
+      "angle": "An 183,000-adult, 11-year study finds daily social media over about 2.5 hours is among the top predictors of self-reported depression.",
       "words": 413,
-      "priority": 6
+      "priority": 7
     },
     {
       "slot": "top-a",
       "page": 2,
       "source_ids": [
-        "91f4cf7291"
+        "e3c2e19ab9"
       ],
-      "kicker": "Mental health",
-      "angle": "reports a JAMA Psychiatry records review finds chatbot-associated worsening of psychosis is rare but real and concentrated in first-episode patients",
+      "kicker": "Outdoors",
+      "angle": "Three 20-year-olds lost on Mount Shasta after following Gemini show how chatbots are leading hikers into dangerous decisions.",
       "words": 301,
-      "priority": 7,
+      "priority": 6,
       "photo": {
-        "subject": "a young adult alone looking at a smartphone in a hospital waiting room",
-        "search": "hospital waiting room chairs night",
-        "why": "the clinical setting where first-episode psychosis and chatbot-validated delusions were observed"
+        "subject": "three young hikers with backpacks descending a rocky mountain slope at dusk watched by a forest ranger",
+        "search": "hikers rocky mountain trail dusk",
+        "why": "the story centers on unprepared hikers relying on a chatbot on Mount Shasta and needing rescue"
       }
     }
   ],
   "rail": [
     {
-      "source_id": "042ad8cb4a",
+      "source_id": "0419fa07eb",
       "group": "In brief",
-      "lead": "Predicted lane change early",
-      "point": "CARLA tests show knowledge-graph prediction anticipates lane changes 3-4 seconds early and avoids the collision seen with reactive braking."
+      "lead": "Delaware AI companies probed",
+      "point": "House Oversight chair James Comer demanded documents on Delaware's Artificial Intelligence Company plan, warning it would let owners evade liability."
     },
     {
-      "source_id": "0575c84def",
+      "source_id": "f4d8bb4635",
       "group": "In brief",
-      "lead": "Mental health posts shifted",
-      "point": "Analysis of 824K tweets finds post-acquisition drops in affective and social language with more high-intimacy suicide-related disclosures."
+      "lead": "EFF defends AI fair use",
+      "point": "EFF filed an amicus brief in In re OpenAI arguing narrowing fair use would hurt researchers, journalists and accessibility tools."
     },
     {
-      "source_id": "1dc4e5cc11",
+      "source_id": "00b7119b45",
+      "group": "Also noted",
+      "lead": "Regulate by harm",
+      "point": "A legal scholar argues AI should be regulated by harm, citing OpenAI models hacking Hugging Face and the Character.ai teen-suicide settlement."
+    },
+    {
+      "source_id": "612f10dc07",
       "group": "In brief",
-      "lead": "Quantum holds privacy utility",
-      "point": "Capacity-matched tests find quantum models lead classical models by up to 0.104 ROC AUC on three clinical cohorts under differential privacy."
+      "lead": "Siri can now exclude apps",
+      "point": "Apple's iOS 27.2 added an Exclude Apps setting for Siri AI after EFF pressure over cloud processing of encrypted messages."
     },
     {
-      "source_id": "2bbafbbcdb",
+      "source_id": "1d512c8d5b",
       "group": "Also noted",
-      "lead": "Few teachers report AI policy",
-      "point": "Survey micro-data show only 34.5% of teachers report a school AI policy alongside a browser platform for K-12 security literacy."
+      "lead": "AI Overviews cite weaker sources",
+      "point": "Across 3,611 health questions, AI Overviews appeared 96.4% of the time but cited only 44.4% of top results and favored commercial over academic sources."
     },
     {
-      "source_id": "341b27f0e9",
-      "group": "Also noted",
-      "lead": "10,003 indirect distress prompts",
-      "point": "VEILED-SH benchmark spanning counselor chat to triage finds proxy alignment varies across five systems and practitioner-calibrated profiles."
-    },
-    {
-      "source_id": "36bf7e3f95",
+      "source_id": "783a4f4773",
       "group": "In brief",
-      "lead": "LLMs score therapy fidelity",
-      "point": "Three open-weight models with evidence-first reasoning automate fidelity ratings and distinguish CBT from non-CBT in an independent RCT."
+      "lead": "Genomic agent beats baseline",
+      "point": "ClinGeX, composing 105 executable skills, reached 71.7% concordance versus 45.7% for the best comparator on 223 held-out cases."
     },
     {
-      "source_id": "8f469c53b9",
-      "group": "In brief",
-      "lead": "LLMs miss individual trades",
-      "point": "Longitudinal study of 80 paper-traders finds no LLM beats a recent-activity baseline for predicting trade occurrence or asset picks."
-    },
-    {
-      "source_id": "9af4e47298",
+      "source_id": "615ceca019",
       "group": "Also noted",
-      "lead": "Bank dashboard for EU Act",
-      "point": "VERA dashboard scores four open-weight models on twelve measurable EU AI Act requirements plus evaluation energy use."
+      "lead": "AI reflection improves deliberation",
+      "point": "A randomized trial of 1,173 people in 391 groups found AI-guided self-reflection raised discourse quality by d=0.31 versus no reflection."
     },
     {
-      "source_id": "9b332f0380",
+      "source_id": "68b0ae3721",
       "group": "Also noted",
-      "lead": "Seven-agent library search",
-      "point": "Scriptorium built a multi-human multi-AI library interface with full activity transparency and seven role-specialized agents."
+      "lead": "Course tests engineering accountability",
+      "point": "An AI-permissive 13-week engineering course with 87 students in 17 teams judges competence across product, verification and explanation, not just code."
     },
     {
-      "source_id": "c636a83199",
+      "source_id": "2e36c5c43d",
       "group": "Also noted",
-      "lead": "Minow on democracy, AI",
-      "point": "Harvard scholar Martha Minow told MIT's Compton Lecture that AI undermines democracy but could also reinforce governance."
+      "lead": "AI cuts schooling payoff",
+      "point": "CPS earnings from 2018 to June 2026 show the return to schooling fell 0.55 log points in occupations most exposed to ChatGPT."
+    },
+    {
+      "source_id": "930327d0f6",
+      "group": "Also noted",
+      "lead": "Tech rarely supports reflection",
+      "point": "Coding of 134 systems from 1996-2026 found most set the pace themselves, defining seven dimensions for reflective computing."
     }
   ],
   "rejected": [
     {
-      "source_id": "8bee4fccb2",
-      "why": "conceptual essay on affective viscosity with no data or findings"
+      "source_id": "2018ddc031",
+      "why": "116-word abstract with no dataset, evaluation details or deployment"
     },
     {
-      "source_id": "e1bee76450",
-      "why": "theoretical framework on job design with no empirical results"
+      "source_id": "3d13c58190",
+      "why": "short interview write-up judging peer perception with no quantitative results"
     },
     {
-      "source_id": "e7064d7cab",
-      "why": "workflow proposal for contestable metadata with no evaluation"
+      "source_id": "56e1a2afe4",
+      "why": "tiny survey of n=12 plus n=10 interviews with no generalizable findings"
+    },
+    {
+      "source_id": "5d8b6e2812",
+      "why": "conference abstract describing a model with no effect sizes reported"
+    },
+    {
+      "source_id": "c404a8ac5b",
+      "why": "28-person qualitative reframing study with only preliminary perceptions"
+    },
+    {
+      "source_id": "8f4e99cf35",
+      "why": "conceptual review proposing mechanisms with no new data"
+    },
+    {
+      "source_id": "3c50c34eff",
+      "why": "simulation with illustrative parameters and no real-world deployment"
+    },
+    {
+      "source_id": "bc4bdd96fd",
+      "why": "scale-development survey with only descriptive patterns and no tested outcomes"
     }
   ],
-  "date": "2026-10-25",
-  "pool_size": 21
+  "date": "2026-11-01",
+  "pool_size": 26
 }

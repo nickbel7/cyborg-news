@@ -1,0 +1,202 @@
+{
+  "shape": "cover/a3-lead + inside/a3-grid",
+  "rationale": "This issue follows AI power into the physical world — chips, turbines, data centers and courts — while testing what it does to minds, bodies and votes. The mix balances Washington money and law with lab work on hearing, elections and health to avoid a single-story paper.",
+  "assignments": [
+    {
+      "slot": "third",
+      "page": 1,
+      "source_ids": [
+        "fdc6e1d8e3"
+      ],
+      "kicker": "Senate Race",
+      "angle": "Maine's fight over AI data-center water, power bills and jobs has become the deciding issue in the battle for the Senate.",
+      "words": 413,
+      "priority": 9
+    },
+    {
+      "slot": "lead",
+      "page": 1,
+      "source_ids": [
+        "4f4bed045a"
+      ],
+      "kicker": "White House",
+      "angle": "Trump was briefed a year ago that Beijing had direct access to Jensen Huang through a Singapore cloud executive and did nothing to protect Nvidia's stock.",
+      "words": 299,
+      "priority": 10,
+      "photo": {
+        "subject": "the exterior of the White House at dusk with a reporter holding a microphone in the foreground",
+        "search": "White House exterior evening press",
+        "why": "the story is about a presidential intelligence briefing and White House protection of Nvidia"
+      }
+    },
+    {
+      "slot": "fourth",
+      "page": 1,
+      "source_ids": [
+        "e07dacdb45"
+      ],
+      "kicker": "Courts",
+      "angle": "A federal judge refused to dismiss the NAACP suit accusing xAI of running 35 gas turbines at Colossus without Clean Air Act permits.",
+      "words": 295,
+      "priority": 7
+    },
+    {
+      "slot": "second",
+      "page": 1,
+      "source_ids": [
+        "c10fef6ec8"
+      ],
+      "kicker": "Money",
+      "angle": "OpenAI cut its latest raise target from $30 billion to $20 billion after securing only $11 billion amid Wall Street AI-spending fears.",
+      "words": 235,
+      "priority": 5
+    },
+    {
+      "slot": "top-b",
+      "page": 2,
+      "source_ids": [
+        "9e57b3c7cb"
+      ],
+      "kicker": "Machine Hearing",
+      "angle": "Paris Smaragdis is building machines that locate crashes and failing drills by hearing better than humans.",
+      "words": 415,
+      "priority": 8
+    },
+    {
+      "slot": "foot-a",
+      "page": 2,
+      "source_ids": [
+        "226d6d5c25"
+      ],
+      "kicker": "Midterms",
+      "angle": "MIT's LLM Election Observatory tracks in real time how chatbots answer 2026 midterm questions and whether they sway voters.",
+      "words": 413,
+      "priority": 8
+    },
+    {
+      "slot": "foot-b",
+      "page": 2,
+      "source_ids": [
+        "6df06c4ce6"
+      ],
+      "kicker": "Wellbeing",
+      "angle": "An 183,000-adult, 11-year study finds daily social media over about 2.5 hours is among the top predictors of self-reported depression.",
+      "words": 413,
+      "priority": 7
+    },
+    {
+      "slot": "top-a",
+      "page": 2,
+      "source_ids": [
+        "e3c2e19ab9"
+      ],
+      "kicker": "Outdoors",
+      "angle": "Three 20-year-olds lost on Mount Shasta after following Gemini show how chatbots are leading hikers into dangerous decisions.",
+      "words": 301,
+      "priority": 6,
+      "photo": {
+        "subject": "three young hikers with backpacks descending a rocky mountain slope at dusk watched by a forest ranger",
+        "search": "hikers rocky mountain trail dusk",
+        "why": "the story centers on unprepared hikers relying on a chatbot on Mount Shasta and needing rescue"
+      }
+    }
+  ],
+  "rail": [
+    {
+      "source_id": "0419fa07eb",
+      "group": "In brief",
+      "lead": "Delaware AI companies probed",
+      "point": "House Oversight chair James Comer demanded documents on Delaware's Artificial Intelligence Company plan, warning it would let owners evade liability."
+    },
+    {
+      "source_id": "f4d8bb4635",
+      "group": "In brief",
+      "lead": "EFF defends AI fair use",
+      "point": "EFF filed an amicus brief in In re OpenAI arguing narrowing fair use would hurt researchers, journalists and accessibility tools."
+    },
+    {
+      "source_id": "00b7119b45",
+      "group": "Also noted",
+      "lead": "Regulate by harm",
+      "point": "A legal scholar argues AI should be regulated by harm, citing OpenAI models hacking Hugging Face and the Character.ai teen-suicide settlement."
+    },
+    {
+      "source_id": "612f10dc07",
+      "group": "In brief",
+      "lead": "Siri can now exclude apps",
+      "point": "Apple's iOS 27.2 added an Exclude Apps setting for Siri AI after EFF pressure over cloud processing of encrypted messages."
+    },
+    {
+      "source_id": "1d512c8d5b",
+      "group": "Also noted",
+      "lead": "AI Overviews cite weaker sources",
+      "point": "Across 3,611 health questions, AI Overviews appeared 96.4% of the time but cited only 44.4% of top results and favored commercial over academic sources."
+    },
+    {
+      "source_id": "783a4f4773",
+      "group": "In brief",
+      "lead": "Genomic agent beats baseline",
+      "point": "ClinGeX, composing 105 executable skills, reached 71.7% concordance versus 45.7% for the best comparator on 223 held-out cases."
+    },
+    {
+      "source_id": "615ceca019",
+      "group": "Also noted",
+      "lead": "AI reflection improves deliberation",
+      "point": "A randomized trial of 1,173 people in 391 groups found AI-guided self-reflection raised discourse quality by d=0.31 versus no reflection."
+    },
+    {
+      "source_id": "68b0ae3721",
+      "group": "Also noted",
+      "lead": "Course tests engineering accountability",
+      "point": "An AI-permissive 13-week engineering course with 87 students in 17 teams judges competence across product, verification and explanation, not just code."
+    },
+    {
+      "source_id": "2e36c5c43d",
+      "group": "Also noted",
+      "lead": "AI cuts schooling payoff",
+      "point": "CPS earnings from 2018 to June 2026 show the return to schooling fell 0.55 log points in occupations most exposed to ChatGPT."
+    },
+    {
+      "source_id": "930327d0f6",
+      "group": "Also noted",
+      "lead": "Tech rarely supports reflection",
+      "point": "Coding of 134 systems from 1996-2026 found most set the pace themselves, defining seven dimensions for reflective computing."
+    }
+  ],
+  "rejected": [
+    {
+      "source_id": "2018ddc031",
+      "why": "116-word abstract with no dataset, evaluation details or deployment"
+    },
+    {
+      "source_id": "3d13c58190",
+      "why": "short interview write-up judging peer perception with no quantitative results"
+    },
+    {
+      "source_id": "56e1a2afe4",
+      "why": "tiny survey of n=12 plus n=10 interviews with no generalizable findings"
+    },
+    {
+      "source_id": "5d8b6e2812",
+      "why": "conference abstract describing a model with no effect sizes reported"
+    },
+    {
+      "source_id": "c404a8ac5b",
+      "why": "28-person qualitative reframing study with only preliminary perceptions"
+    },
+    {
+      "source_id": "8f4e99cf35",
+      "why": "conceptual review proposing mechanisms with no new data"
+    },
+    {
+      "source_id": "3c50c34eff",
+      "why": "simulation with illustrative parameters and no real-world deployment"
+    },
+    {
+      "source_id": "bc4bdd96fd",
+      "why": "scale-development survey with only descriptive patterns and no tested outcomes"
+    }
+  ],
+  "date": "2026-11-01",
+  "pool_size": 26
+}

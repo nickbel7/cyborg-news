@@ -26,25 +26,25 @@
     "fetched": "2026-10-18"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Modern_Ou_Clay_Sculpture_(16920026778).jpg",
-    "licence": "CC0",
-    "artist": "Gary Todd from Xinzheng, China",
-    "title": "File:Modern Ou Clay Sculpture (16920026778).jpg",
-    "width": 4752,
-    "height": 3168,
-    "query": "Hangzhou modern",
+    "source": "https://commons.wikimedia.org/wiki/File:American_homes_and_gardens_(1912)_(17966976638).jpg",
+    "licence": "No restrictions",
+    "artist": "Internet Archive Book Images",
+    "title": "File:American homes and gardens (1912) (17966976638).jpg",
+    "width": 2860,
+    "height": 1060,
+    "query": "White House exterior evening press",
     "used_for": "lead-1",
-    "fetched": "2026-10-25"
+    "fetched": "2026-11-01"
   },
   "top-a-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:HK_%E5%B1%AF%E9%96%80%E9%86%AB%E9%99%A2_Tuen_Mun_Hospital_ground_floor_Pharmacy_service_counter_window_n_waiting_room_plastic_seats_July_2016_DSC.jpg",
-    "licence": "CC BY-SA 4.0",
-    "artist": "YipshaiukOWL",
-    "title": "File:HK 屯門醫院 Tuen Mun Hospital ground floor Pharmacy service counter window n waiting room plastic seats July 2016 DSC.jpg",
-    "width": 3648,
-    "height": 2736,
-    "query": "hospital waiting room chairs night",
+    "source": "https://commons.wikimedia.org/wiki/File:Camping_in_Rocky_Mountain_(44495869021).jpg",
+    "licence": "Public domain",
+    "artist": "naturenps",
+    "title": "File:Camping in Rocky Mountain (44495869021).jpg",
+    "width": 5433,
+    "height": 3240,
+    "query": "hikers rocky mountain",
     "used_for": "top-a-2",
-    "fetched": "2026-10-25"
+    "fetched": "2026-11-01"
   }
 }
