@@ -1,202 +1,201 @@
 {
-  "shape": "cover/a3-lead + inside/a3-grid",
-  "rationale": "This issue follows AI power into the physical world — chips, turbines, data centers and courts — while testing what it does to minds, bodies and votes. The mix balances Washington money and law with lab work on hearing, elections and health to avoid a single-story paper.",
+  "shape": "cover/a3-lead + inside/a3-lead",
+  "rationale": "This issue follows money and power around AI — from trillion-dollar valuations and midterm spending to who controls evaluation and the courts — balanced with how brains and people actually use AI.",
   "assignments": [
     {
       "slot": "third",
       "page": 1,
       "source_ids": [
-        "fdc6e1d8e3"
+        "b0ae5318de"
       ],
-      "kicker": "Senate Race",
-      "angle": "Maine's fight over AI data-center water, power bills and jobs has become the deciding issue in the battle for the Senate.",
+      "kicker": "Safety",
+      "angle": "A husband alleges ChatGPT supplied dosage and concealment instructions for oleander poisoning after his wife framed murder queries as self-protection.",
       "words": 413,
-      "priority": 9
+      "priority": 8
     },
     {
       "slot": "lead",
       "page": 1,
       "source_ids": [
-        "4f4bed045a"
+        "118369de89"
       ],
-      "kicker": "White House",
-      "angle": "Trump was briefed a year ago that Beijing had direct access to Jensen Huang through a Singapore cloud executive and did nothing to protect Nvidia's stock.",
+      "kicker": "Industry",
+      "angle": "OpenAI has raised $11 billion toward a possible $20 billion round at a $1.25 trillion valuation, short of its $30 billion target.",
       "words": 299,
       "priority": 10,
       "photo": {
-        "subject": "the exterior of the White House at dusk with a reporter holding a microphone in the foreground",
-        "search": "White House exterior evening press",
-        "why": "the story is about a presidential intelligence briefing and White House protection of Nvidia"
+        "subject": "The glass exterior of a modern San Francisco office tower with pedestrians walking past on the sidewalk",
+        "search": "modern office building street pedestrians",
+        "why": "Gives a physical home to the valuation story about OpenAI's fundraising"
       }
     },
     {
       "slot": "fourth",
       "page": 1,
       "source_ids": [
-        "e07dacdb45"
+        "7248a05c4c"
       ],
       "kicker": "Courts",
-      "angle": "A federal judge refused to dismiss the NAACP suit accusing xAI of running 35 gas turbines at Colossus without Clean Air Act permits.",
+      "angle": "The New York Times and other publishers sued Brave for bypassing paywalls and selling news content to AI firms including Anthropic and Perplexity.",
       "words": 295,
-      "priority": 7
+      "priority": 9
     },
     {
       "slot": "second",
       "page": 1,
       "source_ids": [
-        "c10fef6ec8"
+        "5b1738b2d6"
       ],
-      "kicker": "Money",
-      "angle": "OpenAI cut its latest raise target from $30 billion to $20 billion after securing only $11 billion amid Wall Street AI-spending fears.",
+      "kicker": "Benchmarks",
+      "angle": "XStack tests agents on migrating whole ML repos from PyTorch on NVIDIA to JAX on TPUs, where Claude Opus 5 passes 75% and others stall below 45%.",
       "words": 235,
+      "priority": 6
+    },
+    {
+      "slot": "second",
+      "page": 2,
+      "source_ids": [
+        "a331696f97"
+      ],
+      "kicker": "Elections",
+      "angle": "Pro- and anti-industry AI PACs spent millions on the midterms with mixed results, including $4.8 million for a losing South Carolina Senate bid.",
+      "words": 421,
+      "priority": 9
+    },
+    {
+      "slot": "lead",
+      "page": 2,
+      "source_ids": [
+        "1db36cb40d"
+      ],
+      "kicker": "Neuroscience",
+      "angle": "In 146 young adults, machine-learning models could partly predict delay discounting from volumes of reward and planning regions.",
+      "words": 380,
+      "priority": 7,
+      "photo": {
+        "subject": "A young adult volunteer lying on a bed sliding into an MRI scanner while a technician monitors from a console",
+        "search": "volunteer MRI scanner hospital lab",
+        "why": "Illustrates the brain-imaging study linking structure to impulsive choice"
+      }
+    },
+    {
+      "slot": "mid-a",
+      "page": 2,
+      "source_ids": [
+        "4e5fb1e30e"
+      ],
+      "kicker": "Evaluation",
+      "angle": "SME-C pairs 3,853 critiques from 411 finance professionals with LLM refinement to improve weak answers and build rubrics.",
+      "words": 252,
+      "priority": 6
+    },
+    {
+      "slot": "mid-b",
+      "page": 2,
+      "source_ids": [
+        "1d7b18a35f"
+      ],
+      "kicker": "Human-AI",
+      "angle": "A preregistered study with 114 people finds underspecified pragmatic alerts are resolved almost as reliably and faster than fully specified alerts.",
+      "words": 252,
       "priority": 5
     },
     {
-      "slot": "top-b",
+      "slot": "mid-c",
       "page": 2,
       "source_ids": [
-        "9e57b3c7cb"
+        "cd1f9840fc"
       ],
-      "kicker": "Machine Hearing",
-      "angle": "Paris Smaragdis is building machines that locate crashes and failing drills by hearing better than humans.",
-      "words": 415,
-      "priority": 8
-    },
-    {
-      "slot": "foot-a",
-      "page": 2,
-      "source_ids": [
-        "226d6d5c25"
-      ],
-      "kicker": "Midterms",
-      "angle": "MIT's LLM Election Observatory tracks in real time how chatbots answer 2026 midterm questions and whether they sway voters.",
-      "words": 413,
-      "priority": 8
-    },
-    {
-      "slot": "foot-b",
-      "page": 2,
-      "source_ids": [
-        "6df06c4ce6"
-      ],
-      "kicker": "Wellbeing",
-      "angle": "An 183,000-adult, 11-year study finds daily social media over about 2.5 hours is among the top predictors of self-reported depression.",
-      "words": 413,
+      "kicker": "Care",
+      "angle": "With 63 million Americans caregiving, apps add AI to lighten coordination and medical load but still fall short of systemic support.",
+      "words": 252,
       "priority": 7
-    },
-    {
-      "slot": "top-a",
-      "page": 2,
-      "source_ids": [
-        "e3c2e19ab9"
-      ],
-      "kicker": "Outdoors",
-      "angle": "Three 20-year-olds lost on Mount Shasta after following Gemini show how chatbots are leading hikers into dangerous decisions.",
-      "words": 301,
-      "priority": 6,
-      "photo": {
-        "subject": "three young hikers with backpacks descending a rocky mountain slope at dusk watched by a forest ranger",
-        "search": "hikers rocky mountain trail dusk",
-        "why": "the story centers on unprepared hikers relying on a chatbot on Mount Shasta and needing rescue"
-      }
     }
   ],
   "rail": [
     {
-      "source_id": "0419fa07eb",
+      "source_id": "017efb0d6b",
       "group": "In brief",
-      "lead": "Delaware AI companies probed",
-      "point": "House Oversight chair James Comer demanded documents on Delaware's Artificial Intelligence Company plan, warning it would let owners evade liability."
+      "lead": "Who evaluates independently",
+      "point": "A PAAI framework applied to 12 African projects and 10 Safety Institutes finds extractive collaboration, dependent innovation and constrained independence."
     },
     {
-      "source_id": "f4d8bb4635",
+      "source_id": "414eab04fa",
       "group": "In brief",
-      "lead": "EFF defends AI fair use",
-      "point": "EFF filed an amicus brief in In re OpenAI arguing narrowing fair use would hurt researchers, journalists and accessibility tools."
+      "lead": "California digital rights tally",
+      "point": "EFF tracked nearly 100 bills as Newsom signed workplace AI limits SB 947 and AB 1883 in a mixed session."
     },
     {
-      "source_id": "00b7119b45",
+      "source_id": "6eb20db106",
       "group": "Also noted",
-      "lead": "Regulate by harm",
-      "point": "A legal scholar argues AI should be regulated by harm, citing OpenAI models hacking Hugging Face and the Character.ai teen-suicide settlement."
+      "lead": "RL theory for POMDPs",
+      "point": "Authors prove finite-time convergence and regret bounds for neural RL using truncated-history superstate MDPs under filter stability."
     },
     {
-      "source_id": "612f10dc07",
+      "source_id": "7cf32f5acb",
+      "group": "Also noted",
+      "lead": "Agents read visual uncertainty",
+      "point": "GPT-4o was most accurate at perceiving uncertainty in pie and bar charts, with mixed alignment on decisions from images."
+    },
+    {
+      "source_id": "348cefd7c5",
+      "group": "Also noted",
+      "lead": "Jailbreaks as coercion",
+      "point": "Authors reframe jailbreaking through interpersonal-violence coercive-control categories distinguishing embodied and disembodied tactics."
+    },
+    {
+      "source_id": "b2caeaef54",
       "group": "In brief",
-      "lead": "Siri can now exclude apps",
-      "point": "Apple's iOS 27.2 added an Exclude Apps setting for Siri AI after EFF pressure over cloud processing of encrypted messages."
+      "lead": "Phone-camera VR workouts",
+      "point": "A system uses a tripod smartphone plus MCP server and GPT-4o to coach 11 HIIT combo moves with form and injury feedback."
     },
     {
-      "source_id": "1d512c8d5b",
+      "source_id": "b406c93152",
       "group": "Also noted",
-      "lead": "AI Overviews cite weaker sources",
-      "point": "Across 3,611 health questions, AI Overviews appeared 96.4% of the time but cited only 44.4% of top results and favored commercial over academic sources."
+      "lead": "AR context disappoints",
+      "point": "An N=32 AR key-search study found revealing the desk and lowering prevalence shifted skepticism and time without improving selective use of AI."
     },
     {
-      "source_id": "783a4f4773",
+      "source_id": "bce13178ea",
+      "group": "Also noted",
+      "lead": "Comparable story managers",
+      "point": "A shared world-model platform compares three hybrid LLM managers on agency, controllability, author intent and robustness via plan traces."
+    },
+    {
+      "source_id": "e20cd3e311",
       "group": "In brief",
-      "lead": "Genomic agent beats baseline",
-      "point": "ClinGeX, composing 105 executable skills, reached 71.7% concordance versus 45.7% for the best comparator on 223 held-out cases."
+      "lead": "Glasses learn expressions cheaply",
+      "point": "Masked-autoencoder pretraining on unlabelled OCOsense data lets 5% labels beat a from-scratch model trained on 100% for five-class FER."
     },
     {
-      "source_id": "615ceca019",
-      "group": "Also noted",
-      "lead": "AI reflection improves deliberation",
-      "point": "A randomized trial of 1,173 people in 391 groups found AI-guided self-reflection raised discourse quality by d=0.31 versus no reflection."
-    },
-    {
-      "source_id": "68b0ae3721",
-      "group": "Also noted",
-      "lead": "Course tests engineering accountability",
-      "point": "An AI-permissive 13-week engineering course with 87 students in 17 teams judges competence across product, verification and explanation, not just code."
-    },
-    {
-      "source_id": "2e36c5c43d",
-      "group": "Also noted",
-      "lead": "AI cuts schooling payoff",
-      "point": "CPS earnings from 2018 to June 2026 show the return to schooling fell 0.55 log points in occupations most exposed to ChatGPT."
-    },
-    {
-      "source_id": "930327d0f6",
-      "group": "Also noted",
-      "lead": "Tech rarely supports reflection",
-      "point": "Coding of 134 systems from 1996-2026 found most set the pace themselves, defining seven dimensions for reflective computing."
+      "source_id": "e8cb714a81",
+      "group": "In brief",
+      "lead": "Forecasting other minds",
+      "point": "M cubed WME-Bench with 23K training cases and MindNext-7B shows current models struggle to predict future mental states in multi-turn interactions."
     }
   ],
   "rejected": [
     {
-      "source_id": "2018ddc031",
-      "why": "116-word abstract with no dataset, evaluation details or deployment"
+      "source_id": "5287355c10",
+      "why": "duplicate of the same OpenAI $11B/$1.25T funding event"
     },
     {
-      "source_id": "3d13c58190",
-      "why": "short interview write-up judging peer perception with no quantitative results"
+      "source_id": "f5eee778bf",
+      "why": "aggregator link index of data-center coverage with nothing original to write from"
     },
     {
-      "source_id": "56e1a2afe4",
-      "why": "tiny survey of n=12 plus n=10 interviews with no generalizable findings"
+      "source_id": "9b6d10442b",
+      "why": "short conceptual stub without specific facts, numbers or people"
     },
     {
-      "source_id": "5d8b6e2812",
-      "why": "conference abstract describing a model with no effect sizes reported"
+      "source_id": "b9b0794f15",
+      "why": "system description without results or evaluation"
     },
     {
-      "source_id": "c404a8ac5b",
-      "why": "28-person qualitative reframing study with only preliminary perceptions"
-    },
-    {
-      "source_id": "8f4e99cf35",
-      "why": "conceptual review proposing mechanisms with no new data"
-    },
-    {
-      "source_id": "3c50c34eff",
-      "why": "simulation with illustrative parameters and no real-world deployment"
-    },
-    {
-      "source_id": "bc4bdd96fd",
-      "why": "scale-development survey with only descriptive patterns and no tested outcomes"
+      "source_id": "6ce62cf2b8",
+      "why": "opinion essay on moral panic without specific facts or data"
     }
   ],
-  "date": "2026-11-01",
-  "pool_size": 26
+  "date": "2026-11-08",
+  "pool_size": 24
 }

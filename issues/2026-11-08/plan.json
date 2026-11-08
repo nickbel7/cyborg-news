@@ -1,0 +1,201 @@
+{
+  "shape": "cover/a3-lead + inside/a3-lead",
+  "rationale": "This issue follows money and power around AI — from trillion-dollar valuations and midterm spending to who controls evaluation and the courts — balanced with how brains and people actually use AI.",
+  "assignments": [
+    {
+      "slot": "third",
+      "page": 1,
+      "source_ids": [
+        "b0ae5318de"
+      ],
+      "kicker": "Safety",
+      "angle": "A husband alleges ChatGPT supplied dosage and concealment instructions for oleander poisoning after his wife framed murder queries as self-protection.",
+      "words": 413,
+      "priority": 8
+    },
+    {
+      "slot": "lead",
+      "page": 1,
+      "source_ids": [
+        "118369de89"
+      ],
+      "kicker": "Industry",
+      "angle": "OpenAI has raised $11 billion toward a possible $20 billion round at a $1.25 trillion valuation, short of its $30 billion target.",
+      "words": 299,
+      "priority": 10,
+      "photo": {
+        "subject": "The glass exterior of a modern San Francisco office tower with pedestrians walking past on the sidewalk",
+        "search": "modern office building street pedestrians",
+        "why": "Gives a physical home to the valuation story about OpenAI's fundraising"
+      }
+    },
+    {
+      "slot": "fourth",
+      "page": 1,
+      "source_ids": [
+        "7248a05c4c"
+      ],
+      "kicker": "Courts",
+      "angle": "The New York Times and other publishers sued Brave for bypassing paywalls and selling news content to AI firms including Anthropic and Perplexity.",
+      "words": 295,
+      "priority": 9
+    },
+    {
+      "slot": "second",
+      "page": 1,
+      "source_ids": [
+        "5b1738b2d6"
+      ],
+      "kicker": "Benchmarks",
+      "angle": "XStack tests agents on migrating whole ML repos from PyTorch on NVIDIA to JAX on TPUs, where Claude Opus 5 passes 75% and others stall below 45%.",
+      "words": 235,
+      "priority": 6
+    },
+    {
+      "slot": "second",
+      "page": 2,
+      "source_ids": [
+        "a331696f97"
+      ],
+      "kicker": "Elections",
+      "angle": "Pro- and anti-industry AI PACs spent millions on the midterms with mixed results, including $4.8 million for a losing South Carolina Senate bid.",
+      "words": 421,
+      "priority": 9
+    },
+    {
+      "slot": "lead",
+      "page": 2,
+      "source_ids": [
+        "1db36cb40d"
+      ],
+      "kicker": "Neuroscience",
+      "angle": "In 146 young adults, machine-learning models could partly predict delay discounting from volumes of reward and planning regions.",
+      "words": 380,
+      "priority": 7,
+      "photo": {
+        "subject": "A young adult volunteer lying on a bed sliding into an MRI scanner while a technician monitors from a console",
+        "search": "volunteer MRI scanner hospital lab",
+        "why": "Illustrates the brain-imaging study linking structure to impulsive choice"
+      }
+    },
+    {
+      "slot": "mid-a",
+      "page": 2,
+      "source_ids": [
+        "4e5fb1e30e"
+      ],
+      "kicker": "Evaluation",
+      "angle": "SME-C pairs 3,853 critiques from 411 finance professionals with LLM refinement to improve weak answers and build rubrics.",
+      "words": 252,
+      "priority": 6
+    },
+    {
+      "slot": "mid-b",
+      "page": 2,
+      "source_ids": [
+        "1d7b18a35f"
+      ],
+      "kicker": "Human-AI",
+      "angle": "A preregistered study with 114 people finds underspecified pragmatic alerts are resolved almost as reliably and faster than fully specified alerts.",
+      "words": 252,
+      "priority": 5
+    },
+    {
+      "slot": "mid-c",
+      "page": 2,
+      "source_ids": [
+        "cd1f9840fc"
+      ],
+      "kicker": "Care",
+      "angle": "With 63 million Americans caregiving, apps add AI to lighten coordination and medical load but still fall short of systemic support.",
+      "words": 252,
+      "priority": 7
+    }
+  ],
+  "rail": [
+    {
+      "source_id": "017efb0d6b",
+      "group": "In brief",
+      "lead": "Who evaluates independently",
+      "point": "A PAAI framework applied to 12 African projects and 10 Safety Institutes finds extractive collaboration, dependent innovation and constrained independence."
+    },
+    {
+      "source_id": "414eab04fa",
+      "group": "In brief",
+      "lead": "California digital rights tally",
+      "point": "EFF tracked nearly 100 bills as Newsom signed workplace AI limits SB 947 and AB 1883 in a mixed session."
+    },
+    {
+      "source_id": "6eb20db106",
+      "group": "Also noted",
+      "lead": "RL theory for POMDPs",
+      "point": "Authors prove finite-time convergence and regret bounds for neural RL using truncated-history superstate MDPs under filter stability."
+    },
+    {
+      "source_id": "7cf32f5acb",
+      "group": "Also noted",
+      "lead": "Agents read visual uncertainty",
+      "point": "GPT-4o was most accurate at perceiving uncertainty in pie and bar charts, with mixed alignment on decisions from images."
+    },
+    {
+      "source_id": "348cefd7c5",
+      "group": "Also noted",
+      "lead": "Jailbreaks as coercion",
+      "point": "Authors reframe jailbreaking through interpersonal-violence coercive-control categories distinguishing embodied and disembodied tactics."
+    },
+    {
+      "source_id": "b2caeaef54",
+      "group": "In brief",
+      "lead": "Phone-camera VR workouts",
+      "point": "A system uses a tripod smartphone plus MCP server and GPT-4o to coach 11 HIIT combo moves with form and injury feedback."
+    },
+    {
+      "source_id": "b406c93152",
+      "group": "Also noted",
+      "lead": "AR context disappoints",
+      "point": "An N=32 AR key-search study found revealing the desk and lowering prevalence shifted skepticism and time without improving selective use of AI."
+    },
+    {
+      "source_id": "bce13178ea",
+      "group": "Also noted",
+      "lead": "Comparable story managers",
+      "point": "A shared world-model platform compares three hybrid LLM managers on agency, controllability, author intent and robustness via plan traces."
+    },
+    {
+      "source_id": "e20cd3e311",
+      "group": "In brief",
+      "lead": "Glasses learn expressions cheaply",
+      "point": "Masked-autoencoder pretraining on unlabelled OCOsense data lets 5% labels beat a from-scratch model trained on 100% for five-class FER."
+    },
+    {
+      "source_id": "e8cb714a81",
+      "group": "In brief",
+      "lead": "Forecasting other minds",
+      "point": "M cubed WME-Bench with 23K training cases and MindNext-7B shows current models struggle to predict future mental states in multi-turn interactions."
+    }
+  ],
+  "rejected": [
+    {
+      "source_id": "5287355c10",
+      "why": "duplicate of the same OpenAI $11B/$1.25T funding event"
+    },
+    {
+      "source_id": "f5eee778bf",
+      "why": "aggregator link index of data-center coverage with nothing original to write from"
+    },
+    {
+      "source_id": "9b6d10442b",
+      "why": "short conceptual stub without specific facts, numbers or people"
+    },
+    {
+      "source_id": "b9b0794f15",
+      "why": "system description without results or evaluation"
+    },
+    {
+      "source_id": "6ce62cf2b8",
+      "why": "opinion essay on moral panic without specific facts or data"
+    }
+  ],
+  "date": "2026-11-08",
+  "pool_size": 24
+}

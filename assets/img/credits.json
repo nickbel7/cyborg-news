@@ -15,26 +15,26 @@
     "artist": "George Glover"
   },
   "lead-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Helix,_v.11,_no.8,_Feb._19,_1970_-_DPLA_-_6c0348f8eb092469ff87e96193bb9ea8_(page_12).jpg",
-    "licence": "Public domain",
-    "artist": "Dorpat, Paul",
-    "title": "File:Helix, v.11, no.8, Feb. 19, 1970 - DPLA - 6c0348f8eb092469ff87e96193bb9ea8 (page 12).jpg",
-    "width": 9184,
-    "height": 6069,
-    "query": "protest outside federal courthouse",
+    "source": "https://commons.wikimedia.org/wiki/File:Spectactors_watching_TPE_vs_MRI_02.jpg",
+    "licence": "CC BY-SA 4.0",
+    "artist": "BugWarp",
+    "title": "File:Spectactors watching TPE vs MRI 02.jpg",
+    "width": 6016,
+    "height": 4000,
+    "query": "volunteer MRI",
     "used_for": "lead-2",
-    "fetched": "2026-10-18"
+    "fetched": "2026-11-08"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:American_homes_and_gardens_(1912)_(17966976638).jpg",
-    "licence": "No restrictions",
-    "artist": "Internet Archive Book Images",
-    "title": "File:American homes and gardens (1912) (17966976638).jpg",
-    "width": 2860,
-    "height": 1060,
-    "query": "White House exterior evening press",
+    "source": "https://commons.wikimedia.org/wiki/File:Bolands_Mills,_Dublin.jpg",
+    "licence": "CC BY 4.0",
+    "artist": "David Kernan",
+    "title": "File:Bolands Mills, Dublin.jpg",
+    "width": 5549,
+    "height": 3121,
+    "query": "modern office building street pedestrians",
     "used_for": "lead-1",
-    "fetched": "2026-11-01"
+    "fetched": "2026-11-08"
   },
   "top-a-2.jpg": {
     "source": "https://commons.wikimedia.org/wiki/File:Camping_in_Rocky_Mountain_(44495869021).jpg",
