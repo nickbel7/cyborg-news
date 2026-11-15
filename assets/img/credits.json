@@ -15,26 +15,26 @@
     "artist": "George Glover"
   },
   "lead-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Spectactors_watching_TPE_vs_MRI_02.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Wikimedia_Foundation_Photography_Collection_2023_004.jpg",
     "licence": "CC BY-SA 4.0",
-    "artist": "BugWarp",
-    "title": "File:Spectactors watching TPE vs MRI 02.jpg",
-    "width": 6016,
-    "height": 4000,
-    "query": "volunteer MRI",
+    "artist": "Wikimedia Foundation Staff and Contractors",
+    "title": "File:Wikimedia Foundation Photography Collection 2023 004.jpg",
+    "width": 6720,
+    "height": 4480,
+    "query": "student laptop library",
     "used_for": "lead-2",
-    "fetched": "2026-11-08"
+    "fetched": "2026-11-15"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Bolands_Mills,_Dublin.jpg",
-    "licence": "CC BY 4.0",
-    "artist": "David Kernan",
-    "title": "File:Bolands Mills, Dublin.jpg",
-    "width": 5549,
-    "height": 3121,
-    "query": "modern office building street pedestrians",
+    "source": "https://commons.wikimedia.org/wiki/File:US_Capitol-2.tif",
+    "licence": "CC BY-SA 4.0",
+    "artist": "Balon Greyjoy",
+    "title": "File:US Capitol-2.tif",
+    "width": 5166,
+    "height": 3444,
+    "query": "US Capitol exterior",
     "used_for": "lead-1",
-    "fetched": "2026-11-08"
+    "fetched": "2026-11-15"
   },
   "top-a-2.jpg": {
     "source": "https://commons.wikimedia.org/wiki/File:Camping_in_Rocky_Mountain_(44495869021).jpg",

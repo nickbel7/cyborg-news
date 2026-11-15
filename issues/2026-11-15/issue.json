@@ -1,0 +1,417 @@
+{
+  "issue": {
+    "name": "CYBORG NEWS",
+    "left_ear": "MIT · CAMBRIDGE, MASS.",
+    "right_ear": "INTERNAL EDITION · NOT FOR CIRCULATION",
+    "site": "NEWSPAPER.CYBORGLAB.ORG",
+    "price": "FREE TO HUMANS",
+    "dateline_long": "SUNDAY, NOVEMBER 15, 2026",
+    "dateline_short": "Sun, Nov 15, 2026",
+    "pages": 2,
+    "plan": [
+      "cover/a3-lead",
+      "inside/a3-lead"
+    ],
+    "sections": [
+      "",
+      "Models & Measures"
+    ],
+    "written_by": "muse-spark-1.3-contributor"
+  },
+  "ticker": [
+    {
+      "k": "ARENA VOTES",
+      "v": "1,260,967 votes",
+      "d": "May 2023 to 2024",
+      "dir": "flat"
+    },
+    {
+      "k": "BOTH ARE BAD",
+      "v": "17.1% mean",
+      "d": "+1.71 pts a month",
+      "dir": "up"
+    },
+    {
+      "k": "BAD TREND 2",
+      "v": "+1.91 pts",
+      "d": "per month",
+      "dir": "up"
+    },
+    {
+      "k": "PAIN AUDIT",
+      "v": "17 models",
+      "d": "24 configurations",
+      "dir": "flat"
+    },
+    {
+      "k": "OPEN-WEIGHT TEST",
+      "v": "four LLMs",
+      "d": "six vignettes",
+      "dir": "flat"
+    },
+    {
+      "k": "HALLUCINATION",
+      "v": "41 cases",
+      "d": "20 practitioners",
+      "dir": "flat"
+    },
+    {
+      "k": "AI PROJECTS CUT",
+      "v": "42% abandoned",
+      "d": "S&P Global",
+      "dir": "down"
+    }
+  ],
+  "rail": {
+    "title": "What's",
+    "title2": "News",
+    "groups": [
+      {
+        "label": "In brief",
+        "items": [
+          {
+            "lead": "Warrant for plate readers",
+            "text": "EFF and ACLU argued in the Sixth Circuit that warrantless ALPR tracking in a Cleveland robbery case is a Fourth Amendment search."
+          },
+          {
+            "lead": "Simpler robot harness wins",
+            "text": "The lean JustRUA harness keeping full history and early stops lifted RoboDojo simulation from 29.7 to 50.3 without extra training."
+          },
+          {
+            "lead": "Benchmarks miss user adaptation",
+            "text": "Analysis distinguishes common-distribution versus induced-distribution effects showing offline benchmarks and live A/B tests can rank models differently."
+          },
+          {
+            "lead": "Medicare AI denials probed",
+            "text": "EFF sued for WISeR records describing improper AI-driven denials, delays and operational chaos in Medicare approvals."
+          },
+          {
+            "lead": "Chat exams that scale",
+            "text": "A two-agent interviewer-evaluator pipeline tested on adversarial LLM personas conducts oral-style argument exams without leaking answers."
+          }
+        ]
+      },
+      {
+        "label": "Also noted",
+        "items": [
+          {
+            "lead": "Diagrams that track proofs",
+            "text": "A 12-student think-aloud found Ender's synchronized diagram-text rendering eased working-memory load in two-column geometry proofs."
+          },
+          {
+            "lead": "Fixing drone caption hallucinations",
+            "text": "The team proposes a lightweight reference-free detector-corrector for inconsistent aerial captions from extreme viewpoints and small objects."
+          },
+          {
+            "lead": "Robot reads negotiating faces",
+            "text": "A 66-person humanoid-robot study found continual-learning affect personalization raised agent utility and concession rates versus baseline."
+          },
+          {
+            "lead": "Softer feedback for XR",
+            "text": "A survey of 50 and interviews with 14 found humor, indirectness and agent metaphors reduce embarrassment in small-group XR feedback."
+          },
+          {
+            "lead": "UN plan for AI",
+            "text": "A World Internet Conference report proposes a UN-centered safety framework stressing inclusiveness, accountability and coordination."
+          }
+        ]
+      }
+    ]
+  },
+  "articles": [
+    {
+      "id": "lead-1",
+      "page": 1,
+      "priority": 10,
+      "kicker": "Policy",
+      "sources": [
+        "024802442c"
+      ],
+      "headline": "Congress Moves to Tighten AI Chip Exports",
+      "deck": "Lawmakers demand testimony from Huang and the Commerce Secretary after spy scandal.",
+      "pullquote": {
+        "text": "growing consensus in Congress on limiting chip exports to China",
+        "attr": "Mike Johnson, Congress"
+      },
+      "quoteAfter": 2,
+      "body": [
+        "Congress is moving to further restrict exports of AI chips after the scandal involving now-former Nvidia CEO Jensen Huang and a suspected Chinese spy. Democrats and Republicans have voiced support for measures and bills that would tighten rules. Lawmakers have also demanded that Huang and other Nvidia leaders testify before Congress.",
+        "Senate Minority Leader Chuck Schumer has said that Huang and the Trump administration need to answer to Congress. Senate Banking Committee Chairman Tim Scott has sent letters to both Huang and Commerce Secretary Howard Lutnick calling on them to publicly testify to the committee. The Remote Access Security Act is receiving renewed interest. The bill was first introduced in the House in April 2025 but stalled in the Senate. The specific bill might not become law.",
+        "House Speaker Mike Johnson has said there is &ldquo;growing consensus in Congress on limiting chip exports to China&rdquo; according to Reuters. Johnson has also said that he personally supports efforts to restrict access by China to powerful AI chips from companies like Nvidia. The statements signal alignment between House leadership and members seeking tighter controls. Both parties continue to press for testimony and for tighter rules. The demands apply to Huang and other Nvidia leaders. The focus remains on exports of AI chips and on access by China to powerful AI chips.",
+        "Interest in export rules follows revelations about Huang and a suspected Chinese spy. Members of both parties support tighter rules for AI chips. Leaders want answers from Huang and the Trump administration. Letters call for public testimony by Huang and Lutnick. Attention centers on the House bill from April 2025 and on statements by Johnson about limits for China. Demands name Huang and other Nvidia leaders for public testimony. All measures address exports of AI chips and access by China."
+      ],
+      "art": {
+        "type": "photo",
+        "src": "assets/img/lead-1.jpg",
+        "capLabel": "Under review",
+        "caption": "The exterior of the U.S. Capitol building with flags on a clear day. Congress is seeking tighter export rules for AI chips and testimony from Nvidia leaders.",
+        "credit": "Balon Greyjoy · CC BY-SA 4.0",
+        "wmm": 170,
+        "hmm": 60,
+        "focusY": 0.4,
+        "contrast": 1.04,
+        "gain": 0.66,
+        "feather": 0.35,
+        "floor": 0.08
+      }
+    },
+    {
+      "id": "third-1",
+      "page": 1,
+      "priority": 9,
+      "kicker": "Industry",
+      "sources": [
+        "b08cefd999"
+      ],
+      "headline": "Character.ai and Ollie show funding cannot save weak demand",
+      "deck": "S&P Global Market Intelligence reports about 42 percent of corporate AI initiatives are ultimately abandoned.",
+      "pullquote": {
+        "text": "We got close, but ultimately couldn’t keep up,",
+        "attr": "Bill Lennon, Ollie"
+      },
+      "quoteAfter": 2,
+      "body": [
+        "Character.ai filed for bankruptcy in early October and Ollie said it would shut down on November 6. The two closures show a wider pattern in which even funded products fail to find demand. According to S&P Global Market Intelligence, about 42 percent of AI initiatives are ultimately abandoned by their corporate parents. The listed reasons include insufficient funding, technical challenges, competition, difficulty scaling and weak user demand.",
+        "Founded in 2021 by former Google researchers Noam Shazeer and Daniel De Freitas, Character.ai let people chat with customizable consumer bots, many modeled on celebrities and fictional characters. It raised 150 million dollars at a 1 billion dollar valuation in 2023. The next year, Google paid a reported 2.7 billion dollars to license its technology and bring its founders back into its orbit, leaving the startup to carry on without them.",
+        "Character.ai faced lawsuits from families alleging the chatbots contributed to teen suicides and self-harm, and Disney sent a cease-and-desist letter over unauthorized use of its characters. Character.ai barred under-18 users from open-ended chats late last year and agreed to settle several of the suits, along with Google, in early 2026. It filed for bankruptcy in early October, citing legal, regulatory and operational headwinds.",
+        "Ollie launched in June 2026 as one of the first mainstream apps to achieve SOC 2, a privacy compliance standard. The idea was that families already have the information they need, but it lives across school messages, calendars, task lists and group chats. Ollie aimed to bring those pieces together and keep them in sync. It still kept track of calendars, emails, reminders, tasks and other household details, then delivered relevant information to users through text.",
+        "The app faced competition from heavyweights like Muse and Instinct. Co-founder and CEO Bill Lennon said the app would shut down on November 6, citing being unable to stand out, failing to grow, and not raising enough capital. Relay, a five-year-old AI-powered workflow automation tool built as an alternative to Zapier, shut down entirely in August 2026 after larger platforms built similar automation directly into their own tools.",
+        "Other entries in the graveyard follow the same pressures. Sora struggled with high operating costs and user-retention challenges and shut down in March 2026. ChatGPT Atlas lasted less than a year before being discontinued on August 9. Disney is now the opening bidder for Character.ai, offering 20 million dollars for a license to some of its intellectual property. The app is now still running during the sale process."
+      ]
+    },
+    {
+      "id": "fourth-1",
+      "page": 1,
+      "priority": 7,
+      "kicker": "Privacy",
+      "sources": [
+        "07afec2ab7"
+      ],
+      "headline": "Wearables Record Bystanders And Erode Shared Privacy",
+      "deck": "Smart glasses and transcription devices from Meta, Google, Apple and Amazon capture people who never opted in.",
+      "pullquote": {
+        "text": "Privacy has always been a team sport.",
+        "attr": "Thorin Klosowski, Electronic Frontier Foundation"
+      },
+      "quoteAfter": 1,
+      "body": [
+        "Meta, Google, Apple and Amazon sell wearables that record and transcribe daily life. Smart glasses capture video and describe scenes. Watches and dedicated devices capture audio and produce transcripts and summaries. The result shifts privacy from individual choice to collective exposure because bystanders are recorded without practical means to opt out.",
+        "Apple Audio Intelligence turns the watch into a transcription tool for the day. Amazon Bee devices record and transcribe continuously. Meta and Google place cameras and artificial intelligence on glasses to record views and identify detail. Companies point to white papers, privacy controls, blurred faces and user control. Those measures address the buyer. They do not protect the stranger, colleague, family member or friend who is captured.",
+        "Many tools capture raw audio with a microphone and convert it to text before discarding sound. The distinction between recording and summarizing has limited meaning for the person recorded. Data that exists invites requests from law enforcement. Some designs resist access. Others do not. Continuous capture also alters conversation. People speak less openly when documentation is assumed. Social agreements differ by setting. A meeting allows notes. A medical office, bathroom, gym or protest does not carry the same expectation.",
+        "Companies compare the devices to phones, cameras, camcorders and handwritten notes. Phones require visible effort. Passive devices are built for background operation and normal appearance. Google tested phone alerts for nearby recording. Company staff acknowledged alerts alone leave recipients unsure how to respond. Apple released features in beta for feedback. Broader product history shows categories appear and fade. Public refusal remains possible. Responsible use terms ask users to seek permission and avoid sensitive places. Owners are expected to notify others and follow local law. Hidden operation makes that expectation difficult to enforce in daily contact. The microphone remembers."
+      ]
+    },
+    {
+      "id": "second-1",
+      "page": 1,
+      "priority": 7,
+      "kicker": "Agents",
+      "sources": [
+        "d450ad1a27"
+      ],
+      "headline": "ChatGPT Wallet Lets Dots Agents Pay",
+      "deck": "Each order needs biometric approval, and card numbers are replaced with tokens.",
+      "body": [
+        "OpenAI is rolling out ChatGPT Wallet for Dots agents. The wallet allows ChatGPT Pro subscribers in the US aged 18 and older with a US billing address to link eligible US-issued American Express, Chase, Mastercard and Visa cards for agent purchases. Agents select items in response to prompts and pause for human review before checkout.",
+        "Every purchase requires a security check with biometric verification like Face ID or a fingerprint scan. After approval, the system substitutes card details with a payment token similar to tap to pay, Apple Pay or Google Wallet. The actual card information is not shared with the Dots agent or the business receiving payment.",
+        "OpenAI expects users to be able to delegate purchases entirely by setting spending limits, purchase categories, or time periods for pre-approved orders. ChatGPT Wallet might not work everywhere because some retailers restrict AI agents or block them altogether. Earlier this year, Amazon blocked Meta&rsquo;s Muse agents. OpenAI says agent purchases require websites to allow agents through and payment and risk systems to recognize legitimate agent transactions. After a card is added, an agent prepares an order in response to a prompt and then pauses for review before completing checkout. Each order needs individual sign-off, so control stays with the cardholder while routine selection shifts to software. The checkout does not disappear &mdash; it waits for a fingerprint and doesn&rsquo;t share the card number with merchants or with agents."
+      ]
+    },
+    {
+      "id": "second-2",
+      "page": 2,
+      "priority": 8,
+      "kicker": "Energy",
+      "sources": [
+        "74aab7c828"
+      ],
+      "headline": "AI Data Centers Push Costs Onto Local Communities",
+      "deck": "Regional governments turn to bills and lawsuits to keep development a net positive for legislatures.",
+      "body": [
+        "Data centers promise global benefits and impose local costs across the United States. Energy bills, aquifers and living environments absorb the pressure. AI growth has increased scale and changed the terms. Governments that once granted tax credits and exemptions now issue bills and file lawsuits. The stated aim is to keep data centers a net positive influence on legislatures.",
+        "Building and operating data centers requires substantial land, electricity, water and infrastructure at a local level. State and regional laws govern that footprint. Federal statutes for natural resources exist but their scope remains contested. Current federal emphasis on AI competitiveness and growth has placed responsibility on regional governments to protect local resources.",
+        "Existing federal tools include the Public Trust Doctrine and the Pollution Prevention, Clean Air and Safe Drinking Water Acts. Those laws manage natural resources. Regional governments now test how far they extend to data center construction and operation. Communities have the opportunity to raise concerns about negative impacts. Existing regulations provide leverage to press operators on construction and operation.",
+        "Tax credits and exemptions once defined the public offer. Aggressive growth in scale altered that calculation. Bills seek to set terms for construction and operation. Lawsuits seek to enforce them. The question in each legislature is whether the facility remains a net positive influence after accounting for local burdens on bills, aquifers and living environments.",
+        "Electricity is required at a local level. Water is required at a local level. Land and infrastructure are required at a local level. State and regional laws and regulations address all those requirements. The dispute is practical. It concerns how data centers are built and operated in practice rather than how their benefits are described in global terms.",
+        "Communities are provided with the opportunity to raise concerns regarding potential negative impacts. Existing regulations can be used to put pressure on operators. The scope of federal law remains contested. The onus remains on regional governments to endeavor to protect local resources. That work proceeds through bills and lawsuits. It proceeds through oversight of land, electricity, water and infrastructure. The record is local. The ledgers are local. The aquifers are local. Data centers will be judged where they are built and operated. Benefits are global. Costs arrive as bills and strained living environments. Incentives no longer settle the argument. Net positive influence must be shown in legislatures. Protection of natural resources must be shown in practice. The trail is bills and lawsuits. The physical footprint is land, electricity, water and infrastructure. The verdict is net positive or not."
+      ]
+    },
+    {
+      "id": "lead-2",
+      "page": 2,
+      "priority": 8,
+      "kicker": "Evaluation",
+      "sources": [
+        "72e79421ab"
+      ],
+      "headline": "Fixed Chatbots Look Worse As Voters Grow Pickier",
+      "deck": "Analysis of 1.26 million Chatbot Arena votes finds rising both-are-bad verdicts for unchanged models.",
+      "body": [
+        "1,260,967 blind votes on Chatbot Arena show unchanged models drawing more bad verdicts over time. The platform lets people compare answers from two anonymous models and pick the better one or say both are bad. The study covers May 2023 to August 2024 and holds model versions fixed with dated vendor snapshots and fixed open weights. The result points to stricter judges rather than weaker models.",
+        "For the same pair of unchanged models, the share saying both are bad rises by 1.71 percentage points a month on a mean of 17.1%. In 2024 the rise is 1.91 points a month. In fourteen pairs observed often in both 2023 and 2024, it rose in every one, from 15.5% to 23.3%. The ranking does not trend. In 2024, the stronger model&rsquo;s share of decisive votes is flat.",
+        "The rise holds within the same voter and on the same pair. It holds across arrival cohorts from their first recorded vote. It holds with prompt controls, in every major language, and between interface changes. It holds for dated vendor snapshots, open-weight models and models with stable answer length. The drift is shared across models. Month effects estimated from other models&rsquo; pairs remove it from each model&rsquo;s own pairs.",
+        "Platform-wide, the average model would be expected to score 78% against the 2023 average, yet the share of both-are-bad votes ended near where it began. Absolute verdicts drifted while relative comparisons held steady. The pattern fits a standard that follows the category&rsquo;s progress &mdash; so a product that stands still is judged as declining. That distinction matters for leaderboards built on human votes and for the human feedback used to train models.",
+        "The design isolates judges from models by fixing versions and tracking identical pairs over months. Voters do not know model names and choose between two answers or reject both. Controls rule out shifts in prompts, languages, answer length and interface as explanations. The change persists when the same person rates the same matchup and when new voters are followed from entry. Expectations appear to move with the field. A fixed answer that once passed now doesn&rsquo;t. Relative order stays put while absolute tolerance falls. Leaderboards still sort winners from losers. The bar moves. The test has not changed. The graders have. Scores record both."
+      ],
+      "art": {
+        "type": "photo",
+        "src": "assets/img/lead-2.jpg",
+        "capLabel": "Under review",
+        "caption": "A university student compares two answers on a laptop at a library desk. Studies of 1.26 million blind votes suggest such judges have grown stricter, rejecting unchanged models more often.",
+        "credit": "Wikimedia Foundation Staff and Contractors · CC BY-SA 4.0",
+        "wmm": 170,
+        "hmm": 60,
+        "focusY": 0.4,
+        "contrast": 1.04,
+        "gain": 0.66,
+        "feather": 0.35,
+        "floor": 0.08
+      }
+    },
+    {
+      "id": "mid-a-2",
+      "page": 2,
+      "priority": 6,
+      "kicker": "Medicine",
+      "sources": [
+        "4106f958f9"
+      ],
+      "headline": "Seventeen Models Show No Pain Bias",
+      "deck": "The audit spans GPT, Claude, Gemini, Llama, DeepSeek and Qwen across six vignettes and 50 Q-Pain cases with paired seeds.",
+      "body": [
+        "Seventeen large language models show no surviving race or sex bias in pain scores or opioid decisions in a counterfactual audit. The test covered six acute pain vignettes and 50 clinician written Q-Pain cases across four races and two sexes. No difference survived correction among 1,386 comparisons in the larger study, and pain severity was equivalent to zero within one point on a 0 to 10 scale.",
+        "Study 1 used four open weight models on the six vignettes in every combination of race and sex. Identity was stated directly or cued by name only, with two names per group. Each identity was compared with a White male reference on the same case and sampling seed. Study 2 used 24 configurations of 17 models with reasoning on and off and at two precisions. Serving software, provider and prompt format also differed across runs.",
+        "Opioid results were much less precise. Study 1 could not exclude differences of about 20 percentage points. The finding is no detected difference, not proof of none. The few within model differences that survived correction favoured Black patients. Variation between models and settings was larger than variation between patients. The reference patient received the high opioid dose in 6 percent to 93 percent of responses. The task was single prompt and JSON constrained. Fairness audits should use several names per group, pair comparisons on the seed, report the noise floor and test each deployed configuration. Prior audits tested a few proprietary models and rarely measured own response instability at all."
+      ]
+    },
+    {
+      "id": "mid-b-2",
+      "page": 2,
+      "priority": 6,
+      "kicker": "Virtual Reality",
+      "sources": [
+        "702a926725"
+      ],
+      "headline": "First Impressions Fix Virtual Human Identity",
+      "deck": "A 24-person interview task holds its opening human-or-computer label after a hidden switch.",
+      "body": [
+        "Twenty-four participants interviewed virtual humans in virtual reality and kept their first judgment about human or computer control after control changed without warning. Perceived agency followed the controller named at the start. It showed no updating after the switch. Social ratings for likeability and co-presence rose when human control came later and covered more of the exchange. The split shows first impressions held for agency while social judgment tracked behaviour.",
+        "The study used four conditions. The virtual human was always computer controlled, always human controlled, computer to human, or human to computer. Participants acted as interviewers. They asked a fixed set of questions. Before each exchange they were told whether control was human or computer. That label matched the actual controller at the beginning. They did not know control could change during the exchange.",
+        "Prior beliefs about whether a virtual human is controlled by a human or a computer can shape how users interpret and respond to behaviour. Hybrid systems allow control to transfer between human operators and computer programs during an ongoing interaction. The question was whether perceived agency updates with the actual controller or continues to reflect first impressions. Here it did not update. Agency stayed with the label. Likeability and co-presence did not follow the lock. They were higher when human control came later and filled a greater proportion of the interaction. That pattern suggests social evaluation tracked what the virtual human did while agency judgment doesn&rsquo;t let go of the start. The file notes the effect without appeal."
+      ]
+    },
+    {
+      "id": "mid-c-2",
+      "page": 2,
+      "priority": 5,
+      "kicker": "Education",
+      "sources": [
+        "7a30acd200"
+      ],
+      "headline": "Students Picture LLMs as Human Assistants",
+      "deck": "End-of-course survey links knowledge levels and metaphor choice to prompting behavior.",
+      "body": [
+        "Students most often pictured large language models as human assistants and favored context-rich prompts. That is the central finding from an end-of-course survey in a post CS1 course that introduces the various CS subfields. The course taught LLMs and allowed LLM use. The survey collected open-ended representations of LLMs and explanations of how LLMs work, plus closed-response measures of prompting style and prompt count. 283 students consented and provided codable responses.",
+        "Researchers coded explanations of LLM function into four ordinal knowledge levels based on the Structure of Observed Learning Outcomes taxonomy. They coded metaphoric conceptualizations along two dimensions called persona type and relational role. The analysis found that human assistant was the most common conceptualization. Context-rich prompting was the preferred style. Exploratory analysis identified associations among conceptualization, understanding of LLM mechanisms, and prompting behavior.",
+        "Prior work examined prompting strategies and AI literacy. The relationships among student conceptualizations of LLMs, understanding of LLM mechanisms, and prompting behavior remained underexplored. Computing education research had not fully examined how teaching and inclusion of LLMs shape conceptualization and understanding, and how these factors relate to subsequent use. The study contributes a two-dimensional characterization of student LLM metaphoric representation. It links measured knowledge levels to metaphor choice and to prompting style and prompt count. The survey used open-ended items for representations and explanations. Closed-response measures tracked prompting style and prompt count. The record is fully consistent. Students don&rsquo;t only learn prompts. They still act on a clear conceptualization of the system pictured as a helpful human assistant."
+      ]
+    }
+  ],
+  "boxes": [
+    {
+      "id": "study-scale",
+      "slot": "box-a",
+      "kind": "table",
+      "title": "What the Studies Measured",
+      "caption": "Sample sizes behind recent model evaluations.",
+      "head": [
+        "Study",
+        "Size",
+        "Focus"
+      ],
+      "rows": [
+        [
+          "Arena comparison",
+          "1,260,967 votes",
+          "fixed model pairs"
+        ],
+        [
+          "VR agency",
+          "24 participants",
+          "four control conditions"
+        ],
+        [
+          "SQL debugging",
+          "16 participants",
+          "complex query repair"
+        ],
+        [
+          "Forecasting bots",
+          "15 builders",
+          "competition entries"
+        ],
+        [
+          "Hallucination use",
+          "20 practitioners",
+          "41 cases reviewed"
+        ],
+        [
+          "Pain vignettes",
+          "four LLMs",
+          "six acute cases"
+        ],
+        [
+          "Pain configs",
+          "17 models",
+          "24 configurations"
+        ]
+      ]
+    },
+    {
+      "id": "always-recording",
+      "slot": "box-b",
+      "kind": "text",
+      "title": "Always Recording",
+      "tint": true,
+      "paras": [
+        "<b>Recording now follows the gaze.</b> Meta and Google smart glasses capture what the owner looks at and use artificial intelligence to describe it. Apple Audio Intelligence turns the watch into a transcription machine for recording or summarizing the day. Amazon Bee hardware records and transcribes everything. Dozens of firms add pendants, rings and other products to record, transcribe or summarize speech and action all day. Privacy spreads past the buyer to everyone nearby. The device owner chooses. Everyone else is chosen. Privacy has always depended on the group, not the buyer alone."
+      ]
+    },
+    {
+      "id": "tougher-judges",
+      "slot": "box-c",
+      "kind": "text",
+      "title": "Tougher Judges",
+      "tint": true,
+      "paras": [
+        "<b>Models stay fixed while judges grow strict.</b> Chatbot Arena asks people to compare answers from two anonymous models and pick the better answer or mark both as bad. The study covers 1,260,967 blind votes from May 2023 to August 2024 on fixed vendor snapshots and fixed open weights. For the same unchanged pair, both-bad votes rise 1.71 points per month against a 17.1 percent mean, and 1.91 points on a second measure. Complaints about decline may track rising standards. The models stand still. The audience moves. Some versions do change. Judges change too."
+      ]
+    }
+  ],
+  "fillers": [
+    {
+      "hed": "Brief",
+      "text": "EFF and the ACLU filed an amicus brief in the Sixth Circuit in United States v Sturdivant over warrantless ALPR tracking."
+    },
+    {
+      "hed": "Plates",
+      "text": "Police identified the make, model and color of the robbery car but did not know its plate number."
+    },
+    {
+      "hed": "Wallet",
+      "text": "Dots agents can use a stored card to buy things in response to prompts after checking in before checkout."
+    },
+    {
+      "hed": "Testimony",
+      "text": "Democrats and Republicans demanded that Huang and other Nvidia leaders testify before Congress."
+    },
+    {
+      "hed": "Bankruptcy",
+      "text": "Character.ai filed for bankruptcy five years after launching."
+    },
+    {
+      "hed": "Medicare",
+      "text": "EFF sued for records on WISeR to seek transparency about the Medicare AI experiment."
+    }
+  ]
+}

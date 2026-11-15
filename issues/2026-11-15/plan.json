@@ -1,0 +1,201 @@
+{
+  "shape": "cover/a3-lead + inside/a3-lead",
+  "rationale": "The issue leads on power and money in Washington and Silicon Valley, then widens to how people actually judge, use and live beside AI. Export controls, graveyards, wallets and data centers anchor the news while evaluation, medicine, VR and classrooms supply cognitive diversity.",
+  "assignments": [
+    {
+      "slot": "third",
+      "page": 1,
+      "source_ids": [
+        "b08cefd999"
+      ],
+      "kicker": "Industry",
+      "angle": "Character.ai, Ollie and 42% of corporate AI bets show even well-funded AI products die from weak demand, cost and competition.",
+      "words": 413,
+      "priority": 9
+    },
+    {
+      "slot": "lead",
+      "page": 1,
+      "source_ids": [
+        "024802442c"
+      ],
+      "kicker": "Policy",
+      "angle": "After the Jensen Huang spy scandal Congress is reviving export-control bills and demanding Nvidia and Commerce testify.",
+      "words": 299,
+      "priority": 10,
+      "photo": {
+        "subject": "the exterior of the U.S. Capitol building with flags on a clear day",
+        "search": "US Capitol exterior daylight flags",
+        "why": "illustrates the congressional push to tighten AI chip export rules after the Nvidia scandal"
+      }
+    },
+    {
+      "slot": "fourth",
+      "page": 1,
+      "source_ids": [
+        "07afec2ab7"
+      ],
+      "kicker": "Privacy",
+      "angle": "Meta, Google, Apple and Amazon wearables that constantly record and transcribe are turning privacy from personal choice into collective exposure.",
+      "words": 295,
+      "priority": 7
+    },
+    {
+      "slot": "second",
+      "page": 1,
+      "source_ids": [
+        "d450ad1a27"
+      ],
+      "kicker": "Agents",
+      "angle": "OpenAI's ChatGPT Wallet lets Dots agents spend with tokenized cards and biometric checkout after human approval.",
+      "words": 235,
+      "priority": 7
+    },
+    {
+      "slot": "second",
+      "page": 2,
+      "source_ids": [
+        "74aab7c828"
+      ],
+      "kicker": "Energy",
+      "angle": "AI data-center expansion is shifting costs to local bills, water and land while states sue and legislate to stay net-positive.",
+      "words": 421,
+      "priority": 8
+    },
+    {
+      "slot": "lead",
+      "page": 2,
+      "source_ids": [
+        "72e79421ab"
+      ],
+      "kicker": "Evaluation",
+      "angle": "1.26 million Chatbot Arena votes show fixed models look worse because voters got pickier, not because models got dumber.",
+      "words": 380,
+      "priority": 8,
+      "photo": {
+        "subject": "a university student comparing answers on a laptop at a library desk",
+        "search": "student laptop library desk studying",
+        "why": "embodies the human voter whose rising standards drive the both-are-bad increase in Chatbot Arena"
+      }
+    },
+    {
+      "slot": "mid-a",
+      "page": 2,
+      "source_ids": [
+        "4106f958f9"
+      ],
+      "kicker": "Medicine",
+      "angle": "A counterfactual audit of 17 models including GPT, Claude, Gemini, Llama, DeepSeek and Qwen found no surviving race or sex bias in pain decisions.",
+      "words": 252,
+      "priority": 6
+    },
+    {
+      "slot": "mid-b",
+      "page": 2,
+      "source_ids": [
+        "702a926725"
+      ],
+      "kicker": "Virtual Reality",
+      "angle": "A 24-person VR study found first impressions of human versus computer control stick even after control secretly switches.",
+      "words": 252,
+      "priority": 6
+    },
+    {
+      "slot": "mid-c",
+      "page": 2,
+      "source_ids": [
+        "7a30acd200"
+      ],
+      "kicker": "Education",
+      "angle": "A survey of 283 post-CS1 students shows how mental models of LLMs shape prompting style and use.",
+      "words": 252,
+      "priority": 5
+    }
+  ],
+  "rail": [
+    {
+      "source_id": "095d34482a",
+      "group": "In brief",
+      "lead": "Warrant for plate readers",
+      "point": "EFF and ACLU argued in the Sixth Circuit that warrantless ALPR tracking in a Cleveland robbery case is a Fourth Amendment search."
+    },
+    {
+      "source_id": "1c49c0ee0f",
+      "group": "In brief",
+      "lead": "Simpler robot harness wins",
+      "point": "The lean JustRUA harness keeping full history and early stops lifted RoboDojo simulation from 29.7 to 50.3 without extra training."
+    },
+    {
+      "source_id": "40727faf3c",
+      "group": "In brief",
+      "lead": "Benchmarks miss user adaptation",
+      "point": "Analysis distinguishes common-distribution versus induced-distribution effects showing offline benchmarks and live A/B tests can rank models differently."
+    },
+    {
+      "source_id": "8e696b1056",
+      "group": "In brief",
+      "lead": "Medicare AI denials probed",
+      "point": "EFF sued for WISeR records describing improper AI-driven denials, delays and operational chaos in Medicare approvals."
+    },
+    {
+      "source_id": "be68aa6593",
+      "group": "In brief",
+      "lead": "Chat exams that scale",
+      "point": "A two-agent interviewer-evaluator pipeline tested on adversarial LLM personas conducts oral-style argument exams without leaking answers."
+    },
+    {
+      "source_id": "c20e77f155",
+      "group": "Also noted",
+      "lead": "Diagrams that track proofs",
+      "point": "A 12-student think-aloud found Ender's synchronized diagram-text rendering eased working-memory load in two-column geometry proofs."
+    },
+    {
+      "source_id": "9a4b790915",
+      "group": "Also noted",
+      "lead": "Fixing drone caption hallucinations",
+      "point": "The team proposes a lightweight reference-free detector-corrector for inconsistent aerial captions from extreme viewpoints and small objects."
+    },
+    {
+      "source_id": "72c11091ae",
+      "group": "Also noted",
+      "lead": "Robot reads negotiating faces",
+      "point": "A 66-person humanoid-robot study found continual-learning affect personalization raised agent utility and concession rates versus baseline."
+    },
+    {
+      "source_id": "0bd4850fea",
+      "group": "Also noted",
+      "lead": "Softer feedback for XR",
+      "point": "A survey of 50 and interviews with 14 found humor, indirectness and agent metaphors reduce embarrassment in small-group XR feedback."
+    },
+    {
+      "source_id": "fa9727f7b4",
+      "group": "Also noted",
+      "lead": "UN plan for AI",
+      "point": "A World Internet Conference report proposes a UN-centered safety framework stressing inclusiveness, accountability and coordination."
+    }
+  ],
+  "rejected": [
+    {
+      "source_id": "5527bc99b2",
+      "why": "149-word interview abstract with no results, numbers or testable claims"
+    },
+    {
+      "source_id": "741335909c",
+      "why": "150-word stub describing a 16-person study without quantified outcomes"
+    },
+    {
+      "source_id": "819bf0e396",
+      "why": "conceptual manifesto with no data, experiments or named systems"
+    },
+    {
+      "source_id": "f04e1e447c",
+      "why": "150-word retrospective of 41 cases reporting no measurable findings"
+    },
+    {
+      "source_id": "cbd636f72e",
+      "why": "philosophical essay with no experiments, datasets or named actors"
+    }
+  ],
+  "date": "2026-11-15",
+  "pool_size": 24
+}
