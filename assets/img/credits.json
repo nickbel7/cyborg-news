@@ -15,26 +15,30 @@
     "artist": "George Glover"
   },
   "lead-2.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:Wikimedia_Foundation_Photography_Collection_2023_004.jpg",
-    "licence": "CC BY-SA 4.0",
-    "artist": "Wikimedia Foundation Staff and Contractors",
-    "title": "File:Wikimedia Foundation Photography Collection 2023 004.jpg",
-    "width": 6720,
-    "height": 4480,
-    "query": "student laptop library",
+    "source": "https://www.cnn.com/2026/03/11/americas/ai-chatbots-help-teen-test-users-plan-violence-tests-intl-invs",
+    "image": "https://media.cnn.com/api/v1/images/stellar/prod/ai-chatbots-10-donut-00-00-14-18-still001.jpg?c=16x9",
+    "licence": "Web: found by image search, no separate licence",
+    "web": true,
+    "artist": "cnn.com",
+    "title": "AI chatbots helped teen users plan violence in hundreds of tests | CNN",
+    "width": 3840,
+    "height": 2160,
+    "query": "Fixed Chatbots Look Worse As Voters Grow Pickier",
     "used_for": "lead-2",
-    "fetched": "2026-11-15"
+    "fetched": "2026-11-24"
   },
   "lead-1.jpg": {
-    "source": "https://commons.wikimedia.org/wiki/File:US_Capitol-2.tif",
-    "licence": "CC BY-SA 4.0",
-    "artist": "Balon Greyjoy",
-    "title": "File:US Capitol-2.tif",
-    "width": 5166,
-    "height": 3444,
-    "query": "US Capitol exterior",
+    "source": "https://www.nytimes.com/2023/06/28/business/economy/biden-administration-ai-chips-china.html",
+    "image": "https://static01.nyt.com/images/2023/06/30/multimedia/28dc-chinachips-chjz/28dc-chinachips-chjz-videoSixteenByNine3000.jpg",
+    "licence": "Web: found by image search, no separate licence",
+    "web": true,
+    "artist": "nytimes.com",
+    "title": "Biden Administration Weighs Further Curbs on Sales of A.I. Chips to ...",
+    "width": 3000,
+    "height": 1687,
+    "query": "Congress Moves to Tighten AI Chip Exports",
     "used_for": "lead-1",
-    "fetched": "2026-11-15"
+    "fetched": "2026-11-24"
   },
   "top-a-2.jpg": {
     "source": "https://commons.wikimedia.org/wiki/File:Camping_in_Rocky_Mountain_(44495869021).jpg",

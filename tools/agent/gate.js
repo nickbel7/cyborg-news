@@ -90,6 +90,13 @@ const credits = fs.existsSync(path.join(IMG, 'credits.json'))
   ? JSON.parse(fs.readFileSync(path.join(IMG, 'credits.json'), 'utf8')) : {};
 const OK_LICENCE = /^(cc[- ]?by(-sa)?([- ]?[0-9.]+)?|cc0|public domain|pd-|no restrictions)/i;
 
+/* A picture taken from the web, not from a licensed archive. The owner chose to allow these for this
+   paper, so the gate no longer rejects them for lacking a reuse licence. It still rejects a web
+   picture that cannot say where it came from: it must be marked web:true in credits.json and carry
+   the page it was taken from. It is counted and listed below so a reader of the gate output can see
+   how many unlicensed pictures an issue carries. */
+const webPicture = c => c && c.web === true && /^https?:\/\//.test(c.source || '') && !!c.artist;
+
 for (const a of issue.articles) {
   const art = a.art;
   if (!art || art.type !== 'photo') continue;
@@ -99,10 +106,13 @@ for (const a of issue.articles) {
   if (!fs.existsSync(path.join(IMG, file))) failures.push(`${a.id}: ${art.src} is missing from the repository`);
   const c = credits[file];
   if (!c) failures.push(`${a.id}: ${file} has no recorded licence`);
-  else if (!OK_LICENCE.test(c.licence || '')) failures.push(`${a.id}: ${file} licence "${c.licence}" does not permit reprinting`);
+  else if (!OK_LICENCE.test(c.licence || '') && !webPicture(c)) failures.push(`${a.id}: ${file} licence "${c.licence}" does not permit reprinting`);
   if (!art.credit) failures.push(`${a.id}: photograph would print without a credit line`);
   if (!art.caption) warnings.push(`${a.id}: photograph has no caption`);
 }
+
+const webCount = issue.articles.filter(a => a.art && a.art.type === 'photo' && webPicture(credits[path.basename(a.art.src || '')])).length;
+if (webCount) warnings.push(`${webCount} picture${webCount > 1 ? 's' : ''} taken from the web without a reuse licence (allowed by the owner for this paper)`);
 
 /* --- 3. claims about the laboratory ------------------------------------ */
 /* An MIT room reads as "34-401", but so does Colorado Senate Bill 24-205 and
